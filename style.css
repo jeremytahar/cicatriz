@@ -201,3 +201,18 @@ header {
         color: #AF94E0;
         cursor: pointer;
     }
+
+    /* Code des pop up pour les mentions légales */
+
+    /* .footer__container-modal {
+        visibility: hidden;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+
+    .footer__container-modal:target {
+        visibility: visible;
+    } */
