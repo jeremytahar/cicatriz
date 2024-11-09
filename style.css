@@ -150,7 +150,7 @@ header {
         justify-content: space-between;
         scroll-snap-align: end;
         font-family: 'Bison', sans-serif;
-
+        position: relative;
     }
     
     .footer__container {
@@ -190,29 +190,43 @@ header {
         text-align: right;
     }
     
-    .footer__list-component {
+    .footer__list-component a {
         color: white;
         list-style: none;
         font-size: 2rem;
         transition: all 0.5s ease-in-out;
+        text-decoration: none;
     }
 
-    .footer__list-component:hover {
+    .footer__list-component a:hover {
         color: #AF94E0;
         cursor: pointer;
     }
 
     /* Code des pop up pour les mentions légales */
 
-    /* .footer__container-modal {
-        visibility: hidden;
+    .footer__container-modal {
+        visibility: visible;
         position: absolute;
+        background-color: #ebe7f0;
         top: 0px;
         bottom: 0px;
-        left: 0px;
         right: 0px;
+        left: 0px;
+        border-radius: 25px;
+        width: 1250px;
+        height: 250px;
+        z-index: 1;
     }
 
     .footer__container-modal:target {
         visibility: visible;
-    } */
+    }
+
+    .footer__container-textmodal {
+        border: solid 1px black;
+        background-color: red   ;
+        width: 1220px;
+        height: 220px;
+        z-index: 10;
+    }
