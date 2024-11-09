@@ -199,23 +199,6 @@ header {
 
 /* Code du footer pour une largeur minimum de 1113 pixel */
 
-<<<<<<< HEAD
-    footer {
-        width: 100vw;
-        background-color: #110521;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        scroll-snap-align: end;
-        font-family: 'Bison', sans-serif;
-        position: relative;
-    }
-    
-    .footer__container {
-        padding-top: 100px;
-        padding-bottom: 100px;
-    }
-=======
 footer {
     width: 100vw;
     background-color: #110521;
@@ -226,7 +209,6 @@ footer {
     font-family: 'Bebas', sans-serif;
 
 }
->>>>>>> 2810b41924e6acb6f5e6256870764e6f7e302d13
 
 .footer__container {
     padding-top: 100px;
@@ -237,8 +219,6 @@ footer {
     padding-left: 100px;
     color: #AF94E0;
 }
-
-<<<<<<< HEAD
     .footer__container-credit {
         padding-right: 100px;
     }
@@ -337,7 +317,6 @@ HEAD
 
     .footer__container-modal:target {
         visibility: visible;
-<<<<<<< HEAD
     }
 
     .footer__container-textmodal {
@@ -347,6 +326,3 @@ HEAD
         height: 220px;
         z-index: 10;
     }
-=======
-    } */
->>>>>>> 2810b41924e6acb6f5e6256870764e6f7e302d13
