@@ -22,7 +22,7 @@ html {
 }
 
 body {
-    font-family: 'Altone', sans-serif;
+    font-family: 'Alatsi', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #AF94E0;
@@ -170,6 +170,21 @@ header {
     left: 100px;
 }
 
+.section__agression-info {
+    position: absolute;
+    top: 150px;
+}
+
+.section__agression-info h2 {
+    font-family: 'Bebas', sans-serif;
+    color: #2A114B;
+    font-size: 4rem;
+}
+
+.section__agression-info p {
+    width: 475px;
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -266,7 +281,6 @@ footer {
     letter-spacing: 2px;
 }
 
-HEAD
     .footer__container-modal {
         visibility: hidden;
     }
