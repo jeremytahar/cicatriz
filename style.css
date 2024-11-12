@@ -120,11 +120,11 @@ header {
 }
 
 .section__agression-text {
-    margin: 0px;
+    margin: 0px 200px 0px 0px;
     display: flex;
     flex-direction: column;
     position: relative;
-    left: 900px;
+    left: 800px;
     top: 100px;
 }
 
@@ -166,8 +166,10 @@ header {
 
 .section__agression-img img {
     position: absolute;
-    top: 50px;
+    top: 100px;
     left: 100px;
+    width: 480px;
+    height: 600px;
 }
 
 .section__agression-info {
@@ -179,10 +181,11 @@ header {
     font-family: 'Bebas', sans-serif;
     color: #2A114B;
     font-size: 4rem;
+    margin-bottom: 0px;
 }
 
 .section__agression-info p {
-    width: 475px;
+    width: 400px;
 }
 
 .hidden {
