@@ -209,6 +209,11 @@ header {
     position: relative;
 }
 
+.section__condamnation canvas {
+    width: 941px;
+    height: 508px;
+}
+
 .section__condamnation-titre h1 {
     font-size: 3rem;
     font-family: 'Bebas', sans-serif;
