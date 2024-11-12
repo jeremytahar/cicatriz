@@ -39,3 +39,24 @@ function displayCategory(avatarElement, infoElement) {
 age1.addEventListener('mouseenter', () => displayCategory(avatarenfant, info1));
 age2.addEventListener('mouseenter', () => displayCategory(avataradulte, info2));
 age3.addEventListener('mouseenter', () => displayCategory(avatarvieille, info3));
+
+// ========== GRAPHIQUE CONDAMNATION ==========
+
+let ctx = document.getElementById('graph3').getContext('2d');
+
+// spécification des datas 
+
+let data = {
+    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022',],
+    datasets: [{
+        labels: 'Nombre de condamnation',
+        data: [1.024, 1.026, 1.005, 978, 1.088, 806, 1.413, 7.500],
+        backgroundColor: '#4D2A7B',
+        borderColor: '#FFFFFF',
+        borderWidth: 1
+    }]
+}
+
+let graph3 = new graph
+
+console.log(data)
