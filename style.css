@@ -209,10 +209,6 @@ header {
     position: relative;
 }
 
-.section__condamnation canvas {
-    width: 941px;
-    height: 508px;
-}
 
 .section__condamnation-titre h1 {
     font-size: 3rem;
@@ -222,9 +218,17 @@ header {
     position: absolute;
     top: 75px;
     right: 800px;
+
     .white {
         color: white;
     }
+}
+
+.section__condamnation-graph {
+    width: 941px;
+    height: 508px;
+    position: absolute;
+    top: 250px;
 }
 
 .section:nth-of-type(1) {
