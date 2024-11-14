@@ -50,22 +50,48 @@ let data = {
     labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
     datasets: [
         {
-        label: 'Nombre de condamnations', // Correction ici
+        label: 'Nombre de condamnations', 
         data: [1024, 1026, 1005, 978, 1088, 806, 1413, 7500],
         data2: [512, 550, 400, 300, 700, 400, 780, 1000],
         backgroundColor: '#FFFFFF',
         borderColor: '#AF94E0',
-        borderWidth: 3
+        borderWidth: 5,
+        pointBorderColor: '#FFFFFF',
+        pointBackgroundColor: '#FFFFFF'
         },
         {
             label: 'Condamnation classé sans suite',
             data: [800, 850, 780, 900, 1200, 1100, 1300],
-            backgroundColor: 'rgb(255, 255, 255)',
-            borderColor: 'rgb(255, 255, 255)',
-            borderWidth: 3
+            backgroundColor: '#FFFFFF',
+            borderColor: '#110521',
+            pointBorderColor: '#FFFFFF',
+            pointBackgroundColor: '#FFFFFF',
+            borderWidth: 5
         }
 ]};
 
+// Plugin pour le fond de la zone de traçage seulement
+const backgroundColorPlugin = {
+    id: 'backgroundColorPlugin',
+    beforeDraw: (chart) => {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea; 
+
+        ctx.save();
+        ctx.fillStyle = "#4D2A7B"; 
+
+        ctx.fillRect(
+            chartArea.left,
+            chartArea.top,
+            chartArea.right - chartArea.left,
+            chartArea.bottom - chartArea.top
+        );
+
+        ctx.restore();
+    }
+};
+
+// Création du graphique
 let graph3 = new Chart(ctx, {
     type: 'line',
     data: data,
@@ -73,42 +99,65 @@ let graph3 = new Chart(ctx, {
         responsive: true,
         plugins: {
             legend: {
+                position: 'right',
+                align: 'start',
                 labels: {
+                    boxWidth: 50,
                     font: {
                         family: 'Alatsi',
                         weight: 'bold'
                     },
-                    color: '#FFF'
+                    color: '#FFFFFF'
                 }
             }
         },
         scales: {
             x: {
+                grid: {
+                    color: '#FFFFFF',
+                    lineWidth: 0.5
+                },
                 ticks: {
                     font: {
-                        family: 'Bebas', 
+                        family: 'Bebas',
                         weight: 'normal'
                     },
-                    color: '#FFF' 
+                    color: '#FFF'
                 }
             },
             y: {
+                grid: {
+                    color: '#FFFFFF',
+                    lineWidth: 0.5
+                },
                 beginAtZero: true,
                 max: 2000,
                 ticks: {
                     font: {
-                        family: 'Bebas', 
+                        family: 'Bebas',
                         weight: 'normal'
                     },
-                    color: '#FFF' 
+                    color: '#FFF'
                 }
             }
         }
-    }
+    },
+    plugins: [backgroundColorPlugin]
 });
 
+// Attacher un événement de clic au canvas
+ctx.canvas.onclick = (event) => {
+    const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+    if (elements.length > 0) {
+        const firstElement = elements[0];
+        const datasetIndex = firstElement.datasetIndex;
+        const dataIndex = firstElement.index;
+
+        const dataset = data.datasets[datasetIndex];
+        const pointValue = dataset.data[dataIndex];
+
+        alert(`Point cliqué : ${dataset.label}, Valeur : ${pointValue}`);
+    }
+};
 
 
-
-
-console.log(data)
