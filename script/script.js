@@ -111,6 +111,9 @@ let graph3 = new Chart(ctx, {
                 }
             }
         },
+        tooltip: {
+            enabled: false
+        },
         scales: {
             x: {
                 grid: {
@@ -131,7 +134,7 @@ let graph3 = new Chart(ctx, {
                     lineWidth: 0.5
                 },
                 beginAtZero: true,
-                max: 2000,
+                max: 3500,
                 ticks: {
                     font: {
                         family: 'Bebas',
@@ -145,7 +148,7 @@ let graph3 = new Chart(ctx, {
     plugins: [backgroundColorPlugin]
 });
 
-// Attacher un événement de clic au canvas
+// Attache l'événement de clic au canvas
 ctx.canvas.onclick = (event) => {
     const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
     if (elements.length > 0) {
@@ -155,8 +158,14 @@ ctx.canvas.onclick = (event) => {
 
         const dataset = data.datasets[datasetIndex];
         const pointValue = dataset.data[dataIndex];
+        const year = data.labels[dataIndex];
+        const label = dataset.label.toUpperCase();
 
-        alert(`Point cliqué : ${dataset.label}, Valeur : ${pointValue}`);
+        // Met à jour le contenu HTML dans le div `info-point`
+        document.getElementById('section__condamnation-info').innerHTML = `
+            <h1 class="section__condamnation-titre"><span class="white">EN</span> ${year}</h1>
+            <h2 class="section__condamnation-titre"><span class="white">${pointValue}</span> ${label}</h2>
+        `;
     }
 };
 
