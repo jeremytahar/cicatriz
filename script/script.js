@@ -109,10 +109,10 @@ let graph3 = new Chart(ctx, {
                     },
                     color: '#FFFFFF'
                 }
+            },
+            tooltip: { 
+                enabled: false
             }
-        },
-        tooltip: {
-            enabled: false
         },
         scales: {
             x: {
@@ -134,7 +134,7 @@ let graph3 = new Chart(ctx, {
                     lineWidth: 0.5
                 },
                 beginAtZero: true,
-                max: 3500,
+                max: 2000,
                 ticks: {
                     font: {
                         family: 'Bebas',
@@ -147,6 +147,7 @@ let graph3 = new Chart(ctx, {
     },
     plugins: [backgroundColorPlugin]
 });
+
 
 // Attache l'événement de clic au canvas
 ctx.canvas.onclick = (event) => {
@@ -161,12 +162,10 @@ ctx.canvas.onclick = (event) => {
         const year = data.labels[dataIndex];
         const label = dataset.label.toUpperCase();
 
-        // Met à jour le contenu HTML dans le div `info-point`
+        // Met à jour le contenu HTML dans le div section__condamnation-info
         document.getElementById('section__condamnation-info').innerHTML = `
-            <h1 class="section__condamnation-titre"><span class="white">EN</span> ${year}</h1>
-            <h2 class="section__condamnation-titre"><span class="white">${pointValue}</span> ${label}</h2>
+            <h1><span class="white">EN</span> ${year}</h1>
+            <h2><span class="white">${pointValue}</span> ${label}</h2>
         `;
     }
 };
-
-
