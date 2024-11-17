@@ -155,14 +155,14 @@ let data = {
     datasets: [
         {
             label: 'Nombre de condamnations',
-<<<<<<< HEAD
+ 
             data: [1024, 1026, 1005, 978, 1088, 806, 1413],
             backgroundColor: '#AF94E0', 
             borderColor: '#AF94E0',
             borderWidth: 4,
             pointBackgroundColor: '#FFFFFFFF',
-            pointBorderColor: '#FFFFFFFF'
-=======
+            pointBorderColor: '#FFFFFFFF',
+
             data: [1024, 1026, 1005, 978, 1088, 806, 1413, 7500],
             data2: [512, 550, 400, 300, 700, 400, 780, 1000],
             backgroundColor: '#FFFFFF',
@@ -170,7 +170,6 @@ let data = {
             borderWidth: 5,
             pointBorderColor: '#FFFFFF',
             pointBackgroundColor: '#FFFFFF'
->>>>>>> d7ba0746b288bff3f0e20b104ca207b260c91f71
         },
         {
             label: 'Condamnation classée sans suite',
@@ -192,11 +191,9 @@ const backgroundColorPlugin = {
         const chartArea = chart.chartArea;
 
         ctx.save();
-<<<<<<< HEAD
         ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
-=======
+
         ctx.fillStyle = "#4D2A7B";
->>>>>>> d7ba0746b288bff3f0e20b104ca207b260c91f71
 
         ctx.fillRect(
             chartArea.left,
