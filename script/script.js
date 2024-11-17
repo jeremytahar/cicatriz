@@ -375,3 +375,4 @@ document.getElementById('changeToBar').addEventListener('click', function() {
     document.getElementById('graphBar').classList.remove('hidden');
 });
 
+console.log('teste fichier javascript');
