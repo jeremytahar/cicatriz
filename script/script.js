@@ -22,12 +22,12 @@ function displayCategory(avatarElement, infoElement) {
         el.classList.add('hidden');
         el.classList.remove('visible');
     });
-    
+
     [info1, info2, info3, texte].forEach(el => {
         el.classList.add('hidden');
         el.classList.remove('visible');
     });
-    
+
     // Afficher l'avatar et l'information de la catégorie sélectionnée
     avatarElement.classList.add('visible');
     avatarElement.classList.remove('hidden');
@@ -40,6 +40,111 @@ age1.addEventListener('mouseenter', () => displayCategory(avatarenfant, info1));
 age2.addEventListener('mouseenter', () => displayCategory(avataradulte, info2));
 age3.addEventListener('mouseenter', () => displayCategory(avatarvieille, info3));
 
+// ========== GRAPHIQUE VICTIMES ========== 
+let ctx2 = document.getElementById('graph2').getContext('2d');
+
+// spécification des datas
+
+let data2 = {
+    labels: ['2017', '2018', '2019', '2020', '2021', '2022', '2023'],
+    datasets: [
+        {
+            label: 'Nombre de victimes',
+            data: [41600, 49400, 55500, 57100, 71007, 78753, 83456],
+            backgroundColor: '#AF94E0',
+            borderColor: '#AF94E0',
+            borderWidth: 5,
+            pointBorderColor: '#FFFFFF',
+            pointBackgroundColor: '#FFFFFF',
+            fill: 'start'
+        }]
+};
+
+// Création du graphique
+let graph2 = new Chart(ctx2, {
+    type: 'line',
+    data: data2,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false 
+            },
+            filler: {
+                propagate: false,
+            },
+            title: {
+                display: false
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+        interaction: {
+            intersect: false,
+            mode: 'index',
+            axis: 'x',
+            animationDuration: 0
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: '#ffffff', 
+                },
+                ticks: {
+                    color: '#ffffff', 
+                    font: {
+                        size: 22,
+                        family: 'Bebas'
+                    },
+                    autoSkip: false,
+                    maxRotation: 45,
+                    minRotation: 45,
+                },
+            },
+            y: {
+                grid: {
+                    color: '#ffffff', 
+                },
+                ticks: {
+                    color: '#ffffff', 
+                    font: {
+                        size: 22,
+                        family: 'Bebas'
+                    },
+                    min: 40000,
+                    max: 90000,
+                    stepSize: 10000,
+                },
+            }
+        },
+        elements: {
+            point: {
+                radius: 5, 
+                hoverRadius: 10,
+            }
+        }
+    },
+});
+
+graph2.options.elements.line.tension = 0.4;
+graph2.update();
+
+// Gestionnaire d'événement pour le clic sur un point du graphique
+graph2.canvas.onclick = function (event) {
+    let activePoints = graph2.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+
+    if (activePoints.length) {
+        let index = activePoints[0].index;
+        let year = data2.labels[index]; 
+        let victims = data2.datasets[0].data[index];
+
+        let victimInfo = document.getElementById('section__victime-info');
+        victimInfo.innerHTML = `<span class="line1">EN ${year}</span> <br> <span class="line2">${victims} VICTIMES</span>`;
+    }
+};
+
 // ========== GRAPHIQUE CONDAMNATION ==========
 
 let ctx = document.getElementById('graph3').getContext('2d');
@@ -50,12 +155,22 @@ let data = {
     datasets: [
         {
             label: 'Nombre de condamnations',
+<<<<<<< HEAD
             data: [1024, 1026, 1005, 978, 1088, 806, 1413],
             backgroundColor: '#AF94E0', 
             borderColor: '#AF94E0',
             borderWidth: 4,
             pointBackgroundColor: '#FFFFFFFF',
             pointBorderColor: '#FFFFFFFF'
+=======
+            data: [1024, 1026, 1005, 978, 1088, 806, 1413, 7500],
+            data2: [512, 550, 400, 300, 700, 400, 780, 1000],
+            backgroundColor: '#FFFFFF',
+            borderColor: '#AF94E0',
+            borderWidth: 5,
+            pointBorderColor: '#FFFFFF',
+            pointBackgroundColor: '#FFFFFF'
+>>>>>>> d7ba0746b288bff3f0e20b104ca207b260c91f71
         },
         {
             label: 'Condamnation classée sans suite',
@@ -77,7 +192,11 @@ const backgroundColorPlugin = {
         const chartArea = chart.chartArea;
 
         ctx.save();
+<<<<<<< HEAD
         ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
+=======
+        ctx.fillStyle = "#4D2A7B";
+>>>>>>> d7ba0746b288bff3f0e20b104ca207b260c91f71
 
         ctx.fillRect(
             chartArea.left,
@@ -108,7 +227,7 @@ let graph3 = new Chart(ctx, {
                     color: '#FFFFFF'
                 }
             },
-            tooltip: { 
+            tooltip: {
                 enabled: false
             }
         },
