@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: 'Bebas';
-    src: url('./fonts/Bebad.woff') format('woff'),
+    src: url('./fonts/Bebas.woff') format('woff'),
         url('./fonts/Bebas.woff2') format('woff2');
 }
 
@@ -201,6 +201,52 @@ header {
     scroll-snap-align: center;
     height: 100vh;
     width: 100vw;
+}
+
+/* DEUXIEME GRAPHIQUE */
+.section_victime {
+    position: relative;
+
+    .section__victime-titre {
+        margin-left: 100px;
+        padding-top: 25px;
+        color: #AF94E0;
+        font-family: 'Bebas', sans-serif;
+        font-size: 2rem;
+
+        h1 {
+            margin: 0px;
+        }
+    }
+
+    .section__victime-graph {
+        width: 700px;
+        height: 600px;
+        margin-left: 100px;
+        margin-top: 25px;
+    }
+
+    .section__victime-info {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 100px;
+        text-align: right;
+
+        span {
+            font-family: 'Bebas', sans-serif;
+            color: #ffffff;
+            font-size: 2rem;
+        }
+
+        .line1 {
+            font-size: 4.375rem;
+        }
+
+        .line2 {
+            font-size: 2.625rem;
+        }
+    }
 }
 
 /* === */
