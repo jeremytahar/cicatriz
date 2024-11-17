@@ -44,41 +44,40 @@ age3.addEventListener('mouseenter', () => displayCategory(avatarvieille, info3))
 
 let ctx = document.getElementById('graph3').getContext('2d');
 
-// spécification des datas 
-
+// Spécification des données
 let data = {
     labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
     datasets: [
         {
-        label: 'Nombre de condamnations', 
-        data: [1024, 1026, 1005, 978, 1088, 806, 1413, 7500],
-        data2: [512, 550, 400, 300, 700, 400, 780, 1000],
-        backgroundColor: '#FFFFFF',
-        borderColor: '#AF94E0',
-        borderWidth: 5,
-        pointBorderColor: '#FFFFFF',
-        pointBackgroundColor: '#FFFFFF'
+            label: 'Nombre de condamnations',
+            data: [1024, 1026, 1005, 978, 1088, 806, 1413],
+            backgroundColor: '#AF94E0', 
+            borderColor: '#AF94E0',
+            borderWidth: 4,
+            pointBackgroundColor: '#FFFFFFFF',
+            pointBorderColor: '#FFFFFFFF'
         },
         {
-            label: 'Condamnation classé sans suite',
+            label: 'Condamnation classée sans suite',
             data: [800, 850, 780, 900, 1200, 1100, 1300],
-            backgroundColor: '#FFFFFF',
+            backgroundColor: '#110521', 
             borderColor: '#110521',
-            pointBorderColor: '#FFFFFF',
-            pointBackgroundColor: '#FFFFFF',
-            borderWidth: 5
+            borderWidth: 4,
+            pointBackgroundColor: '#FFFFFFFF',
+            pointBorderColor: '#FFFFFFFF'
         }
-]};
+    ]
+};
 
 // Plugin pour le fond de la zone de traçage seulement
 const backgroundColorPlugin = {
     id: 'backgroundColorPlugin',
     beforeDraw: (chart) => {
         const ctx = chart.ctx;
-        const chartArea = chart.chartArea; 
+        const chartArea = chart.chartArea;
 
         ctx.save();
-        ctx.fillStyle = "#4D2A7B"; 
+        ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
 
         ctx.fillRect(
             chartArea.left,
@@ -91,7 +90,7 @@ const backgroundColorPlugin = {
     }
 };
 
-// Création du graphique
+// Création du premier graphique en ligne (graph3)
 let graph3 = new Chart(ctx, {
     type: 'line',
     data: data,
@@ -105,7 +104,6 @@ let graph3 = new Chart(ctx, {
                     boxWidth: 50,
                     font: {
                         family: 'Alatsi',
-                        weight: 'bold'
                     },
                     color: '#FFFFFF'
                 }
@@ -125,7 +123,7 @@ let graph3 = new Chart(ctx, {
                         family: 'Bebas',
                         weight: 'normal'
                     },
-                    color: '#FFF'
+                    color: '#FFFFFF'
                 }
             },
             y: {
@@ -148,8 +146,83 @@ let graph3 = new Chart(ctx, {
     plugins: [backgroundColorPlugin]
 });
 
+// Création du second graphique en barres (graph4)
+let ctxBar = document.getElementById('graphBar')?.getContext('2d'); 
 
-// Attache l'événement de clic au canvas
+    let graphBar = new Chart(ctxBar, {
+        type: 'bar', 
+        data: {
+            labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'], 
+            datasets: [
+                {
+                    label: 'Nombre de condamnations', 
+                    data: [1024, 1026, 1005, 978, 1088, 806, 1413], 
+                    backgroundColor: '#AF94E0', 
+                    borderWidth: 1              
+                },
+                {
+                    label: 'Condamnation classé sans suite',
+                    data: [800, 850, 780, 900, 1200, 1100, 1300], 
+                    backgroundColor: '#110521', 
+                    borderWidth: 1             
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    align: 'start',
+                    labels: {
+                        boxWidth: 50,
+                        font: {
+                            family: 'Alatsi'
+                        },
+                        color: '#FFFFFF'
+                    }
+                },
+                tooltip: {
+                    enabled: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: '#FFFFFF',
+                        lineWidth: 0.5
+                    },
+                    ticks: {
+                        font: {
+                            family: 'Bebas',
+                            weight: 'normal'
+                        },
+                        color: '#FFF'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: '#FFFFFF',
+                        lineWidth: 0.5
+                    },
+                    beginAtZero: true,
+                    max: 2000,
+                    ticks: {
+                        font: {
+                            family: 'Bebas',
+                            weight: 'normal'
+                        },
+                        color: '#FFF'
+                    }
+                }
+            }
+        },
+        plugins: [backgroundColorPlugin] 
+    });
+
+
+
+// Fonction d'affichage au clique pour le graphique type line
 ctx.canvas.onclick = (event) => {
     const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
     if (elements.length > 0) {
@@ -169,3 +242,20 @@ ctx.canvas.onclick = (event) => {
         `;
     }
 };
+
+// Fonction de changement des graphiques 
+
+document.getElementById('changeToLine').addEventListener('click', function() {
+    document.getElementById('graph3').classList.add('visible');
+    document.getElementById('graph3').classList.remove('hidden');
+    document.getElementById('graphBar').classList.add('hidden');
+    document.getElementById('graphBar').classList.remove('visible');
+});
+
+document.getElementById('changeToBar').addEventListener('click', function() {
+    document.getElementById('graph3').classList.add('hidden');
+    document.getElementById('graph3').classList.remove('visible');
+    document.getElementById('graphBar').classList.add('visible');
+    document.getElementById('graphBar').classList.remove('hidden');
+});
+
