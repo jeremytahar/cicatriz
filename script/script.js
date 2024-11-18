@@ -300,8 +300,8 @@ let graphBar = new Chart(ctxBar, {
                 borderWidth: 1
             },
             {
-                label: 'Condamnation classé sans suite',
-                data: [800, 850, 780, 900, 1200, 1100, 1300],
+                label: 'Nombre de plaintes',
+                data: [13450, 15039, 16874, 19750, 23441, 25982, 34343],
                 backgroundColor: '#110521',
                 borderWidth: 1
             }
@@ -345,7 +345,7 @@ let graphBar = new Chart(ctxBar, {
                     lineWidth: 0.5
                 },
                 beginAtZero: true,
-                max: 2000,
+                max: 50000,
                 ticks: {
                     font: {
                         family: 'Bebas',
