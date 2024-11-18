@@ -132,16 +132,38 @@ graph2.options.elements.line.tension = 0.4;
 graph2.update();
 
 // Gestionnaire d'événement pour le clic sur un point du graphique
+function animateCounter(element, start, end, duration) {
+    let range = end - start;
+    let current = start;
+    let increment = range / (duration / 10);
+    let stepTime = Math.abs(Math.floor(duration / range));
+    let timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            current = end;
+            clearInterval(timer);
+        }
+        element.innerText = Math.floor(current);
+    }, stepTime);
+}
+
+// Gestionnaire d'événement pour le clic sur un point du graphique
 graph2.canvas.onclick = function (event) {
     let activePoints = graph2.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
 
     if (activePoints.length) {
         let index = activePoints[0].index;
-        let year = data2.labels[index]; 
+        let year = data2.labels[index];
         let victims = data2.datasets[0].data[index];
 
         let victimInfo = document.getElementById('section__victime-info');
-        victimInfo.innerHTML = `<span class="line1">EN ${year}</span> <br> <span class="line2">${victims} VICTIMES</span>`;
+        
+        victimInfo.innerHTML = `<span class="line1">EN <span class="purple" id="year-counter">${year}</span></span> <br> <span class="line2"><span class="purple" id="victim-counter"></span> VICTIMES</span>`;
+        
+        let victimElement = document.getElementById('victim-counter');
+        animateCounter(victimElement, 0, victims, 2000);
+        let yearElement = document.getElementById('year-counter');
+        animateCounter(yearElement, 2000, year, 400);
     }
 };
 
