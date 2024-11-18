@@ -69,7 +69,7 @@ let graph2 = new Chart(ctx2, {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                display: false 
+                display: false
             },
             filler: {
                 propagate: false,
@@ -90,10 +90,10 @@ let graph2 = new Chart(ctx2, {
         scales: {
             x: {
                 grid: {
-                    color: '#ffffff', 
+                    color: '#ffffff',
                 },
                 ticks: {
-                    color: '#ffffff', 
+                    color: '#ffffff',
                     font: {
                         size: 22,
                         family: 'Bebas'
@@ -105,10 +105,10 @@ let graph2 = new Chart(ctx2, {
             },
             y: {
                 grid: {
-                    color: '#ffffff', 
+                    color: '#ffffff',
                 },
                 ticks: {
-                    color: '#ffffff', 
+                    color: '#ffffff',
                     font: {
                         size: 22,
                         family: 'Bebas'
@@ -116,12 +116,13 @@ let graph2 = new Chart(ctx2, {
                     min: 40000,
                     max: 90000,
                     stepSize: 10000,
-                },
+                    beginAtZero: false
+                }
             }
         },
         elements: {
             point: {
-                radius: 5, 
+                radius: 5,
                 hoverRadius: 12,
             }
         }
@@ -157,9 +158,9 @@ graph2.canvas.onclick = function (event) {
         let victims = data2.datasets[0].data[index];
 
         let victimInfo = document.getElementById('section__victime-info');
-        
+
         victimInfo.innerHTML = `<span class="line1">EN <span class="purple" id="year-counter">${year}</span></span> <br> <span class="line2"><span class="purple" id="victim-counter"></span> VICTIMES</span>`;
-        
+
         let victimElement = document.getElementById('victim-counter');
         animateCounter(victimElement, 0, victims, 2000);
         let yearElement = document.getElementById('year-counter');
@@ -177,9 +178,9 @@ let data = {
     datasets: [
         {
             label: 'Nombre de condamnations',
- 
+
             data: [1024, 1026, 1005, 978, 1088, 806, 1413],
-            backgroundColor: '#AF94E0', 
+            backgroundColor: '#AF94E0',
             borderColor: '#AF94E0',
             borderWidth: 4,
             pointBackgroundColor: '#FFFFFFFF',
@@ -196,7 +197,7 @@ let data = {
         {
             label: 'Condamnation classée sans suite',
             data: [800, 850, 780, 900, 1200, 1100, 1300],
-            backgroundColor: '#110521', 
+            backgroundColor: '#110521',
             borderColor: '#110521',
             borderWidth: 4,
             pointBackgroundColor: '#FFFFFFFF',
@@ -285,78 +286,78 @@ let graph3 = new Chart(ctx, {
 });
 
 // Création du second graphique en barres (graph4)
-let ctxBar = document.getElementById('graphBar')?.getContext('2d'); 
+let ctxBar = document.getElementById('graphBar')?.getContext('2d');
 
-    let graphBar = new Chart(ctxBar, {
-        type: 'bar', 
-        data: {
-            labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'], 
-            datasets: [
-                {
-                    label: 'Nombre de condamnations', 
-                    data: [1024, 1026, 1005, 978, 1088, 806, 1413], 
-                    backgroundColor: '#AF94E0', 
-                    borderWidth: 1              
-                },
-                {
-                    label: 'Condamnation classé sans suite',
-                    data: [800, 850, 780, 900, 1200, 1100, 1300], 
-                    backgroundColor: '#110521', 
-                    borderWidth: 1             
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                    align: 'start',
-                    labels: {
-                        boxWidth: 50,
-                        font: {
-                            family: 'Alatsi'
-                        },
-                        color: '#FFFFFF'
-                    }
-                },
-                tooltip: {
-                    enabled: false
+let graphBar = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+        labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+        datasets: [
+            {
+                label: 'Nombre de condamnations',
+                data: [1024, 1026, 1005, 978, 1088, 806, 1413],
+                backgroundColor: '#AF94E0',
+                borderWidth: 1
+            },
+            {
+                label: 'Condamnation classé sans suite',
+                data: [800, 850, 780, 900, 1200, 1100, 1300],
+                backgroundColor: '#110521',
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+                align: 'start',
+                labels: {
+                    boxWidth: 50,
+                    font: {
+                        family: 'Alatsi'
+                    },
+                    color: '#FFFFFF'
                 }
             },
-            scales: {
-                x: {
-                    grid: {
-                        color: '#FFFFFF',
-                        lineWidth: 0.5
-                    },
-                    ticks: {
-                        font: {
-                            family: 'Bebas',
-                            weight: 'normal'
-                        },
-                        color: '#FFF'
-                    }
-                },
-                y: {
-                    grid: {
-                        color: '#FFFFFF',
-                        lineWidth: 0.5
-                    },
-                    beginAtZero: true,
-                    max: 2000,
-                    ticks: {
-                        font: {
-                            family: 'Bebas',
-                            weight: 'normal'
-                        },
-                        color: '#FFF'
-                    }
-                }
+            tooltip: {
+                enabled: false
             }
         },
-        plugins: [backgroundColorPlugin] 
-    });
+        scales: {
+            x: {
+                grid: {
+                    color: '#FFFFFF',
+                    lineWidth: 0.5
+                },
+                ticks: {
+                    font: {
+                        family: 'Bebas',
+                        weight: 'normal'
+                    },
+                    color: '#FFF'
+                }
+            },
+            y: {
+                grid: {
+                    color: '#FFFFFF',
+                    lineWidth: 0.5
+                },
+                beginAtZero: true,
+                max: 2000,
+                ticks: {
+                    font: {
+                        family: 'Bebas',
+                        weight: 'normal'
+                    },
+                    color: '#FFF'
+                }
+            }
+        }
+    },
+    plugins: [backgroundColorPlugin]
+});
 
 
 
@@ -388,14 +389,14 @@ ctx.canvas.onclick = (event) => {
 
 // Fonction de changement des graphiques 
 
-document.getElementById('changeToLine').addEventListener('click', function() {
+document.getElementById('changeToLine').addEventListener('click', function () {
     document.getElementById('graph3').classList.add('visible');
     document.getElementById('graph3').classList.remove('hidden');
     document.getElementById('graphBar').classList.add('hidden');
     document.getElementById('graphBar').classList.remove('visible');
 });
 
-document.getElementById('changeToBar').addEventListener('click', function() {
+document.getElementById('changeToBar').addEventListener('click', function () {
     document.getElementById('graph3').classList.add('hidden');
     document.getElementById('graph3').classList.remove('visible');
     document.getElementById('graphBar').classList.add('visible');
@@ -403,3 +404,83 @@ document.getElementById('changeToBar').addEventListener('click', function() {
 });
 
 console.log('teste fichier javascript');
+
+
+
+// ========== GRAPHIQUE CARTE ==========
+var map = L.map('map', {
+    center: [46.603354, 1.888334],
+    zoom: 6,
+    zoomControl: false,
+    attributionControl: false,
+    dragging: false,
+    touchZoom: false,
+    scrollWheelZoom: false,
+    boxZoom: false,
+    doubleClickZoom: false,
+    tap: false
+});
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    opacity: 0
+}).addTo(map);
+
+fetch('script/regions.geojson')
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data, {
+            style: {
+                color: '#2A114B', // Couleur des contours
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.3
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on('mouseover', function () {
+                    this.setStyle({
+                        fillColor: 'rgba(0, 123, 255, 0.5)', // Couleur de survol
+                        fillOpacity: 0.7
+                    });
+
+                    // Récupérer le nom de la région
+                    var regionName = feature.properties.nom; // Assurez-vous que votre fichier GeoJSON contient un champ 'nom' pour la région
+
+                    // Récupérer les données d'agressions pour la région
+                    var aggressionData = getAggressionDataForRegion(regionName); // Fonction à adapter pour vos données
+
+                    // Afficher l'information dans la section__carte-info
+                    var infoDiv = document.querySelector('.section__carte-info');
+                    infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions : ${aggressionData}</p>`;
+                    infoDiv.style.display = 'block';
+                });
+
+                layer.on('mouseout', function () {
+                    this.setStyle({
+                        fillColor: '#2A114B', // Couleur d'origine
+                        fillOpacity: 0.3
+                    });
+
+                    // Cacher l'info
+                    var infoDiv = document.querySelector('.section__carte-info');
+                    infoDiv.style.display = 'none';
+                });
+            }
+        }).addTo(map);
+    });
+
+// Exemple de fonction pour récupérer les données d'agressions pour une région
+function getAggressionDataForRegion(region) {
+    var aggressionData = {
+        'Île-de-France': 19754,
+        'Provence-Alpes-Côte d\'Azur': 7291,
+        'Auvergne-Rhône-Alpes': 12194,
+        'Bourgogne-Franche-Comté': 4685,
+        'Bretagne': 5429,
+        'Centre-Val de Loire': 4655,
+        'Corse': 374,
+        'Grand Est': 374,
+    };
+
+    return aggressionData[region] || 'Données non disponibles'; // Retourne 'Données non disponibles' si la région n'est pas dans les données
+}

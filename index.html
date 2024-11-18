@@ -16,6 +16,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Paytone+One&family=Poetsen+One&display=swap"
         rel="stylesheet">
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -87,7 +90,8 @@
             </div>
 
             <div class="section__victime-info" id="section__victime-info">
-                <div class="section__victime-info-action">Cliquez sur les <span class="purple">points</span> <br> pour plus d'informations</div>
+                <div class="section__victime-info-action">Cliquez sur les <span class="purple">points</span> <br> pour
+                    plus d'informations</div>
             </div>
 
             <div class="section__victime-graph">
@@ -119,6 +123,15 @@
 
             </div>
 
+        </section>
+
+        <section class="section section__carte">
+            <div class="section__carte-titre">
+            </div>
+            <div id="map"></div>
+            <div class="section__carte-info">
+                Survolez les départements pour voir le nombre de victimes d'agressions sexuelles
+            </div>
         </section>
     </main>
 

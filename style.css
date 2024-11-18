@@ -113,6 +113,7 @@ header {
         }
     }
 }
+
 /* CODE CSS DU PREMIER GRAPHIQUE */
 
 .section__agression {
@@ -326,7 +327,7 @@ header {
     }
 }
 
-.section__condamnation-graph  {
+.section__condamnation-graph {
     width: 941px;
     height: 508px;
 }
@@ -335,6 +336,31 @@ header {
     position: absolute;
     top: 250px;
     left: 500px;
+}
+
+/* Section 4 */
+.section__carte {
+    position: relative;
+    width: 100vw;
+
+    .section__carte-info {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 100px;
+    }
+
+    #map {
+        height: 100vh;
+        width: 700px;
+        margin-right: 200px;
+        background-color: transparent;
+
+        .region-hovered {
+            fill: red; 
+        }
+    }
+
 }
 
 
@@ -346,6 +372,7 @@ header {
 .visible {
     visibility: visible;
 }
+
 /* =============== */
 
 .section:nth-of-type(1) {
@@ -382,40 +409,42 @@ footer {
     padding-left: 100px;
     color: #AF94E0;
 }
-    .footer__container-credit {
-        padding-right: 100px;
-    }
-    
-    .footer__title {
-        margin: 0;
-    }
-    
-    .footer__title--name {
-        font-size: 10rem;
-    }
-    
-    .footer__title--h2 {
-        margin-top: 50px;
-        margin-bottom: 40px;
-    }
-    
-    .footer__list {
-        margin: 0;
-        text-align: right;
-    }
-    
-    .footer__list-component a {
-        color: white;
-        list-style: none;
-        font-size: 2rem;
-        transition: all 0.5s ease-in-out;
-        text-decoration: none;
-    }
 
-    .footer__list-component a:hover {
-        color: #AF94E0;
-        cursor: pointer;
-    }
+.footer__container-credit {
+    padding-right: 100px;
+}
+
+.footer__title {
+    margin: 0;
+}
+
+.footer__title--name {
+    font-size: 10rem;
+}
+
+.footer__title--h2 {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.footer__list {
+    margin: 0;
+    text-align: right;
+}
+
+.footer__list-component a {
+    color: white;
+    list-style: none;
+    font-size: 2rem;
+    transition: all 0.5s ease-in-out;
+    text-decoration: none;
+}
+
+.footer__list-component a:hover {
+    color: #AF94E0;
+    cursor: pointer;
+}
+
 .footer__title--name {
     position: relative;
     top: -30px;
@@ -424,14 +453,15 @@ footer {
 .footer__container-credit {
     padding-right: 100px;
 }
+
 .footer__title {
     margin: 0;
     letter-spacing: 2px;
 }
 
-    .footer__container-modal {
-        visibility: hidden;
-    }
+.footer__container-modal {
+    visibility: hidden;
+}
 
 .footer__title--h2 {
     margin-top: 50px;
