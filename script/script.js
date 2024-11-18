@@ -237,7 +237,7 @@ let graph3 = new Chart(ctx, {
                     },
                     color: '#FFFFFF'
                 },
-                padding: 30 
+                padding: 30,
             },
             tooltip: {
                 enabled: false
@@ -312,15 +312,17 @@ let graphBar = new Chart(ctxBar, {
                 labels: {
                     boxWidth: 50,
                     font: {
-                        family: 'Alatsi'
+                        family: 'Alatsi',
                     },
                     color: '#FFFFFF'
-                }
+                },
+                padding: 30
             },
             tooltip: {
                 enabled: false
             }
         },
+        
         scales: {
             x: {
                 grid: {
@@ -330,6 +332,7 @@ let graphBar = new Chart(ctxBar, {
                 ticks: {
                     font: {
                         family: 'Bebas',
+                        size:22,
                         weight: 'normal'
                     },
                     color: '#FFF'
