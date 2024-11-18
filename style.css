@@ -230,6 +230,17 @@ header {
         right: 100px;
         text-align: right;
 
+        .section__victime-info-action {
+            color: #AF94E0;
+            font-size: 2.5rem;
+            font-family: 'Bebas', sans-serif;
+
+            .purple {
+                font-size: 2.5rem;
+                color: #ffffff;
+            }
+        }
+
         span {
             font-family: 'Bebas', sans-serif;
             color: #ffffff;
