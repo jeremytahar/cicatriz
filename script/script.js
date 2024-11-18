@@ -237,7 +237,6 @@ let graph3 = new Chart(ctx, {
                     },
                     color: '#FFFFFF'
                 },
-                padding: 30,    
             },
             tooltip: {
                 enabled: false
@@ -406,7 +405,8 @@ console.log('teste fichier javascript');
 // ========== GRAPHIQUE CARTE ==========
 var map = L.map('map', {
     center: [46.603354, 1.888334],
-    zoom: 6,
+    zoom: 5.8,
+    zoomSnap: 0,
     zoomControl: false,
     attributionControl: false,
     dragging: false,
@@ -445,6 +445,7 @@ fetch('script/regions.geojson')
 
                     activeRegion = this;
 
+
                     this.setStyle({
                         fillColor: 'white',
                         fillOpacity: 0.7
@@ -458,14 +459,17 @@ fetch('script/regions.geojson')
 
                     // Afficher l'information dans la section__carte-info
                     var infoDiv = document.querySelector('.section__carte-info');
-                    infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions : ${aggressionData}</p>`;
+                    infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions : <span id="victim-counter-map">${aggressionData}</span></p>`;
                     infoDiv.style.display = 'block';
+
+                    let victimElement = document.getElementById('victim-counter-map');
+                    animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
                 });
 
                 layer.on('mouseover', function () {
                     this.setStyle({
-                        borderColor: '#152368',
-                        weight: 2
+                        borderColor: '#ffffff',
+                        weight: 3
                     });
                 });
                 layer.on('mouseout', function () {
