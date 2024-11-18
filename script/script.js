@@ -431,7 +431,7 @@ fetch('script/regions.geojson')
     .then(data => {
         L.geoJSON(data, {
             style: {
-                color: '#2A114B', // Couleur des contours
+                color: '#2A114B',
                 weight: 1,
                 opacity: 1,
                 fillOpacity: 0.3
@@ -439,15 +439,15 @@ fetch('script/regions.geojson')
             onEachFeature: function (feature, layer) {
                 layer.on('mouseover', function () {
                     this.setStyle({
-                        fillColor: 'rgba(0, 123, 255, 0.5)', // Couleur de survol
+                        fillColor: 'white',
                         fillOpacity: 0.7
                     });
 
                     // Récupérer le nom de la région
-                    var regionName = feature.properties.nom; // Assurez-vous que votre fichier GeoJSON contient un champ 'nom' pour la région
+                    var regionName = feature.properties.nom; 
 
                     // Récupérer les données d'agressions pour la région
-                    var aggressionData = getAggressionDataForRegion(regionName); // Fonction à adapter pour vos données
+                    var aggressionData = getAggressionDataForRegion(regionName);
 
                     // Afficher l'information dans la section__carte-info
                     var infoDiv = document.querySelector('.section__carte-info');
@@ -457,13 +457,9 @@ fetch('script/regions.geojson')
 
                 layer.on('mouseout', function () {
                     this.setStyle({
-                        fillColor: '#2A114B', // Couleur d'origine
+                        fillColor: '#2A114B',
                         fillOpacity: 0.3
                     });
-
-                    // Cacher l'info
-                    var infoDiv = document.querySelector('.section__carte-info');
-                    infoDiv.style.display = 'none';
                 });
             }
         }).addTo(map);
@@ -487,5 +483,5 @@ function getAggressionDataForRegion(region) {
         'Pays de la Loire': 6879
     };
 
-    return aggressionData[region] || 'Données non disponibles'; // Retourne 'Données non disponibles' si la région n'est pas dans les données
+    return aggressionData[region] || 'Données non disponibles';
 }
