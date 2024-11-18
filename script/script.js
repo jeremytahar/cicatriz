@@ -271,7 +271,7 @@ let graph3 = new Chart(ctx, {
                     lineWidth: 0.5
                 },
                 beginAtZero: true,
-                max: 50000,
+                max: 2000,
                 ticks: {
                     font: {
                         family: 'Bebas',
