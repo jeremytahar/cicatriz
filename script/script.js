@@ -479,7 +479,12 @@ function getAggressionDataForRegion(region) {
         'Bretagne': 5429,
         'Centre-Val de Loire': 4655,
         'Corse': 374,
-        'Grand Est': 374,
+        'Grand Est': 8877,
+        'Hauts-de-France': 11959,
+        'Normandie': 6307,
+        'Nouvelle-Aquitaine': 10956,
+        'Occitanie': 9802,
+        'Pays de la Loire': 6879
     };
 
     return aggressionData[region] || 'Données non disponibles'; // Retourne 'Données non disponibles' si la région n'est pas dans les données
