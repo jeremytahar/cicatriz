@@ -375,9 +375,14 @@ ctx.canvas.onclick = (event) => {
 
         // Met à jour le contenu HTML dans le div section__condamnation-info
         document.getElementById('section__condamnation-info').innerHTML = `
-            <h1><span class="white">EN</span> ${year}</h1>
-            <h2><span class="white">${pointValue}</span> ${label}</h2>
+            <h1><span class="white">EN</span> <span id="year-counter">${year}</span></h1>
+            <h2><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h2>
         `;
+
+        let convictionsElement = document.getElementById('convictions-counter');
+        animateCounter(convictionsElement, 0, pointValue, 2000);
+        let yearElement = document.getElementById('year-counter');
+        animateCounter(yearElement, 2000, year, 400);
     }
 };
 
