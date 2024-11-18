@@ -195,8 +195,8 @@ let data = {
             pointBackgroundColor: '#FFFFFF'
         },
         {
-            label: 'Condamnation classée sans suite',
-            data: [800, 850, 780, 900, 1200, 1100, 1300],
+            label: 'Nombre de plaintes',
+            data: [13450, 15039, 16874, 19750, 23441, 25982, 34343],
             backgroundColor: '#110521',
             borderColor: '#110521',
             borderWidth: 4,
@@ -271,7 +271,7 @@ let graph3 = new Chart(ctx, {
                     lineWidth: 0.5
                 },
                 beginAtZero: true,
-                max: 2000,
+                max: 50000,
                 ticks: {
                     font: {
                         family: 'Bebas',
@@ -294,14 +294,14 @@ let graphBar = new Chart(ctxBar, {
         labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
         datasets: [
             {
-                label: 'Nombre de condamnations',
+                label: 'Nombre de condamnation',
                 data: [1024, 1026, 1005, 978, 1088, 806, 1413],
                 backgroundColor: '#AF94E0',
                 borderWidth: 1
             },
             {
-                label: 'Condamnation classé sans suite',
-                data: [800, 850, 780, 900, 1200, 1100, 1300],
+                label: 'Nombre de plaintes',
+                data: [13450, 15039, 16874, 19750, 23441, 25982, 34343],
                 backgroundColor: '#110521',
                 borderWidth: 1
             }
@@ -345,7 +345,7 @@ let graphBar = new Chart(ctxBar, {
                     lineWidth: 0.5
                 },
                 beginAtZero: true,
-                max: 2000,
+                max: 50000,
                 ticks: {
                     font: {
                         family: 'Bebas',
