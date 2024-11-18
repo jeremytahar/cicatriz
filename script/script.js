@@ -236,7 +236,8 @@ let graph3 = new Chart(ctx, {
                         family: 'Alatsi',
                     },
                     color: '#FFFFFF'
-                }
+                },
+                padding: 30,    
             },
             tooltip: {
                 enabled: false
@@ -421,6 +422,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     opacity: 0
 }).addTo(map);
 
+let activeRegion = null;
+
 fetch('script/regions.geojson')
     .then(response => response.json())
     .then(data => {
@@ -432,7 +435,16 @@ fetch('script/regions.geojson')
                 fillOpacity: 0.3
             },
             onEachFeature: function (feature, layer) {
-                layer.on('mouseover', function () {
+                layer.on('click', function () {
+                    if (activeRegion) {
+                        activeRegion.setStyle({
+                            fillColor: '#2A114B', 
+                            fillOpacity: 0.3
+                        });
+                    }
+
+                    activeRegion = this;
+
                     this.setStyle({
                         fillColor: 'white',
                         fillOpacity: 0.7
@@ -450,10 +462,16 @@ fetch('script/regions.geojson')
                     infoDiv.style.display = 'block';
                 });
 
+                layer.on('mouseover', function () {
+                    this.setStyle({
+                        borderColor: '#152368',
+                        weight: 2
+                    });
+                });
                 layer.on('mouseout', function () {
                     this.setStyle({
-                        fillColor: '#2A114B',
-                        fillOpacity: 0.3
+                        borderColor: '#2A114B',
+                        weight: 1
                     });
                 });
             }
@@ -464,7 +482,7 @@ fetch('script/regions.geojson')
 function getAggressionDataForRegion(region) {
     var aggressionData = {
         'Île-de-France': 19754,
-        'Provence-Alpes-Côte d\'Azur': 7291,
+        'Provence-Alpes-Côte d\'Azur': 7584,
         'Auvergne-Rhône-Alpes': 12194,
         'Bourgogne-Franche-Comté': 4685,
         'Bretagne': 5429,
