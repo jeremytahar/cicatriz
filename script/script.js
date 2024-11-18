@@ -122,7 +122,7 @@ let graph2 = new Chart(ctx2, {
         elements: {
             point: {
                 radius: 5, 
-                hoverRadius: 10,
+                hoverRadius: 12,
             }
         }
     },
