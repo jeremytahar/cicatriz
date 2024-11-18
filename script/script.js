@@ -237,7 +237,7 @@ let graph3 = new Chart(ctx, {
                     },
                     color: '#FFFFFF'
                 },
-                padding: 30,
+                padding: 30
             },
             tooltip: {
                 enabled: false
