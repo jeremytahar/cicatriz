@@ -294,7 +294,7 @@ let graphBar = new Chart(ctxBar, {
         labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
         datasets: [
             {
-                label: 'Nombre de condamnations',
+                label: 'Nombre de condamnation',
                 data: [1024, 1026, 1005, 978, 1088, 806, 1413],
                 backgroundColor: '#AF94E0',
                 borderWidth: 1
