@@ -237,11 +237,13 @@ let graph3 = new Chart(ctx, {
                     },
                     color: '#FFFFFF'
                 },
+                padding: 30 
             },
             tooltip: {
                 enabled: false
             }
         },
+        
         scales: {
             x: {
                 grid: {
@@ -272,8 +274,8 @@ let graph3 = new Chart(ctx, {
                         weight: 'normal'
                     },
                     color: '#FFF',
-                }
-            }
+                },
+            },
         }
     },
     plugins: [backgroundColorPlugin]
@@ -347,8 +349,8 @@ let graphBar = new Chart(ctxBar, {
                         weight: 'normal'
                     },
                     color: '#FFF'
-                }
-            }
+                },
+            },
         }
     },
     plugins: [backgroundColorPlugin]
