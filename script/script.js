@@ -178,21 +178,12 @@ let data = {
     datasets: [
         {
             label: 'Nombre de condamnations',
-
             data: [1024, 1026, 1005, 978, 1088, 806, 1413],
             backgroundColor: '#AF94E0',
             borderColor: '#AF94E0',
             borderWidth: 4,
             pointBackgroundColor: '#FFFFFFFF',
             pointBorderColor: '#FFFFFFFF',
-
-            data: [1024, 1026, 1005, 978, 1088, 806, 1413, 7500],
-            data2: [512, 550, 400, 300, 700, 400, 780, 1000],
-            backgroundColor: '#FFFFFF',
-            borderColor: '#AF94E0',
-            borderWidth: 5,
-            pointBorderColor: '#FFFFFF',
-            pointBackgroundColor: '#FFFFFF'
         },
         {
             label: 'Nombre de plaintes',
@@ -260,9 +251,11 @@ let graph3 = new Chart(ctx, {
                 ticks: {
                     font: {
                         family: 'Bebas',
+                        size:22,
                         weight: 'normal'
                     },
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+
                 }
             },
             y: {
@@ -275,9 +268,10 @@ let graph3 = new Chart(ctx, {
                 ticks: {
                     font: {
                         family: 'Bebas',
+                        size:22,
                         weight: 'normal'
                     },
-                    color: '#FFF'
+                    color: '#FFF',
                 }
             }
         }
@@ -349,6 +343,7 @@ let graphBar = new Chart(ctxBar, {
                 ticks: {
                     font: {
                         family: 'Bebas',
+                        size:22,
                         weight: 'normal'
                     },
                     color: '#FFF'
