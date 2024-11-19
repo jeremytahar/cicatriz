@@ -282,7 +282,7 @@ header {
     margin-bottom: 40px;
     margin-left: 90px;
     position: absolute;
-    top: 600px;
+    top: 400px;
 }
 
 .section__condamnation-info h1 {
@@ -299,16 +299,18 @@ header {
     margin: 0px;
 }
 
-.section__condamnation-titre h1 {
-    font-size: 3rem;
+.section__condamnation-titre {
     font-family: 'Bebas', sans-serif;
     color: #AF94E0;
-    margin: 0px;
     position: absolute;
-    top: 75px;
-    right: 800px;
+    left: 50px;
+    top: 50px;
+}
 
-    .white {
+.section__condamnation-titre h1 {
+    font-size: 3rem;
+    margin: 0px;
+  .white {
         color: white;
     }
 }
@@ -317,11 +319,6 @@ header {
     font-size: 2rem;
     font-family: 'Bebas', sans-serif;
     color: white;
-    margin: 0px;
-    position: absolute;
-    top: 200px;
-    left: 65px;
-
     .white {
         color: white;
     }
@@ -340,9 +337,9 @@ header {
 
 .section__condamnation-button {
     position: relative;
-    bottom: 250px;
+    bottom: 300px;
     padding: 0;
-    left: 65px;
+    left: 40px;
     display: flex;
     justify-content: space-around;
     height: 40px;

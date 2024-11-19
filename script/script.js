@@ -377,6 +377,7 @@ ctx.canvas.onclick = (event) => {
         document.getElementById('section__condamnation-info').innerHTML = `
             <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
             <h2><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h2>
+            <p></p>
         `;
 
         let convictionsElement = document.getElementById('convictions-counter');
