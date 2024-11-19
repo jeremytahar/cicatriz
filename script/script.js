@@ -434,17 +434,18 @@ fetch('script/regions.geojson')
     .then(data => {
         L.geoJSON(data, {
             style: {
-                color: '#2A114B',
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.3
+                color: 'white', 
+                weight: 1,       
+                opacity: 1,       
+                fillColor: '#4D2A7B',
+                fillOpacity: 1    
             },
             onEachFeature: function (feature, layer) {
                 layer.on('click', function () {
                     if (activeRegion) {
                         activeRegion.setStyle({
-                            fillColor: '#2A114B', 
-                            fillOpacity: 0.3
+                            fillColor: '#AF94E0', 
+                            fillOpacity: 1
                         });
                     }
 
@@ -453,7 +454,7 @@ fetch('script/regions.geojson')
 
                     this.setStyle({
                         fillColor: 'white',
-                        fillOpacity: 0.7
+                        fillOpacity: 1
                     });
 
                     // Récupérer le nom de la région
@@ -469,17 +470,19 @@ fetch('script/regions.geojson')
 
                     let victimElement = document.getElementById('victim-counter-map');
                     animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
+
+                    e.originalEvent.stopPropagation();
                 });
 
                 layer.on('mouseover', function () {
                     this.setStyle({
                         borderColor: '#ffffff',
-                        weight: 3
+                        weight: 2.5
                     });
                 });
                 layer.on('mouseout', function () {
                     this.setStyle({
-                        borderColor: '#2A114B',
+                        borderColor: '#AF94E0',
                         weight: 1
                     });
                 });
@@ -507,3 +510,21 @@ function getAggressionDataForRegion(region) {
 
     return aggressionData[region] || 'Données non disponibles';
 }
+
+document.addEventListener('click', function () {
+    if (activeRegion) {
+        activeRegion.setStyle({
+            fillColor: '#AF94E0',
+            fillOpacity: 1
+        });
+        activeRegion = null;
+    }
+
+    var infoDiv = document.querySelector('.section__carte-info');
+    infoDiv.innerHTML = '<div class="section__carte-info-action">Cliquez sur les <span class="purple">régions</span> <br> pour plus d\'informations</div>';
+    infoDiv.style.display = 'block';
+});
+
+document.getElementById('map').addEventListener('click', function (e) {
+    e.stopPropagation();
+});
