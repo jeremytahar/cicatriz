@@ -338,6 +338,27 @@ header {
     left: 500px;
 }
 
+.section__condamnation button {
+    position: relative;
+    bottom: 250px;
+    padding: 0;
+    left: 65px;
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.section__condamnation button img {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
 /* Section 4 */
 .section__carte {
     position: relative;
