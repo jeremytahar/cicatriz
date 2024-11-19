@@ -350,6 +350,40 @@ header {
     left: 500px;
 }
 
+.section__condamnation-button {
+    position: relative;
+    bottom: 250px;
+    padding: 0;
+    left: 65px;
+    display: flex;
+    justify-content: space-around;
+    height: 40px;
+    width: 150px;
+}
+
+.section__condamnation button {
+    /* height: 45px;*/
+    width: 40px; 
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section__condamnation button:hover {
+    scale: 1.15;
+}
+
+.section__condamnation button img {
+    height: 25px;
+    width: 25px;
+
+}
+
+
 /* Section 4 */
 .section__carte {
     position: relative;
