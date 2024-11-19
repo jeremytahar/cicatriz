@@ -60,6 +60,16 @@ let data2 = {
         }]
 };
 
+let texts = [
+    "En 2017, le mouvement #MeToo et son équivalent français #BalanceTonPorc ont libéré la parole des victimes de violences sexuelles. Cette prise de conscience collective a encouragé un grand nombre de signalements, contribuant à une hausse notable des chiffres. Cette augmentation reflète moins une montée des agressions qu\’un changement dans leur dénonciation, brisant le tabou et plaçant le sujet au cœur du débat public.",
+    "En 2018, l’élan initié par #MeToo se poursuit, avec une amplification des témoignages et des signalements. Cette année marque également une pression accrue sur les institutions pour mieux répondre aux violences sexuelles, notamment à travers des réformes juridiques et des campagnes de sensibilisation.Les chiffres en hausse reflètent une confiance grandissante des victimes pour dénoncer, mais soulignent aussi l\’ampleur d\’un problème encore enraciné dans la société.",
+    "En 2019, les débats autour des violences sexuelles s’intensifient, notamment avec des affaires médiatisées mettant en lumière les failles du système judiciaire. Cette année est également marquée par la marche #NousToutes, qui a mobilisé des dizaines de milliers de personnes à travers la France pour dénoncer les violences sexistes et sexuelles et réclamer des actions concrètes. Parallèlement, des initiatives éducatives et préventives émergent, visant à déconstruire les comportements problématiques. L’augmentation des signalements reflète une meilleure prise de conscience collective, portée par ces mobilisations, bien que le chemin vers une société plus juste reste encore long.",
+    "",
+    "",
+    "",
+    ""
+];
+
 // Création du graphique
 let graph2 = new Chart(ctx2, {
     type: 'line',
@@ -156,10 +166,12 @@ graph2.canvas.onclick = function (event) {
         let index = activePoints[0].index;
         let year = data2.labels[index];
         let victims = data2.datasets[0].data[index];
+        let text = texts[index];
 
         let victimInfo = document.getElementById('section__victime-info');
 
-        victimInfo.innerHTML = `<span class="line1">EN <span class="purple" id="year-counter">${year}</span></span> <br> <span class="line2"><span class="purple" id="victim-counter"></span> VICTIMES</span>`;
+        victimInfo.innerHTML = `<span class="line1">EN <span class="purple" id="year-counter">${year}</span></span> <br> <span class="line2"><span class="purple" id="victim-counter"></span> VICTIMES</span>
+        <p class="section__victime-info-texte">${text}</p>`;
 
         let victimElement = document.getElementById('victim-counter');
         animateCounter(victimElement, 0, victims, 2000);
