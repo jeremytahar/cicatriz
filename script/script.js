@@ -189,7 +189,7 @@ let data = {
     labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
     datasets: [
         {
-            label: 'Nombre de condamnations',
+            label: 'Condamnations',
             data: [1024, 1026, 1005, 978, 1088, 806, 1413],
             backgroundColor: '#AF94E0',
             borderColor: '#AF94E0',
@@ -198,7 +198,7 @@ let data = {
             pointBorderColor: '#FFFFFFFF',
         },
         {
-            label: 'Nombre de plaintes',
+            label: 'Plaintes',
             data: [13450, 15039, 16874, 19750, 23441, 25982, 34343],
             backgroundColor: '#110521',
             borderColor: '#110521',
@@ -301,13 +301,13 @@ let graphBar = new Chart(ctxBar, {
         labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
         datasets: [
             {
-                label: 'Nombre de condamnation',
+                label: 'Condamnation',
                 data: [1024, 1026, 1005, 978, 1088, 806, 1413],
                 backgroundColor: '#AF94E0',
                 borderWidth: 1
             },
             {
-                label: 'Nombre de plaintes',
+                label: 'Plaintes',
                 data: [13450, 15039, 16874, 19750, 23441, 25982, 34343],
                 backgroundColor: '#110521',
                 borderWidth: 1
@@ -380,17 +380,24 @@ ctx.canvas.onclick = (event) => {
         const datasetIndex = firstElement.datasetIndex;
         const dataIndex = firstElement.index;
 
+        // récupération des données de la première courbe
         const dataset = data.datasets[datasetIndex];
         const pointValue = dataset.data[dataIndex];
         const year = data.labels[dataIndex];
-        const label = dataset.label.toUpperCase();
+        const label = dataset.label;
+
+        // récupération des données de la deuxième courbe 
+        const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
+        const otherDataset = data.datasets[otherDatasetIndex];
+        const otherValue = otherDataset.data[dataIndex];
+        const otherLabel = otherDataset.label;
 
         // Met à jour le contenu HTML dans le div section__condamnation-info
         document.getElementById('section__condamnation-info').innerHTML = `
             <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
             <h2><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h2>
-            <p></p>
-        `;
+            <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. Certains justifient ça par un mec de preuve, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelles.</p>
+            `;
 
         let convictionsElement = document.getElementById('convictions-counter');
         animateCounter(convictionsElement, 0, pointValue, 2000);
