@@ -370,10 +370,42 @@ let graphBar = new Chart(ctxBar, {
     plugins: [backgroundColorPlugin]
 });
 
+const courbectx = document.getElementById('graph3').getContext('2d');
+const barCtx = document.getElementById('graphBar').getContext('2d');
 
+barCtx.canvas.onclick = (event) => {
+    const elements = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+    if (elements.length > 0) {
+        const firstElement = elements[0];
+        const datasetIndex = firstElement.datasetIndex;
+        const dataIndex = firstElement.index;
+
+        // on récupére les données des premières barres
+        const dataset = graphBar.data.datasets[datasetIndex];
+        const barValue = dataset.data[dataIndex];
+        const year = graphBar.data.labels[dataIndex];
+        const label = dataset.label;
+
+        // on récupérel es données des deuxièmes barres
+        const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
+        const otherDataset = data.datasets[otherDatasetIndex];
+        const otherbarValue = otherDataset.data[dataIndex];
+        const otherLabel = otherDataset.label;
+
+        document.getElementById('section__condamnation-info').innerHTML = `
+         <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
+            <h2><span class="white"><span id="convictions-counter">${barValue}</span></span> ${label}</h2>
+            <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. Certains justifient ça par un mec de preuve, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelles.</p>
+    `;
+    let convictionsElement = document.getElementById('convictions-counter');
+    animateCounter(convictionsElement, 0, pointValue, 2000);
+    let yearElement = document.getElementById('year-counter1');
+    animateCounter(yearElement, 2000, year, 400);
+    }
+};
 
 // Fonction d'affichage au clique pour le graphique type line
-ctx.canvas.onclick = (event) => {
+courbectx.canvas.onclick = (event) => {
     const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
     if (elements.length > 0) {
         const firstElement = elements[0];
@@ -421,8 +453,6 @@ document.getElementById('changeToBar').addEventListener('click', function () {
     document.getElementById('graphBar').classList.add('visible');
     document.getElementById('graphBar').classList.remove('hidden');
 });
-
-console.log('teste fichier javascript');
 
 
 
