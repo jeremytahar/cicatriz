@@ -245,7 +245,7 @@ header {
             }
 
         }
-        
+
         .section__victime-info-texte {
             color: white;
             font-family: 'Montserrat', sans-serif;
@@ -329,7 +329,8 @@ header {
 .section__condamnation-titre h1 {
     font-size: 3rem;
     margin: 0px;
-  .white {
+
+    .white {
         color: white;
     }
 }
@@ -338,6 +339,7 @@ header {
     font-size: 2rem;
     font-family: 'Bebas', sans-serif;
     color: white;
+
     .white {
         color: white;
     }
@@ -366,7 +368,7 @@ header {
 }
 
 .section__condamnation button {
-    width: 40px; 
+    width: 40px;
     background-color: white;
     border: none;
     border-radius: 5px;
@@ -569,4 +571,31 @@ footer {
 .footer__list-component a:hover {
     color: #AF94E0;
     cursor: pointer;
+}
+
+
+/* Page mentions légales */
+nav {
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        color: white;
+        text-decoration: none;
+        font-family: 'Bebas', sans-serif;
+        font-size: 5rem;
+
+        .cicatr {
+            color: #2A114B;
+        }
+    }
+}
+
+.mentions {
+    font-family: 'Montserrat', sans-serif;
+    width: 1000px;
+    margin: auto;
 }
