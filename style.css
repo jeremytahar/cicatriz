@@ -85,7 +85,6 @@ header {
 }
 
 .presentation {
-    margin-top: 150px;
     margin: 0 200px;
     scroll-snap-align: center;
     height: 100vh;
@@ -96,6 +95,11 @@ header {
     p {
         font-size: 1.5rem;
         color: white;
+        width: 75%;
+        
+        a {
+            color: white
+        }
     }
 
     h2 {
