@@ -17,8 +17,8 @@
         href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Paytone+One&family=Poetsen+One&display=swap"
         rel="stylesheet">
 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -32,10 +32,14 @@
     <main>
         <div class="presentation">
             <h2><span>cicatriz</span> <span class="white">un projet étudiant</span></h2>
-            <p>Cicatriz est un projet étudiant réalisé par Jérémy Tahar, Eve Gonçalves et Amin Benazzouz. L'objectif techniques attendues étaient la visualisation de données à travers différentes méthodes et l'utilisation de diverses librairies tel que <a href="https://www.chartjs.org">chart.js.
-            </a><br> <br>
-            Mais plus qu'un simple exercice technique, Cicatriz est notre manière de mettre en avant un mal qui gangrène notre société et qui est bien trop souvent étouffé voir banalisé. Cela nous tenait à coeur de pouvoir mettre en lumière l'ampleur que prend les agressions sexuelles au fil du temps. 
- 
+            <p>Cicatriz est un projet étudiant réalisé par Jérémy Tahar, Eve Gonçalves et Amin Benazzouz. L'objectif
+                techniques attendues étaient la visualisation de données à travers différentes méthodes et l'utilisation
+                de diverses librairies tel que <a href="https://www.chartjs.org">chart.js.
+                </a><br> <br>
+                Mais plus qu'un simple exercice technique, Cicatriz est notre manière de mettre en avant un mal qui
+                gangrène notre société et qui est bien trop souvent étouffé voir banalisé. Cela nous tenait à coeur de
+                pouvoir mettre en lumière l'ampleur que prend les agressions sexuelles au fil du temps.
+
             </p>
         </div>
 
@@ -89,22 +93,24 @@
                 <h1><span class="white">ÉVOLUTION DU NOMBRE DE</span> VICTIMES <br>D'AGRESSIONS SEXUELLES</h1>
             </div>
 
-            
+
             <div class="section__victime-graph-info">
                 <div class="section__victime-graph">
                     <canvas id="graph2">
                     </canvas>
                 </div>
-                
+
                 <div class="section__victime-info" id="section__victime-info">
-                    <div class="section__victime-info-action">Cliquez sur les <span class="purple">points</span> <br> pour plus d'informations</div>
+                    <div class="section__victime-info-action">Cliquez sur les <span class="purple">points</span> <br>
+                        pour plus d'informations</div>
                 </div>
             </div>
         </section>
 
         <section class="section section__condamnation">
             <div class="section__condamnation-titre">
-                <h1><span class="white">ÉVOLUTION DU NOMBRE DE</span> PLAINTES <span class="white">ET</span> DE CONDAMNATIONS</h1>
+                <h1><span class="white">ÉVOLUTION DU NOMBRE DE</span> PLAINTES <span class="white">ET</span> DE
+                    CONDAMNATIONS</h1>
                 <h2>Cliquez sur les points</h2>
             </div>
 
@@ -112,8 +118,8 @@
             </div>
 
             <div class="section__condamnation-graph">
-        <canvas id="graph3" class="visible"></canvas>
-        <canvas id="graphBar" class="hidden"></anvas>                                                                           
+                <canvas id="graph3" class="visible"></canvas>
+                <canvas id="graphBar" class="hidden"></anvas>
             </div>
 
             <div class="section__condamnation-button">
@@ -143,19 +149,38 @@
 
         <div class="footer__container footer__container-credit">
             <ul class="footer__list">
-                <li class="footer__list-component"><a href="#mention">Mentions légales</a></li>
-                <li class="footer__list-component"><a href="#sources">Sources</a></li>
-                <li class="footer__list-component"><a href="#contact">Nos Contacts</a></li>
+                <li class="footer__list-component open-modal" data-content="Mentions légales"><button class="open-modal"
+                        data-target="mentions-legales">Mentions légales</button></li>
+                <li class="footer__list-component open-modal"><button class="open-modal"
+                        data-target="sources">Sources</button></li>
+                <li class="footer__list-component open-modal"><button class="open-modal" data-target="contacts">Nos
+                        contacts</button></li>
             </ul>
         </div>
-        <div class="footer__container-modal" id="mention">
-                <div class="footer__container-textmodal">
-                </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close">&times;</span>
+                <div id="modal-body"></div>
+            </div>
         </div>
-        <div class="footer__container-modal" id="sources"></div>
-        <div class="footer__container-modal" id="contact"></div>
 
+        <div id="mentions-legales" class="modal-section" style="display: none;">
+            <h2>Mentions légales</h2>
+            <p>Voici le contenu de la section 1.</p>
+            <a href="#">Lien utile 1</a>
+        </div>
 
+        <div id="sources" class="modal-section" style="display: none;">
+            <h2>Sources</h2>
+            <p>Voici le contenu de la section 2.</p>
+            <a href="#">Lien utile 2</a>
+        </div>
+
+        <div id="contacts" class="modal-section" style="display: none;">
+            <h2>Contacts</h2>
+            <p>Voici le contenu de la section 3.</p>
+            <a href="#">Lien utile 3</a>
         </div>
     </footer>
 
