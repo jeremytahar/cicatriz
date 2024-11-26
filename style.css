@@ -598,4 +598,8 @@ nav {
     font-family: 'Montserrat', sans-serif;
     width: 1000px;
     margin: auto;
+
+    p {
+        font-weight: 500;
+    }
 }
