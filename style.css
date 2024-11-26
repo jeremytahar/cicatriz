@@ -194,7 +194,9 @@ header {
     width: 400px;
 }
 
-
+.section__agression-info a {
+    color: #2A114B;
+}
 
 /* === */
 .section {

@@ -393,13 +393,13 @@ barCtx.canvas.onclick = (event) => {
         const otherLabel = otherDataset.label;
 
         document.getElementById('section__condamnation-info').innerHTML = `
-         <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
-            <h2><span class="white"><span id="convictions-counter">${barValue}</span></span> ${label}</h2>
-            <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. Certains justifient ça par un mec de preuve, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelles. Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
+         <h1><span class="white">EN</span> <span id="year-counter2">${year}</span></h1>
+            <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
+            <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. Certains justifient ça par un mec de preuve, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelles.<br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
     `;
-    let convictionsElement = document.getElementById('convictions-counter');
+    let convictionsElement = document.getElementById('convictions-counter1');
     animateCounter(convictionsElement, 0, pointValue, 2000);
-    let yearElement = document.getElementById('year-counter1');
+    let yearElement = document.getElementById('year-counter2');
     animateCounter(yearElement, 2000, year, 400);
     }
 };
