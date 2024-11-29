@@ -65,9 +65,9 @@ let texts = [
     "En 2018, l'élan #MeToo se poursuit avec plus de témoignages et de réformes juridiques. La hausse des signalements montre une confiance accrue des victimes et révèle l'ampleur persistante du problème.",
     "En 2019, les violences sexuelles restent au centre des débats, avec des affaires médiatisées et la marche #NousToutes mobilisant des milliers de personnes. Initiatives éducatives et préventives émergent, tandis que les signalements augmentent, signe d’une prise de conscience collective.",
     "En 2020, la pandémie aggrave les violences sexuelles en isolant les victimes. Des initiatives comme les alertes en pharmacie apparaissent pour contourner ces obstacles, montrant une prise de conscience, malgré des actions encore insuffisantes.",
-    "",
-    "",
-    ""
+    "En 2021, la vague de témoignages sur l'inceste, amplifiée par le livre de Camille Kouchner, relance le débat sur les violences intrafamiliales. Les signalements augmentent, notamment grâce à des campagnes ciblées et des outils de signalement en ligne.",
+    "En 2022, les plateformes numériques prennent une place centrale dans la dénonciation des violences sexuelles, avec des hashtags comme #DoublePeine dénonçant les failles judiciaires. La hausse des plaintes témoigne d'une pression accrue sur les institutions pour une meilleure prise en charge des victimes.",
+    "En 2023, les débats autour du consentement et des violences conjugales s’intensifient, avec des lois renforçant les sanctions. Des affaires très médiatisées, comme celles impliquant des personnalités publiques, continuent de mobiliser l'opinion et encouragent plus de victimes à se manifester."
 ];
 
 // Création du graphique
@@ -490,7 +490,7 @@ fetch('script/regions.geojson')
                 fillOpacity: 1    
             },
             onEachFeature: function (feature, layer) {
-                layer.on('click', function () {
+                layer.on('click', function (e) {
                     if (activeRegion) {
                         activeRegion.setStyle({
                             fillColor: '#AF94E0', 
@@ -514,7 +514,7 @@ fetch('script/regions.geojson')
 
                     // Afficher l'information dans la section__carte-info
                     var infoDiv = document.querySelector('.section__carte-info');
-                    infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions : <span id="victim-counter-map">${aggressionData}</span></p>`;
+                    infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
                     infoDiv.style.display = 'block';
 
                     let victimElement = document.getElementById('victim-counter-map');

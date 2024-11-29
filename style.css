@@ -146,6 +146,8 @@ header {
 
 .section__agression-text p {
     color: white;
+    font-family: 'Alatsi', sans-serif;
+    font-size: 1.2rem;
 }
 
 .section__agression-info {
@@ -444,7 +446,6 @@ header {
         margin-right: 200px;
         background-color: transparent;
     }
-
 }
 
 
