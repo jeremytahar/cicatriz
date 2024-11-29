@@ -196,7 +196,9 @@ header {
     width: 400px;
 }
 
-
+.section__agression-info a {
+    color: #2A114B;
+}
 
 /* === */
 .section {
@@ -391,9 +393,12 @@ header {
 .section__condamnation button img {
     height: 25px;
     width: 25px;
-
 }
 
+.section__condamnation-info a {
+    color: #AF94E0;
+    text-decoration: none;
+}
 
 /* Section 4 */
 .section__carte {
