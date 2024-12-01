@@ -96,7 +96,7 @@ header {
         font-size: 1.5rem;
         color: white;
         width: 75%;
-        
+
         a {
             color: white
         }
@@ -443,12 +443,27 @@ header {
         }
     }
 
+    #map-container {
+        width: 70vw;
+        display: flex;
+    }
+    
     #map {
-        position: relative;
-        top: -50px;
+        flex: 1;
         height: 100vh;
-        width: 700px;
-        margin-right: 200px;
+        transform: translateY(-50px);
+        max-width: 700px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0; 
+        background-color: transparent;
+    }
+
+    #region-map {
+        width: 400px;
+        height: 400px;
+        margin: auto;
         background-color: transparent;
     }
 }
