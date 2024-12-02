@@ -508,8 +508,38 @@ function loadRegionMap(regionName) {
     }).addTo(regionMap);
 
     fetch(geojsonFile)
-        .then(response => response.json())
-        .then(data => {
+    .then(response => response.json())
+    .then(data => {
+        // Rendez le conteneur visible
+        const mapContainer = document.getElementById('map-container');
+        mapContainer.classList.add('active');
+
+        // Attendez que les styles soient appliqués
+        setTimeout(() => {
+            if (regionMap !== null) {
+                regionMap.remove();
+                regionMap = null;
+            }
+
+            regionMap = L.map('region-map', {
+                center: [46.603354, 1.888334],
+                zoom: 6.5,
+                zoomSnap: 0,
+                zoomControl: false,
+                attributionControl: false,
+                dragging: false,
+                touchZoom: false,
+                scrollWheelZoom: false,
+                boxZoom: false,
+                doubleClickZoom: false,
+                tap: false
+            });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                opacity: 0
+            }).addTo(regionMap);
+
             let geoLayer = L.geoJSON(data, {
                 style: {
                     color: '#fff',
@@ -583,11 +613,21 @@ function loadRegionMap(regionName) {
             setTimeout(() => {
                 regionMap.invalidateSize();
             }, 100);
-        })
-        .catch(error => {
-            console.error(`Erreur lors du chargement du fichier ${geojsonFile}:`, error);
-        });
+        }, 100);
+    })
+    .catch(error => {
+        console.error(`Erreur lors du chargement du fichier ${geojsonFile}:`, error);
+    });
+
 }
+
+// Réinitialisez l'état si nécessaire
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('#region-map') && !event.target.closest('#map')) {
+        document.getElementById('map-container').classList.remove('active');
+    }
+});
+
 
 
 // Chargement des régions depuis le GeoJSON
@@ -625,12 +665,6 @@ fetch('script/regions.geojson')
                     });
 
                     map.getContainer().removeEventListener('mousemove', updateTooltipPosition);
-                });
-
-                layer.on('click', function (e) {
-                    const regionName = feature.properties.nom;
-                    loadRegionMap(regionName);
-                    e.originalEvent.stopPropagation();
                 });
 
                 layer.on('click', function (e) {
@@ -822,8 +856,16 @@ document.addEventListener('click', function (e) {
             activeRegion = null;
         }
 
+        if (activeDepartment) {
+            activeDepartment.setStyle({
+                fillColor: '#AF94E0',
+                fillOpacity: 1
+            });
+            activeDepartment = null;
+        }
+
         var infoDiv = document.querySelector('.section__carte-info');
-        infoDiv.innerHTML = '<div class="section__carte-info-action">Cliquez sur les <span class="purple">régions</span> <br> pour plus d\'informations</div>';
+        infoDiv.innerHTML = '';
         infoDiv.style.display = 'block';
 
         if (regionMap !== null) {
@@ -855,3 +897,70 @@ function updateTooltipPosition(event) {
     tooltip.style.left = event.clientX + 10 + 'px';
     tooltip.style.top = event.clientY + 10 + 'px';
 }
+
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const img = document.querySelector('.header-title-img img');
+        img.classList.add('animate');
+    }, 10); 
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const svg = document.querySelector("svg");
+    const section = document.querySelector(".presentation");
+
+    svg.classList.add("svg-hidden");
+    
+    const handleIntersection = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log("Section visible, animation lancée.");
+
+                svg.classList.add("svg-visible");
+                svg.classList.remove("svg-hidden");
+
+                animateSVG();
+
+                observer.unobserve(section);
+            }
+        });
+    };
+
+    // Fonction d'animation SVG
+    const animateSVG = () => {
+        console.log("Animation SVG déclenchée !");
+        document.querySelectorAll(".presentation svg path").forEach(path => {
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+
+            path.animate(
+                [
+                    { strokeDashoffset: length },
+                    { strokeDashoffset: 0 }
+                ],
+                {
+                    duration: 16000,
+                    easing: "ease",
+                    fill: "forwards"
+                }
+            );
+
+            setTimeout(() => {
+                path.style.fill = "#ffffff";
+                path.style.fillOpacity = 1;
+                path.style.stroke = "#AF94E0";
+            }, 1700); 
+        });
+    };
+
+    const options = {
+        root: null,
+        threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+
+    observer.observe(section);
+});
