@@ -254,7 +254,7 @@ let graph3 = new Chart(ctx, {
                 enabled: false
             }
         },
-        
+
         scales: {
             x: {
                 grid: {
@@ -264,7 +264,7 @@ let graph3 = new Chart(ctx, {
                 ticks: {
                     font: {
                         family: 'Bebas',
-                        size:22,
+                        size: 22,
                         weight: 'normal'
                     },
                     color: '#FFFFFF',
@@ -281,7 +281,7 @@ let graph3 = new Chart(ctx, {
                 ticks: {
                     font: {
                         family: 'Bebas',
-                        size:22,
+                        size: 22,
                         weight: 'normal'
                     },
                     color: '#FFF',
@@ -333,7 +333,7 @@ let graphBar = new Chart(ctxBar, {
                 enabled: false
             }
         },
-        
+
         scales: {
             x: {
                 grid: {
@@ -343,7 +343,7 @@ let graphBar = new Chart(ctxBar, {
                 ticks: {
                     font: {
                         family: 'Bebas',
-                        size:22,
+                        size: 22,
                         weight: 'normal'
                     },
                     color: '#FFF'
@@ -359,7 +359,7 @@ let graphBar = new Chart(ctxBar, {
                 ticks: {
                     font: {
                         family: 'Bebas',
-                        size:22,
+                        size: 22,
                         weight: 'normal'
                     },
                     color: '#FFF'
@@ -397,10 +397,10 @@ barCtx.canvas.onclick = (event) => {
             <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
             <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. Certains justifient ça par un mec de preuve, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelles.<br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
     `;
-    let convictionsElement = document.getElementById('convictions-counter1');
-    animateCounter(convictionsElement, 0, pointValue, 2000);
-    let yearElement = document.getElementById('year-counter2');
-    animateCounter(yearElement, 2000, year, 400);
+        let convictionsElement = document.getElementById('convictions-counter1');
+        animateCounter(convictionsElement, 0, pointValue, 2000);
+        let yearElement = document.getElementById('year-counter2');
+        animateCounter(yearElement, 2000, year, 400);
     }
 };
 
@@ -477,29 +477,132 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let activeRegion = null;
+let regionMap = null;
 
+function loadRegionMap(regionName) {
+    let geojsonFile = `script/departements-${regionName}.geojson`;
+
+    if (regionMap !== null) {
+        regionMap.remove();
+        regionMap = null;
+    }
+
+    regionMap = L.map('region-map', {
+        center: [46.603354, 1.888334],
+        zoom: 6.5,
+        zoomSnap: 0,
+        zoomControl: false,
+        attributionControl: false,
+        dragging: false,
+        touchZoom: false,
+        scrollWheelZoom: false,
+        boxZoom: false,
+        doubleClickZoom: false,
+        tap: false
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        opacity: 0
+    }).addTo(regionMap);
+
+    fetch(geojsonFile)
+        .then(response => response.json())
+        .then(data => {
+            let geoLayer = L.geoJSON(data, {
+                style: {
+                    color: '#fff',
+                    weight: 1,
+                    fillColor: '#4D2A7B',
+                    fillOpacity: 0.7
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (e) {
+                        if (activeRegion) {
+                            activeRegion.setStyle({
+                                fillColor: '#AF94E0',
+                                fillOpacity: 1
+                            });
+                        }
+    
+                        activeRegion = this;
+    
+                        this.setStyle({
+                            fillColor: 'white',
+                            fillOpacity: 1
+                        });
+    
+                        // Récupérer le nom de la région
+                        var regionName = feature.properties.nom;
+    
+                        // Afficher l'information dans la section__carte-info
+                        var aggressionData = getAggressionDataForRegion(regionName);
+                        var infoDiv = document.querySelector('.section__carte-info');
+                        infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
+                        infoDiv.style.display = 'block';
+    
+                        let victimElement = document.getElementById('victim-counter-map');
+                        animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
+    
+                        // Charger la carte des départements pour la région cliquée
+                        loadRegionMap(regionName);
+    
+                        e.originalEvent.stopPropagation();
+    
+                        console.log('Region:', regionName);
+                    });
+    
+                    layer.on('mouseover', function () {
+                        this.setStyle({
+                            borderColor: '#ffffff',
+                            weight: 2.5
+                        });
+                    });
+                    layer.on('mouseout', function () {
+                        this.setStyle({
+                            borderColor: '#AF94E0',
+                            weight: 1
+                        });
+                    });
+                }            
+            }).addTo(regionMap);
+
+            regionMap.fitBounds(geoLayer.getBounds(), {
+                animate: false,
+            });
+
+            setTimeout(() => {
+                regionMap.invalidateSize();
+            }, 100);
+        })
+        .catch(error => {
+            console.error(`Erreur lors du chargement du fichier ${geojsonFile}:`, error);
+        });
+}
+
+
+// Chargement des régions depuis le GeoJSON
 fetch('script/regions.geojson')
     .then(response => response.json())
     .then(data => {
         L.geoJSON(data, {
             style: {
-                color: 'white', 
-                weight: 1,       
-                opacity: 1,       
+                color: 'white',
+                weight: 1,
+                opacity: 1,
                 fillColor: '#4D2A7B',
-                fillOpacity: 1    
+                fillOpacity: 1
             },
             onEachFeature: function (feature, layer) {
                 layer.on('click', function (e) {
                     if (activeRegion) {
                         activeRegion.setStyle({
-                            fillColor: '#AF94E0', 
+                            fillColor: '#AF94E0',
                             fillOpacity: 1
                         });
                     }
 
                     activeRegion = this;
-
 
                     this.setStyle({
                         fillColor: 'white',
@@ -507,12 +610,10 @@ fetch('script/regions.geojson')
                     });
 
                     // Récupérer le nom de la région
-                    var regionName = feature.properties.nom; 
-
-                    // Récupérer les données d'agressions pour la région
-                    var aggressionData = getAggressionDataForRegion(regionName);
+                    var regionName = feature.properties.nom;
 
                     // Afficher l'information dans la section__carte-info
+                    var aggressionData = getAggressionDataForRegion(regionName);
                     var infoDiv = document.querySelector('.section__carte-info');
                     infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
                     infoDiv.style.display = 'block';
@@ -520,7 +621,12 @@ fetch('script/regions.geojson')
                     let victimElement = document.getElementById('victim-counter-map');
                     animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
 
+                    // Charger la carte des départements pour la région cliquée
+                    loadRegionMap(regionName);
+
                     e.originalEvent.stopPropagation();
+
+                    console.log('Region:', regionName);
                 });
 
                 layer.on('mouseover', function () {
@@ -547,14 +653,14 @@ function getAggressionDataForRegion(region) {
         'Auvergne-Rhône-Alpes': 12194,
         'Bourgogne-Franche-Comté': 4685,
         'Bretagne': 5429,
-        'Centre-Val de Loire': 4655,
+        'Centre-Val-de-Loire': 4655,
         'Corse': 374,
-        'Grand Est': 8877,
+        'Grand-Est': 8877,
         'Hauts-de-France': 11959,
         'Normandie': 6307,
         'Nouvelle-Aquitaine': 10956,
         'Occitanie': 9802,
-        'Pays de la Loire': 6879
+        'Pays-de-la-Loire': 6879
     };
 
     return aggressionData[region] || 'Données non disponibles';
