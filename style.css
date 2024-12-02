@@ -702,33 +702,81 @@ footer {
     cursor: pointer;
 }
 
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-/* Page mentions légales */
-nav {
-    padding: 1rem;
-    width: 100%;
+/* Code d'affichage des pop up des mentions légales, sources et contact */
+
+/* Style général pour cacher la modale par défaut */
+.modal1, .modal2, .modal3 {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(45, 44, 44, 0.5);
+    transition: all .4s;
 
-    a {
-        color: white;
-        text-decoration: none;
-        font-family: 'Bebas', sans-serif;
-        font-size: 5rem;
+}
 
-        .cicatr {
-            color: #2A114B;
+.modal1:target, .modal2:target, .modal3:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+  /* Contenu de la modale */
+    .mention, .sources, .contact {
+        overflow-y: scroll;
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 30px;
+        border-radius: 8px;
+        width: 700px;
+        height: 500px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        animation: fadeIn 0.5s;
+        scroll-behavior: auto;
+    }
+
+        .contact {
+            height: 400px;
+            width: 400px;
+            overflow-y: hidden;
         }
-    }
-}
+  
+  /* Bouton de fermeture */
+  .close {
+    color: #2A114B;
+    float: right;
+    font-size: 2.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    position: sticky;
+    top: 2px;
+  }
+  
+  
 
-.mentions {
-    font-family: 'Montserrat', sans-serif;
-    width: 1000px;
-    margin: auto;
 
-    p {
-        font-weight: 500;
+  /* Animation d’apparition */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
     }
-}
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
