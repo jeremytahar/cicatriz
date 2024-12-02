@@ -577,3 +577,6 @@ document.addEventListener('click', function () {
 document.getElementById('map').addEventListener('click', function (e) {
     e.stopPropagation();
 });
+
+
+
