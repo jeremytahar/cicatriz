@@ -130,15 +130,21 @@
 
         <section class="section section__carte">
             <div class="section__carte-titre">
-                <h2>nombre d'agressions sexuelles par <span class="purple">région en france en 2023</span></h2>
+                <h2>Nombre d'agressions sexuelles par <span class="purple">région en France en 2023</span></h2>
+                <h3>Cliquez sur les <span class="purple">régions</span> pour plus d'informations</h3>
             </div>
             <div id="map-container">
                 <div id="map"></div>
-                <div id="region-map"></div>
+                <div class="map-text">
+                    <div id="region-map"></div>
+                    <div class="section__carte-info">
+                        <div class="section__carte-info-action"></div>
+                    </div>
+                </div>
             </div>
+            <div id="tooltip" style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 5px; border-radius: 5px; pointer-events: none; z-index: 1000;"></div>
             <div class="section__carte-info">
-                <div class="section__carte-info-action">Cliquez sur les <span class="purple">régions</span> <br> pour
-                    plus d'informations</div>
+                <div class="section__carte-info-action"></div>
             </div>
         </section>
     </main>

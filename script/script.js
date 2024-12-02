@@ -477,6 +477,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let activeRegion = null;
+let activeDepartment = null;
 let regionMap = null;
 
 function loadRegionMap(regionName) {
@@ -518,53 +519,61 @@ function loadRegionMap(regionName) {
                 },
                 onEachFeature: function (feature, layer) {
                     layer.on('click', function (e) {
-                        if (activeRegion) {
-                            activeRegion.setStyle({
+                        if (activeDepartment) {
+                            activeDepartment.setStyle({
                                 fillColor: '#AF94E0',
                                 fillOpacity: 1
                             });
                         }
-    
-                        activeRegion = this;
-    
+
+                        activeDepartment = this;
+
                         this.setStyle({
-                            fillColor: 'white',
+                            fillColor: '#fff',
                             fillOpacity: 1
                         });
-    
+
                         // Récupérer le nom de la région
-                        var regionName = feature.properties.nom;
-    
+                        var departmentName = feature.properties.nom;
+
                         // Afficher l'information dans la section__carte-info
-                        var aggressionData = getAggressionDataForRegion(regionName);
+                        var aggressionData = getAggressionDataForDepartment(departmentName);
                         var infoDiv = document.querySelector('.section__carte-info');
-                        infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
+                        infoDiv.innerHTML = `<h3>${departmentName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
                         infoDiv.style.display = 'block';
-    
+
                         let victimElement = document.getElementById('victim-counter-map');
                         animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
-    
-                        // Charger la carte des départements pour la région cliquée
-                        loadRegionMap(regionName);
-    
+
                         e.originalEvent.stopPropagation();
-    
+
                         console.log('Region:', regionName);
                     });
-    
-                    layer.on('mouseover', function () {
+
+                    layer.on('mouseover', function (e) {
+                        const departmentName = feature.properties.nom;
+                        const aggressionData = getAggressionDataForDepartment(departmentName);
+
+                        showTooltip(`<strong>${departmentName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+
                         this.setStyle({
                             borderColor: '#ffffff',
                             weight: 2.5
                         });
+
+                        regionMap.getContainer().addEventListener('mousemove', updateTooltipPosition);
                     });
+
                     layer.on('mouseout', function () {
+                        hideTooltip();
                         this.setStyle({
                             borderColor: '#AF94E0',
                             weight: 1
                         });
+
+                        map.getContainer().removeEventListener('mousemove', updateTooltipPosition);
                     });
-                }            
+                }
             }).addTo(regionMap);
 
             regionMap.fitBounds(geoLayer.getBounds(), {
@@ -594,6 +603,36 @@ fetch('script/regions.geojson')
                 fillOpacity: 1
             },
             onEachFeature: function (feature, layer) {
+                layer.on('mouseover', function (e) {
+                    const regionName = feature.properties.nom;
+                    const aggressionData = getAggressionDataForRegion(regionName);
+
+                    showTooltip(`<strong>${regionName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+
+                    this.setStyle({
+                        borderColor: '#ffffff',
+                        weight: 2.5
+                    });
+
+                    map.getContainer().addEventListener('mousemove', updateTooltipPosition);
+                });
+
+                layer.on('mouseout', function () {
+                    hideTooltip();
+                    this.setStyle({
+                        borderColor: '#AF94E0',
+                        weight: 1
+                    });
+
+                    map.getContainer().removeEventListener('mousemove', updateTooltipPosition);
+                });
+
+                layer.on('click', function (e) {
+                    const regionName = feature.properties.nom;
+                    loadRegionMap(regionName);
+                    e.originalEvent.stopPropagation();
+                });
+
                 layer.on('click', function (e) {
                     if (activeRegion) {
                         activeRegion.setStyle({
@@ -628,19 +667,6 @@ fetch('script/regions.geojson')
 
                     console.log('Region:', regionName);
                 });
-
-                layer.on('mouseover', function () {
-                    this.setStyle({
-                        borderColor: '#ffffff',
-                        weight: 2.5
-                    });
-                });
-                layer.on('mouseout', function () {
-                    this.setStyle({
-                        borderColor: '#AF94E0',
-                        weight: 1
-                    });
-                });
             }
         }).addTo(map);
     });
@@ -649,7 +675,7 @@ fetch('script/regions.geojson')
 function getAggressionDataForRegion(region) {
     var aggressionData = {
         'Île-de-France': 19754,
-        'Provence-Alpes-Côte d\'Azur': 7584,
+        'Provence Alpes Côte d\'Azur': 7584,
         'Auvergne-Rhône-Alpes': 12194,
         'Bourgogne-Franche-Comté': 4685,
         'Bretagne': 5429,
@@ -666,20 +692,166 @@ function getAggressionDataForRegion(region) {
     return aggressionData[region] || 'Données non disponibles';
 }
 
-document.addEventListener('click', function () {
-    if (activeRegion) {
-        activeRegion.setStyle({
-            fillColor: '#AF94E0',
-            fillOpacity: 1
-        });
-        activeRegion = null;
-    }
+// Exemple de fonction pour récupérer les données d'agressions pour un département
+function getAggressionDataForDepartment(department) {
+    var aggressionData = {
+        // Auvergne-Rhône-Alpes
+        'Ain': 880,
+        'Allier': 577,
+        'Ardèche': 477,
+        'Cantal': 231,
+        'Drôme': 847,
+        'Isère': 1989,
+        'Loire': 1050,
+        'Haute-Loire': 405,
+        'Puy-de-Dôme': 831,
+        'Rhône': 3111,
+        'Savoie': 695,
+        'Haute-Savoie': 1101,
+        // Bourgogne-Franche-Comté
+        'Côte-d\'Or': 919,
+        'Doubs': 769,
+        'Jura': 507,
+        'Nièvre': 384,
+        'Haute-Saône': 412,
+        'Saône-et-Loire': 813,
+        'Yonne': 685,
+        'Territoire de Belfort': 196,
+        // Bretagne
+        'Côtes-d\'Armor': 892,
+        'Finistère': 1453,
+        'Ille-et-Vilaine': 1853,
+        'Morbihan': 1231,
+        // Centre-Val de Loire
+        'Cher': 449,
+        'Eure-et-Loir': 839,
+        'Indre': 345,
+        'Indre-et-Loire': 1210,
+        'Loir-et-Cher': 661,
+        'Loiret': 1151,
+        // Corse
+        'Corse-du-Sud': 173,
+        'Haute-Corse': 201,
+        // Grand Est
+        'Ardennes': 492,
+        'Aube': 456,
+        'Marne': 922,
+        'Haute-Marne': 349,
+        'Meurthe-et-Moselle': 1268,
+        'Meuse': 313,
+        'Moselle': 1448,
+        'Bas-Rhin': 1700,
+        'Haut-Rhin': 1338,
+        'Vosges': 591,
+        // Hauts-de-France
+        'Aisne': 985,
+        'Nord': 5163,
+        'Oise': 1547,
+        'Pas-de-Calais': 3083,
+        'Somme': 1181,
+        // Île-de-France
+        'Paris': 5114,
+        'Seine-et-Marne': 2078,
+        'Yvelines': 2007,
+        'Essonne': 1861,
+        'Hauts-de-Seine': 2160,
+        'Seine-Saint-Denis': 2755,
+        'Val-de-Marne': 2005,
+        'Val-d\'Oise': 1774,
+        // Normandie
+        'Calvados': 1389,
+        'Eure': 1137,
+        'Manche': 857,
+        'Orne': 585,
+        'Seine-Maritime': 2339,
+        // Nouvelle-Aquitaine
+        'Charente': 745,
+        'Charente-Maritime': 1191,
+        'Corrèze': 388,
+        'Creuse': 199,
+        'Dordogne': 754,
+        'Gironde': 3230,
+        'Landes': 811,
+        'Lot-et-Garonne': 563,
+        'Pyrénées-Atlantiques': 918,
+        'Deux-Sèvres': 794,
+        'Vienne': 833,
+        'Haute-Vienne': 530,
+        // Occitanie
+        'Ariège': 284,
+        'Aude': 656,
+        'Aveyron': 405,
+        'Gard': 1076,
+        'Haute-Garonne': 2313,
+        'Gers': 293,
+        'Hérault': 1903,
+        'Lot': 323,
+        'Lozère': 170,
+        'Hautes-Pyrénées': 416,
+        'Pyrénées-Orientales': 925,
+        'Tarn': 656,
+        'Tarn-et-Garonne': 382,
+        // Pays de la Loire
+        'Loire-Atlantique': 2402,
+        'Maine-et-Loire': 1492,
+        'Mayenne': 560,
+        'Sarthe': 1240,
+        'Vendée': 1185,
+        // Provence-Alpes-Côte d'Azur
+        'Alpes-de-Haute-Provence': 294,
+        'Alpes-Maritimes': 1549,
+        'Bouches-du-Rhône': 3163,
+        'Var': 1531,
+        'Vaucluse': 754
+    };
 
-    var infoDiv = document.querySelector('.section__carte-info');
-    infoDiv.innerHTML = '<div class="section__carte-info-action">Cliquez sur les <span class="purple">régions</span> <br> pour plus d\'informations</div>';
-    infoDiv.style.display = 'block';
+    return aggressionData[department] || 'Données non disponibles';
+}
+
+
+document.addEventListener('click', function (e) {
+    const mapContainer = document.getElementById('map');
+    const regionMapContainer = document.getElementById('region-map');
+
+    if (!mapContainer.contains(e.target) && (!regionMapContainer || !regionMapContainer.contains(e.target))) {
+        if (activeRegion) {
+            activeRegion.setStyle({
+                fillColor: '#AF94E0',
+                fillOpacity: 1
+            });
+            activeRegion = null;
+        }
+
+        var infoDiv = document.querySelector('.section__carte-info');
+        infoDiv.innerHTML = '<div class="section__carte-info-action">Cliquez sur les <span class="purple">régions</span> <br> pour plus d\'informations</div>';
+        infoDiv.style.display = 'block';
+
+        if (regionMap !== null) {
+            regionMap.remove();
+            regionMap = null;
+        }
+    }
 });
+
 
 document.getElementById('map').addEventListener('click', function (e) {
     e.stopPropagation();
 });
+
+const tooltip = document.getElementById('tooltip');
+
+function showTooltip(content, event) {
+    tooltip.innerHTML = content;
+    tooltip.style.display = 'block';
+    tooltip.style.left = event.clientX + 10 + 'px';
+    tooltip.style.top = event.clientY + 10 + 'px';
+}
+
+function hideTooltip() {
+    tooltip.style.display = 'none';
+}
+
+function updateTooltipPosition(event) {
+    tooltip.style.left = event.clientX + 10 + 'px';
+    tooltip.style.top = event.clientY + 10 + 'px';
+}

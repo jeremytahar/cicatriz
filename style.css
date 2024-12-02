@@ -417,7 +417,7 @@ header {
         padding-top: 25px;
         letter-spacing: 2px;
 
-        h2 {
+        h2, h3 {
             margin: 0px;
         }
 
@@ -427,10 +427,10 @@ header {
     }
 
     .section__carte-info {
-        position: absolute;
+        /* position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        right: 100px;
+        right: 100px; */
         text-align: right;
         color: white;
         font-size: 2rem;
@@ -445,8 +445,19 @@ header {
     }
 
     #map-container {
-        width: 70vw;
+        width: 100vw;
+        height: 90vh;
+        margin: auto;
         display: flex;
+        gap: 20%;
+
+        .map-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-top: 100px;
+            /* background-color: red; */
+        }
     }
     
     #map {
@@ -464,9 +475,25 @@ header {
     #region-map {
         width: 400px;
         height: 400px;
-        margin: auto;
+        /* margin-top: auto; */
         background-color: transparent;
     }
+
+    #tooltip {
+        display: none;
+        position: absolute;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        padding: 8px;
+        border-radius: 5px;
+        pointer-events: none;
+        z-index: 1000;
+        font-size: 14px;
+        max-width: 200px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    
 }
 
 
