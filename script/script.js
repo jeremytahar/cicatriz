@@ -481,7 +481,16 @@ let activeDepartment = null;
 let regionMap = null;
 
 function loadRegionMap(regionName) {
-    let geojsonFile = `script/departements-${regionName}.geojson`;
+    let formattedRegionName = regionName
+  .toLowerCase()                   // Convertir en minuscules
+  .normalize("NFD")                 // Décomposer les caractères accentués
+  .replace(/[\u0300-\u036f]/g, "")  // Supprimer les accents
+  .replace(/ /g, '-')
+  .replace(/'/g, '-');
+
+    let geojsonFile = `https://france-geojson.gregoiredavid.fr/repo/regions/${formattedRegionName}/departements-${formattedRegionName}.geojson`;
+
+    console.log(regionName);
 
     if (regionMap !== null) {
         regionMap.remove();
@@ -631,7 +640,7 @@ document.addEventListener('click', (event) => {
 
 
 // Chargement des régions depuis le GeoJSON
-fetch('script/regions.geojson')
+fetch('https://france-geojson.gregoiredavid.fr/repo/regions.geojson')
     .then(response => response.json())
     .then(data => {
         L.geoJSON(data, {
@@ -709,18 +718,18 @@ fetch('script/regions.geojson')
 function getAggressionDataForRegion(region) {
     var aggressionData = {
         'Île-de-France': 19754,
-        'Provence Alpes Côte d\'Azur': 7584,
+        'Provence-Alpes-Côte d\'Azur': 7584,
         'Auvergne-Rhône-Alpes': 12194,
         'Bourgogne-Franche-Comté': 4685,
         'Bretagne': 5429,
-        'Centre-Val-de-Loire': 4655,
+        'Centre-Val de Loire': 4655,
         'Corse': 374,
-        'Grand-Est': 8877,
+        'Grand Est': 8877,
         'Hauts-de-France': 11959,
         'Normandie': 6307,
         'Nouvelle-Aquitaine': 10956,
         'Occitanie': 9802,
-        'Pays-de-la-Loire': 6879
+        'Pays de la Loire': 6879
     };
 
     return aggressionData[region] || 'Données non disponibles';
