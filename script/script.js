@@ -240,12 +240,13 @@ let graph3 = new Chart(ctx, {
         responsive: true,
         plugins: {
             legend: {
-                position: 'right',
-                align: 'start',
+                position: 'top',
+                align: 'end',
                 labels: {
                     boxWidth: 50,
                     font: {
                         family: 'Alatsi',
+                        size: 14,
                     },
                     color: '#FFFFFF'
                 },
@@ -287,6 +288,12 @@ let graph3 = new Chart(ctx, {
                     color: '#FFF',
                 },
             },
+        },
+        elements: {
+            point: {
+                radius: 5,
+                hoverRadius: 12,
+            }
         }
     },
     plugins: [backgroundColorPlugin]
@@ -972,4 +979,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const observer = new IntersectionObserver(handleIntersection, options);
 
     observer.observe(section);
+});
+
+
+// Récupérer les modales et les liens de fermeture
+const modals = document.querySelectorAll('.modal1, .modal2, .modal3');
+const closeLinks = document.querySelectorAll('.close');
+const body = document.body;
+
+modals.forEach(modal => {
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) { // Vérifie si le clic est en dehors de la modale
+            window.location.hash = '#footer'; // Redirige vers le pied de page pour fermer la modale
+            body.classList.remove('no-scroll');
+        }
+    });
+});
+
+// Gérer l'ouverture d'une modale
+modals.forEach(modal => {
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            body.classList.remove('no-scroll');
+        }
+    });
+});
+
+// Gérer la fermeture d'une modale via le bouton "close"
+closeLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        body.classList.remove('no-scroll');
+    });
+});
+
+// Gérer l'ajout de la classe `no-scroll` pour les liens activant les modales
+document.querySelectorAll('.footer__list li a').forEach(link => {
+    link.addEventListener('click', () => {
+        const targetId = link.getAttribute('href');
+        console.log(targetId);
+        const targetElement = document.querySelector(targetId);
+        console.log(targetElement);
+        if (targetElement && 
+            (targetElement.classList.contains('modal1') || 
+             targetElement.classList.contains('modal2') || 
+             targetElement.classList.contains('modal3'))) {
+            body.classList.add('no-scroll');
+        }
+    });
 });
