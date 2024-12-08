@@ -14,14 +14,14 @@
       }
     ],
     "texts": [
-      "En 2017, l'arrivée des mouvements #MeToo...",
-      "En 2018, l'élan #MeToo se poursuit...",
-      "En 2019, les violences sexuelles restent...",
-      "En 2020, la pandémie aggrave les violences...",
-      "En 2021, la vague de témoignages sur l'inceste...",
-      "En 2022, les plateformes numériques prennent...",
-      "En 2023, les débats autour du consentement..."
-    ]
+      "En 2017, l'arrivée des mouvements #MeToo et #BalanceTonPorc sur les réseaux sociaus permettent une libération de la parole des victimes, entraînant une hausse des signalements. Cette augmentation reflète un bris de tabou et place les violences sexuelles au cœur du débat public.",
+      "En 2018, l'élan #MeToo se poursuit avec plus de témoignages et de réformes juridiques. La hausse des signalements montre une confiance accrue des victimes et révèle l'ampleur persistante du problème.",
+      "En 2019, les violences sexuelles restent au centre des débats, avec des affaires médiatisées et la marche #NousToutes mobilisant des milliers de personnes. Initiatives éducatives et préventives émergent, tandis que les signalements augmentent, signe d’une prise de conscience collective.",
+      "En 2020, la pandémie aggrave les violences sexuelles en isolant les victimes. Des initiatives comme les alertes en pharmacie apparaissent pour contourner ces obstacles, montrant une prise de conscience, malgré des actions encore insuffisantes.",
+      "En 2021, la vague de témoignages sur l'inceste, amplifiée par le livre de Camille Kouchner, relance le débat sur les violences intrafamiliales. Les signalements augmentent, notamment grâce à des campagnes ciblées et des outils de signalement en ligne.",
+      "En 2022, les plateformes numériques prennent une place centrale dans la dénonciation des violences sexuelles, avec des hashtags comme #DoublePeine dénonçant les failles judiciaires. La hausse des plaintes témoigne d'une pression accrue sur les institutions pour une meilleure prise en charge des victimes.",
+      "En 2023, les débats autour du consentement et des violences conjugales s’intensifient, avec des lois renforçant les sanctions. Des affaires très médiatisées, comme celles impliquant des personnalités publiques, continuent de mobiliser l'opinion et encouragent plus de victimes à se manifester."
+  ]
   },
   "graph3": {
     "labels": ["2015", "2016", "2017", "2018", "2019", "2020", "2021"],
