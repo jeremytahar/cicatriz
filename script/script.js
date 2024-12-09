@@ -1,49 +1,43 @@
-// Initialisation des avatars
-const avatarenfant = document.getElementById('avatar_enfant');
-const avataradulte = document.getElementById('avatar_adulte');
-const avatarvieille = document.getElementById('avatar_vieille');
-const avatar = document.getElementById('avatar');
-
-// Initialisation des éléments d'âge
-const age1 = document.getElementById('age1');
-const age2 = document.getElementById('age2');
-const age3 = document.getElementById('age3');
-
-// Initialisation des éléments de texte
-const texte = document.getElementById('texte');
-const info1 = document.getElementById('info1');
-const info2 = document.getElementById('info2');
-const info3 = document.getElementById('info3');
-
-// Fonction pour afficher l'avatar et l'information correspondants à la catégorie d'âge
-function displayCategory(avatarElement, infoElement) {
-    // Masquer tous les avatars et informations
-    [avatar, avatarenfant, avataradulte, avatarvieille].forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('visible');
-    });
-
-    [info1, info2, info3, texte].forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('visible');
-    });
-
-    // Afficher l'avatar et l'information de la catégorie sélectionnée
-    avatarElement.classList.add('visible');
-    avatarElement.classList.remove('hidden');
-    infoElement.classList.add('visible');
-    infoElement.classList.remove('hidden');
-}
-
-// Événements pour chaque catégorie d'âge
-age1.addEventListener('mouseenter', () => displayCategory(avatarenfant, info1));
-age2.addEventListener('mouseenter', () => displayCategory(avataradulte, info2));
-age3.addEventListener('mouseenter', () => displayCategory(avatarvieille, info3));
-
-// ========== GRAPHIQUE VICTIMES ========== 
 fetch('script/data.json')
     .then((response) => response.json())
     .then((data) => {
+// Charger les données depuis le JSON
+const dataVictime = data.sectionAgression.categories;
+
+// Initialisation des éléments DOM
+const texte = document.getElementById('texte');
+const dynamicInfo = document.getElementById('dynamic-info');
+const ageList = document.getElementById('age-list');
+const avatar = document.getElementById('avatar');
+const infoPercentage = document.getElementById('info-percentage');
+const infoText = document.getElementById('info-text');
+const infoSource = document.getElementById('info-source');
+
+// Créer dynamiquement la liste des tranches d'âge
+dataVictime.forEach((category, index) => {
+  const li = document.createElement('li');
+  li.textContent = category.ageRange;
+  li.className = "section__agression-list-age";
+  li.addEventListener('mouseenter', () => displayCategory(category));
+  ageList.appendChild(li);
+});
+
+// Afficher les informations dynamiques selon la catégorie
+function displayCategory(category) {
+  // Mettre à jour l'avatar
+  avatar.src = category.avatar;
+
+  // Mettre à jour les informations textuelles
+  infoPercentage.textContent = category.percentage;
+  infoText.textContent = category.text;
+  infoSource.href = category.source;
+
+  // Rendre visibles les éléments correspondants
+  texte.classList.add('hidden');
+  dynamicInfo.classList.remove('hidden');
+}
+
+// ========== GRAPHIQUE VICTIMES ========== 
         // Graphique 2
         let ctx2 = document.getElementById('graph2').getContext('2d');
         const graph2Data = data.graph2;
@@ -717,21 +711,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     fill: "forwards"
                 }
             );
-
-            // setTimeout(() => {
-            //     document.querySelector(".presentation svg .path1").style.display = "block";
-            //     setTimeout(() => {
-            //     path.style.fill = "#ffffff";
-            //     path.style.fillOpacity = 1;
-            //     path.style.stroke = "#AF94E0";
-            //     }, );
-            // }, 1700);
         });
     };
 
     const options = {
         root: null,
-        threshold: 0.8
+        threshold: 0.5
     };
 
     const observer = new IntersectionObserver(handleIntersection, options);
