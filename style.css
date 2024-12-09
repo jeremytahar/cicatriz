@@ -18,7 +18,6 @@
 
 html {
     scroll-snap-type: y mandatory;
-
 }
 
 body {
@@ -199,20 +198,29 @@ header {
 /* CODE CSS DU PREMIER GRAPHIQUE */
 .section__agression {
     position: relative;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
     width: 100vw;
+    display: flex;
 }
 
 .section__agression-text {
-    margin: 0px 200px 0px 0px;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     position: relative;
-    left: 800px;
-    top: 100px;
+    top: -50px;
+
+    .hidden {
+        display: none;
+    }
 }
 
 .section__agression-text h1 {
     font-size: 4rem;
+    margin: 0;
+    margin-bottom: 15px;
     font-family: 'Bebas', sans-serif;
     color: #2A114B;
 
@@ -227,17 +235,13 @@ header {
     font-size: 1.2rem;
 }
 
-.section__agression-info {
-    position: absolute;
-}
-
 .section__agression-list {
     font-family: 'Bebas', sans-serif;
     color: white;
     font-size: 3rem;
     position: absolute;
-    right: 0px;
-    margin: 150px;
+    right: 75px;
+    bottom: 0;
 }
 
 .section__agression-list-age:hover {
@@ -250,23 +254,19 @@ header {
 }
 
 .section__agression-img img {
-    position: absolute;
-    top: 100px;
-    left: 100px;
-    width: 480px;
-    height: 600px;
-}
-
-.section__agression-info {
-    position: absolute;
-    top: 150px;
+    position: relative;
+    right: 5%;
+    min-width: 50%;
+    width: 90%;
+    /* min-width: 500px; */
+    max-height: 600px;
 }
 
 .section__agression-info h2 {
     font-family: 'Bebas', sans-serif;
     color: #2A114B;
     font-size: 4rem;
-    margin-bottom: 0px;
+    margin: 0;
 }
 
 .section__agression-info p {
@@ -529,11 +529,13 @@ header {
     #map-container {
         height: 90vh;
         display: flex;
+        width: 90vw;
+        max-width: 1200px;
         justify-content: center;
         align-items: center;
-        /* Centre verticalement */
+        margin: auto;
         position: relative;
-        gap: 150px;
+        /* gap: 150px; */
         transition: transform 0.5s ease;
 
         .map-text {
@@ -545,7 +547,7 @@ header {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            right: 10%;
+            right: 0;
             /* Utilisation d'un pourcentage pour éviter les valeurs fixes */
             opacity: 0;
             display: none;
@@ -554,27 +556,28 @@ header {
     }
 
     #map {
-        flex: 1;
+        /* flex: 1; */
         max-width: 700px;
-        height: 100%;
-        /* S'adapte à la hauteur parent */
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -55%);
         background-color: transparent;
-        transition: transform 0.5s ease;
-        transform: translateY(-50px);
+        transition: all 0.5s ease;
+        /* transform: translateY(-50px); */
     }
 
     #region-map {
         width: 400px;
         height: 400px;
         background-color: transparent;
-        /* display: none; */
     }
 
     #map-container.active #map {
-        transform: translate(calc(450px - 50vw), -50px);
+        left: 0;
+        transform: translate(0, -55%);
     }
 
     #map-container.active .map-text {
@@ -774,7 +777,7 @@ footer ul {
     overflow-y: scroll;
     background-color: #fff;
     margin: 15% auto;
-    padding: 30px;
+    padding: 50px;
     border-radius: 8px;
     width: 70vw;
     height: 90vh;
