@@ -1,43 +1,43 @@
 fetch('script/data.json')
     .then((response) => response.json())
     .then((data) => {
-// Charger les données depuis le JSON
-const dataVictime = data.sectionAgression.categories;
+        // Charger les données depuis le JSON
+        const dataVictime = data.sectionAgression.categories;
 
-// Initialisation des éléments DOM
-const texte = document.getElementById('texte');
-const dynamicInfo = document.getElementById('dynamic-info');
-const ageList = document.getElementById('age-list');
-const avatar = document.getElementById('avatar');
-const infoPercentage = document.getElementById('info-percentage');
-const infoText = document.getElementById('info-text');
-const infoSource = document.getElementById('info-source');
+        // Initialisation des éléments DOM
+        const texte = document.getElementById('texte');
+        const dynamicInfo = document.getElementById('dynamic-info');
+        const ageList = document.getElementById('age-list');
+        const avatar = document.getElementById('avatar');
+        const infoPercentage = document.getElementById('info-percentage');
+        const infoText = document.getElementById('info-text');
+        const infoSource = document.getElementById('info-source');
 
-// Créer dynamiquement la liste des tranches d'âge
-dataVictime.forEach((category, index) => {
-  const li = document.createElement('li');
-  li.textContent = category.ageRange;
-  li.className = "section__agression-list-age";
-  li.addEventListener('mouseenter', () => displayCategory(category));
-  ageList.appendChild(li);
-});
+        // Créer dynamiquement la liste des tranches d'âge
+        dataVictime.forEach((category, index) => {
+            const li = document.createElement('li');
+            li.textContent = category.ageRange;
+            li.className = "section__agression-list-age";
+            li.addEventListener('mouseenter', () => displayCategory(category));
+            ageList.appendChild(li);
+        });
 
-// Afficher les informations dynamiques selon la catégorie
-function displayCategory(category) {
-  // Mettre à jour l'avatar
-  avatar.src = category.avatar;
+        // Afficher les informations dynamiques selon la catégorie
+        function displayCategory(category) {
+            // Mettre à jour l'avatar
+            avatar.src = category.avatar;
 
-  // Mettre à jour les informations textuelles
-  infoPercentage.textContent = category.percentage;
-  infoText.textContent = category.text;
-  infoSource.href = category.source;
+            // Mettre à jour les informations textuelles
+            infoPercentage.textContent = category.percentage;
+            infoText.textContent = category.text;
+            infoSource.href = category.source;
 
-  // Rendre visibles les éléments correspondants
-  texte.classList.add('hidden');
-  dynamicInfo.classList.remove('hidden');
-}
+            // Rendre visibles les éléments correspondants
+            texte.classList.add('hidden');
+            dynamicInfo.classList.remove('hidden');
+        }
 
-// ========== GRAPHIQUE VICTIMES ========== 
+        // ========== GRAPHIQUE VICTIMES ========== 
         // Graphique 2
         let ctx2 = document.getElementById('graph2').getContext('2d');
         const graph2Data = data.graph2;
@@ -141,184 +141,186 @@ function displayCategory(category) {
             }
         });
 
-        // ========== GRAPHIQUE CONDAMNATION ==========
-        // Plugin pour le fond de la zone de traçage seulement
-        const backgroundColorPlugin = {
-            id: 'backgroundColorPlugin',
-            beforeDraw: (chart) => {
-                const ctx = chart.ctx;
-                const chartArea = chart.chartArea;
+// ========== GRAPHIQUE CONDAMNATION ==========
+// Plugin pour le fond de la zone de traçage seulement
+const backgroundColorPlugin = {
+    id: 'backgroundColorPlugin',
+    beforeDraw: (chart) => {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
 
-                ctx.save();
-                ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
+        ctx.save();
+        ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
 
-                ctx.fillStyle = "#4D2A7B";
+        ctx.fillStyle = "#4D2A7B";
 
-                ctx.fillRect(
-                    chartArea.left,
-                    chartArea.top,
-                    chartArea.right - chartArea.left,
-                    chartArea.bottom - chartArea.top
-                );
+        ctx.fillRect(
+            chartArea.left,
+            chartArea.top,
+            chartArea.right - chartArea.left,
+            chartArea.bottom - chartArea.top
+        );
 
-                ctx.restore();
-            }
-        };
+        ctx.restore();
+    }
+};
 
-        // Création du premier graphique en ligne (graph3)
-        const ctx3 = document.getElementById('graph3').getContext('2d');
-        let graph3 = new Chart(ctx3, {
-            type: 'line',
-            data: data.graph3,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        align: 'end',
-                        labels: {
-                            boxWidth: 50,
-                            font: { family: 'Alatsi', size: 14 },
-                            color: '#FFFFFF'
-                        }
-                    },
-                    tooltip: { enabled: false }
-                },
-                scales: {
-                    x: {
-                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                        ticks: {
-                            font: { family: 'Bebas', size: 22 },
-                            color: '#FFFFFF'
-                        }
-                    },
-                    y: {
-                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                        beginAtZero: true,
-                        max: 35000,
-                        ticks: {
-                            font: { family: 'Bebas', size: 22 },
-                            color: '#FFF'
-                        }
-                    }
-                },
-                elements: {
-                    point: { radius: 5, hoverRadius: 12 }
+// Création du premier graphique en ligne (graph3)
+const ctx3 = document.getElementById('graph3').getContext('2d');
+let graph3 = new Chart(ctx3, {
+    type: 'line',
+    data: data.graph3,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+                align: 'end',
+                labels: {
+                    boxWidth: 50,
+                    font: { family: 'Alatsi', size: 14 },
+                    color: '#FFFFFF'
                 }
             },
-            plugins: [backgroundColorPlugin]
-        });
-
-        // Création du second graphique en barres (graph4)
-        const ctxBar = document.getElementById('graphBar').getContext('2d');
-        let graphBar = new Chart(ctxBar, {
-            type: 'bar',
-            data: data.graphBar,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        align: 'end',
-                        labels: {
-                            boxWidth: 50,
-                            font: { family: 'Alatsi', size: 14 },
-                            color: '#FFFFFF'
-                        }
-                    },
-                    tooltip: { enabled: false }
-                },
-                scales: {
-                    x: {
-                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                        ticks: {
-                            font: { family: 'Bebas', size: 22 },
-                            color: '#FFF'
-                        }
-                    },
-                    y: {
-                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                        beginAtZero: true,
-                        max: 35000,
-                        ticks: {
-                            font: { family: 'Bebas', size: 22 },
-                            color: '#FFF'
-                        }
-                    }
+            tooltip: { enabled: false }
+        },
+        scales: {
+            x: {
+                grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                ticks: {
+                    font: { family: 'Bebas', size: 22 },
+                    color: '#FFFFFF'
                 }
             },
-            plugins: [backgroundColorPlugin]
-        });
-
-        const barData = data.barData;
-        const lineData = data.lineData;
-        const courbectx = document.getElementById('graph3').getContext('2d');
-        const barCtx = document.getElementById('graphBar').getContext('2d');
-
-        barCtx.canvas.onclick = (event) => {
-            const elements = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
-            if (elements.length > 0) {
-                const firstElement = elements[0];
-                const datasetIndex = firstElement.datasetIndex;
-                const dataIndex = firstElement.index;
-
-                const dataset = graphBar.data.datasets[datasetIndex];
-                const barValue = dataset.data[dataIndex];
-                const year = graphBar.data.labels[dataIndex];
-                const label = dataset.label;
-
-                const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
-                const otherDataset = graphBar.data.datasets[otherDatasetIndex];
-                const otherbarValue = otherDataset.data[dataIndex];
-                const otherLabel = otherDataset.label;
-
-                document.getElementById('section__condamnation-info').innerHTML = `
-                    <h1><span class="white">EN</span> <span id="year-counter2">${year}</span></h1>
-                    <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
-                    <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. 
-                    On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
-                    Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
-                    <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
-                    <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
-                `;
-
-                animateCounter(document.getElementById('convictions-counter1'), 0, barValue, 2000);
-                animateCounter(document.getElementById('year-counter2'), 0, year, 400);
+            y: {
+                grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                beginAtZero: true,
+                max: 35000,
+                ticks: {
+                    font: { family: 'Bebas', size: 22 },
+                    color: '#FFF'
+                }
             }
-        };
+        },
+        elements: {
+            point: { radius: 5, hoverRadius: 12 }
+        }
+    },
+    plugins: [backgroundColorPlugin]
+});
 
-        // Fonction d'affichage au clique pour le graphique type line
-        courbectx.canvas.onclick = (event) => {
-            const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
-            if (elements.length > 0) {
-                const firstElement = elements[0];
-                const datasetIndex = firstElement.datasetIndex;
-                const dataIndex = firstElement.index;
-
-                const dataset = graph3.data.datasets[datasetIndex];
-                const pointValue = dataset.data[dataIndex];
-                const year = graph3.data.labels[dataIndex];
-                const label = dataset.label;
-
-                const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
-                const otherDataset = graph3.data.datasets[otherDatasetIndex];
-                const otherValue = otherDataset.data[dataIndex];
-                const otherLabel = otherDataset.label;
-
-                document.getElementById('section__condamnation-info').innerHTML = `
-                    <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
-                    <h2><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h2>
-                    <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
-                    On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
-                    Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
-                    <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
-                    <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
-                `;
-
-                animateCounter(document.getElementById('convictions-counter'), 0, pointValue, 2000);
-                animateCounter(document.getElementById('year-counter1'), 0, year, 400);
+// Création du second graphique en barres (graph4)
+const ctxBar = document.getElementById('graphBar').getContext('2d');
+let graphBar = new Chart(ctxBar, {
+    type: 'bar',
+    data: data.graphBar,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+                align: 'end',
+                labels: {
+                    boxWidth: 50,
+                    font: { family: 'Alatsi', size: 14 },
+                    color: '#FFFFFF'
+                }
+            },
+            tooltip: { enabled: false }
+        },
+        scales: {
+            x: {
+                grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                ticks: {
+                    font: { family: 'Bebas', size: 22 },
+                    color: '#FFF'
+                }
+            },
+            y: {
+                grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                beginAtZero: true,
+                max: 35000,
+                ticks: {
+                    font: { family: 'Bebas', size: 22 },
+                    color: '#FFF'
+                }
             }
-        };
+        }
+    },
+    plugins: [backgroundColorPlugin]
+});
+
+const barData = data.barData;
+const lineData = data.lineData;
+const courbectx = document.getElementById('graph3').getContext('2d');
+const barCtx = document.getElementById('graphBar').getContext('2d');
+
+barCtx.canvas.onclick = (event) => {
+    const elements = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+    if (elements.length > 0) {
+        const firstElement = elements[0];
+        const datasetIndex = firstElement.datasetIndex;
+        const dataIndex = firstElement.index;
+
+        const dataset = graphBar.data.datasets[datasetIndex];
+        const barValue = dataset.data[dataIndex];
+        const year = graphBar.data.labels[dataIndex];
+        const label = dataset.label;
+
+        const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
+        const otherDataset = graphBar.data.datasets[otherDatasetIndex];
+        const otherbarValue = otherDataset.data[dataIndex];
+        const otherLabel = otherDataset.label;
+
+        document.getElementById('section__condamnation-info').innerHTML = `
+            <h1><span class="white">EN</span> <span id="year-counter2">${year}</span></h1>
+            <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
+            <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. 
+            On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
+            Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
+            <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
+            <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
+        `;
+
+        animateCounter(document.getElementById('convictions-counter1'), 0, barValue, 2000);
+        animateCounter(document.getElementById('year-counter2'), 0, year, 400);
+    }
+};
+
+// Fonction d'affichage au clique pour le graphique type line
+courbectx.canvas.onclick = (event) => {
+    const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+    if (elements.length > 0) {
+        const firstElement = elements[0];
+        const datasetIndex = firstElement.datasetIndex;
+        const dataIndex = firstElement.index;
+
+        const dataset = graph3.data.datasets[datasetIndex];
+        const pointValue = dataset.data[dataIndex];
+        const year = graph3.data.labels[dataIndex];
+        const label = dataset.label;
+
+        const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
+        const otherDataset = graph3.data.datasets[otherDatasetIndex];
+        const otherValue = otherDataset.data[dataIndex];
+        const otherLabel = otherDataset.label;
+
+        document.getElementById('section__condamnation-info').innerHTML = `
+            <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
+            <h2><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h2>
+            <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
+            On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
+            Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
+            <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
+            <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
+        `;
+
+        animateCounter(document.getElementById('convictions-counter'), 0, pointValue, 2000);
+        animateCounter(document.getElementById('year-counter1'), 0, year, 400);
+    }
+};
 
 
 // Fonction de changement des graphiques 
@@ -339,161 +341,244 @@ document.getElementById('changeToBar').addEventListener('click', function () {
 
 
 
-// ========== GRAPHIQUE CARTE ==========
-const mapData = data.mapData;
+        // ========== GRAPHIQUE CARTE ==========
+        const mapData = data.mapData;
 
-    function getAggressionDataForRegion(region) {
-      return mapData.regions[region] || 'Données non disponibles';
-    }
+        function getAggressionDataForRegion(region) {
+            return mapData.regions[region] || 'Données non disponibles';
+        }
 
-    function getAggressionDataForDepartment(department) {
-      return mapData.departments[department] || 'Données non disponibles';
-    }
+        function getAggressionDataForDepartment(department) {
+            return mapData.departments[department] || 'Données non disponibles';
+        }
 
-var map = L.map('map', {
-    center: [46.603354, 1.888334],
-    zoom: 5.8,
-    zoomSnap: 0,
-    zoomControl: false,
-    attributionControl: false,
-    dragging: false,
-    touchZoom: false,
-    scrollWheelZoom: false,
-    boxZoom: false,
-    doubleClickZoom: false,
-    tap: false
-});
+        function calculateZoom() {
+            const width = window.innerWidth;
+            if (width > 1200) {
+                return 5.8;
+            } else if (width > 768) {
+                return 5.5;
+            } else {
+                return 5; 
+            }
+        }
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    opacity: 0
-}).addTo(map);
+        window.addEventListener('resize', () => {
+            const newZoom = calculateZoom();
+            map.setZoom(newZoom);
+            if (regionMap) {
+                regionMap.setZoom(newZoom);
+            }
+        });
 
-let activeRegion = null;
-let activeDepartment = null;
-let regionMap = null;
 
-function loadRegionMap(regionName) {
-    let formattedRegionName = regionName
-        .toLowerCase()                   // Convertir en minuscules
-        .normalize("NFD")                 // Décomposer les caractères accentués
-        .replace(/[\u0300-\u036f]/g, "")  // Supprimer les accents
-        .replace(/ /g, '-')
-        .replace(/'/g, '-');
+        var map = L.map('map', {
+            center: [46.603354, 1.888334],
+            zoom: calculateZoom(),
+            zoomSnap: 0,
+            zoomControl: false,
+            attributionControl: false,
+            dragging: false,
+            touchZoom: false,
+            scrollWheelZoom: false,
+            boxZoom: false,
+            doubleClickZoom: false,
+            tap: false
+        });
 
-    let geojsonFile = `https://france-geojson.gregoiredavid.fr/repo/regions/${formattedRegionName}/departements-${formattedRegionName}.geojson`;
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            opacity: 0
+        }).addTo(map);
 
-    console.log(regionName);
+        let activeRegion = null;
+        let activeDepartment = null;
+        let regionMap = null;
 
-    if (regionMap !== null) {
-        regionMap.remove();
-        regionMap = null;
-    }
+        function loadRegionMap(regionName) {
+            let formattedRegionName = regionName
+                .toLowerCase()                   // Convertir en minuscules
+                .normalize("NFD")                 // Décomposer les caractères accentués
+                .replace(/[\u0300-\u036f]/g, "")  // Supprimer les accents
+                .replace(/ /g, '-')
+                .replace(/'/g, '-');
 
-    regionMap = L.map('region-map', {
-        center: [46.603354, 1.888334],
-        zoom: 6.5,
-        zoomSnap: 0,
-        zoomControl: false,
-        attributionControl: false,
-        dragging: false,
-        touchZoom: false,
-        scrollWheelZoom: false,
-        boxZoom: false,
-        doubleClickZoom: false,
-        tap: false
-    });
+            let geojsonFile = `https://france-geojson.gregoiredavid.fr/repo/regions/${formattedRegionName}/departements-${formattedRegionName}.geojson`;
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        opacity: 0
-    }).addTo(regionMap);
+            console.log(regionName);
 
-    fetch(geojsonFile)
-        .then(response => response.json())
-        .then(data => {
-            // Rendez le conteneur visible
-            const mapContainer = document.getElementById('map-container');
-            mapContainer.classList.add('active');
+            if (regionMap !== null) {
+                regionMap.remove();
+                regionMap = null;
+            }
 
-            // Attendez que les styles soient appliqués
-            setTimeout(() => {
-                if (regionMap !== null) {
-                    regionMap.remove();
-                    regionMap = null;
-                }
+            regionMap = L.map('region-map', {
+                center: [46.603354, 1.888334],
+                zoom: 6.5,
+                zoomSnap: 0,
+                zoomControl: false,
+                attributionControl: false,
+                dragging: false,
+                touchZoom: false,
+                scrollWheelZoom: false,
+                boxZoom: false,
+                doubleClickZoom: false,
+                tap: false
+            });
 
-                regionMap = L.map('region-map', {
-                    center: [46.603354, 1.888334],
-                    zoom: 6.5,
-                    zoomSnap: 0,
-                    zoomControl: false,
-                    attributionControl: false,
-                    dragging: false,
-                    touchZoom: false,
-                    scrollWheelZoom: false,
-                    boxZoom: false,
-                    doubleClickZoom: false,
-                    tap: false
-                });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                opacity: 0
+            }).addTo(regionMap);
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    opacity: 0
-                }).addTo(regionMap);
+            fetch(geojsonFile)
+                .then(response => response.json())
+                .then(data => {
+                    // Rendez le conteneur visible
+                    const mapContainer = document.getElementById('map-container');
+                    mapContainer.classList.add('active');
 
-                let geoLayer = L.geoJSON(data, {
-                    style: {
-                        color: '#fff',
-                        weight: 1,
-                        fillColor: '#4D2A7B',
-                        fillOpacity: 0.7
-                    },
-                    onEachFeature: function (feature, layer) {
-                        layer.on('click', function (e) {
-                            if (activeDepartment) {
-                                activeDepartment.setStyle({
-                                    fillColor: '#AF94E0',
-                                    fillOpacity: 1
-                                });
-                            }
+                    // Attendez que les styles soient appliqués
+                    setTimeout(() => {
+                        if (regionMap !== null) {
+                            regionMap.remove();
+                            regionMap = null;
+                        }
 
-                            activeDepartment = this;
-
-                            this.setStyle({
-                                fillColor: '#fff',
-                                fillOpacity: 1
-                            });
-
-                            // Récupérer le nom de la région
-                            var departmentName = feature.properties.nom;
-
-                            // Afficher l'information dans la section__carte-info
-                            var aggressionData = getAggressionDataForDepartment(departmentName);
-                            var infoDiv = document.querySelector('.section__carte-info');
-                            infoDiv.innerHTML = `<h3>${departmentName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
-                            infoDiv.style.display = 'block';
-
-                            let victimElement = document.getElementById('victim-counter-map');
-                            animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
-
-                            e.originalEvent.stopPropagation();
-
-                            console.log('Region:', regionName);
+                        regionMap = L.map('region-map', {
+                            center: [46.603354, 1.888334],
+                            zoom: 6.5,
+                            zoomSnap: 0,
+                            zoomControl: false,
+                            attributionControl: false,
+                            dragging: false,
+                            touchZoom: false,
+                            scrollWheelZoom: false,
+                            boxZoom: false,
+                            doubleClickZoom: false,
+                            tap: false
                         });
 
-                        layer.on('mouseover', function (e) {
-                            const departmentName = feature.properties.nom;
-                            const aggressionData = getAggressionDataForDepartment(departmentName);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            opacity: 0
+                        }).addTo(regionMap);
 
-                            showTooltip(`<strong>${departmentName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+                        let geoLayer = L.geoJSON(data, {
+                            style: {
+                                color: '#fff',
+                                weight: 1,
+                                fillColor: '#4D2A7B',
+                                fillOpacity: 0.7
+                            },
+                            onEachFeature: function (feature, layer) {
+                                layer.on('click', function (e) {
+                                    if (activeDepartment) {
+                                        activeDepartment.setStyle({
+                                            fillColor: '#AF94E0',
+                                            fillOpacity: 1
+                                        });
+                                    }
+
+                                    activeDepartment = this;
+
+                                    this.setStyle({
+                                        fillColor: '#fff',
+                                        fillOpacity: 1
+                                    });
+
+                                    // Récupérer le nom de la région
+                                    var departmentName = feature.properties.nom;
+
+                                    // Afficher l'information dans la section__carte-info
+                                    var aggressionData = getAggressionDataForDepartment(departmentName);
+                                    var infoDiv = document.querySelector('.section__carte-info');
+                                    infoDiv.innerHTML = `<h3>${departmentName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
+                                    infoDiv.style.display = 'block';
+
+                                    let victimElement = document.getElementById('victim-counter-map');
+                                    animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
+
+                                    e.originalEvent.stopPropagation();
+
+                                    console.log('Region:', regionName);
+                                });
+
+                                layer.on('mouseover', function (e) {
+                                    const departmentName = feature.properties.nom;
+                                    const aggressionData = getAggressionDataForDepartment(departmentName);
+
+                                    showTooltip(`<strong>${departmentName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+
+                                    this.setStyle({
+                                        borderColor: '#ffffff',
+                                        weight: 2.5
+                                    });
+
+                                    regionMap.getContainer().addEventListener('mousemove', updateTooltipPosition);
+                                });
+
+                                layer.on('mouseout', function () {
+                                    hideTooltip();
+                                    this.setStyle({
+                                        borderColor: '#AF94E0',
+                                        weight: 1
+                                    });
+
+                                    map.getContainer().removeEventListener('mousemove', updateTooltipPosition);
+                                });
+                            }
+                        }).addTo(regionMap);
+
+                        regionMap.fitBounds(geoLayer.getBounds(), {
+                            animate: false,
+                        });
+
+                        setTimeout(() => {
+                            regionMap.invalidateSize();
+                        }, 100);
+                    }, 100);
+                })
+                .catch(error => {
+                    console.error(`Erreur lors du chargement du fichier ${geojsonFile}:`, error);
+                });
+
+        }
+
+        // Réinitialisez l'état si nécessaire
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('#region-map') && !event.target.closest('#map')) {
+                document.getElementById('map-container').classList.remove('active');
+            }
+        });
+
+
+
+        // Chargement des régions depuis le GeoJSON
+        fetch('https://france-geojson.gregoiredavid.fr/repo/regions.geojson')
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: {
+                        color: 'white',
+                        weight: 1,
+                        opacity: 1,
+                        fillColor: '#4D2A7B',
+                        fillOpacity: 1
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on('mouseover', function (e) {
+                            const regionName = feature.properties.nom;
+                            const aggressionData = getAggressionDataForRegion(regionName);
+
+                            showTooltip(`<strong>${regionName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
 
                             this.setStyle({
                                 borderColor: '#ffffff',
                                 weight: 2.5
                             });
 
-                            regionMap.getContainer().addEventListener('mousemove', updateTooltipPosition);
+                            map.getContainer().addEventListener('mousemove', updateTooltipPosition);
                         });
 
                         layer.on('mouseout', function () {
@@ -505,141 +590,78 @@ function loadRegionMap(regionName) {
 
                             map.getContainer().removeEventListener('mousemove', updateTooltipPosition);
                         });
-                    }
-                }).addTo(regionMap);
 
-                regionMap.fitBounds(geoLayer.getBounds(), {
-                    animate: false,
-                });
+                        layer.on('click', function (e) {
+                            if (activeRegion) {
+                                activeRegion.setStyle({
+                                    fillColor: '#AF94E0',
+                                    fillOpacity: 1
+                                });
+                            }
 
-                setTimeout(() => {
-                    regionMap.invalidateSize();
-                }, 100);
-            }, 100);
-        })
-        .catch(error => {
-            console.error(`Erreur lors du chargement du fichier ${geojsonFile}:`, error);
-        });
+                            activeRegion = this;
 
-}
+                            this.setStyle({
+                                fillColor: 'white',
+                                fillOpacity: 1
+                            });
 
-// Réinitialisez l'état si nécessaire
-document.addEventListener('click', (event) => {
-    if (!event.target.closest('#region-map') && !event.target.closest('#map')) {
-        document.getElementById('map-container').classList.remove('active');
-    }
-});
+                            // Récupérer le nom de la région
+                            var regionName = feature.properties.nom;
 
+                            // Afficher l'information dans la section__carte-info
+                            var aggressionData = getAggressionDataForRegion(regionName);
+                            var infoDiv = document.querySelector('.section__carte-info');
+                            infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
+                            infoDiv.style.display = 'block';
 
+                            let victimElement = document.getElementById('victim-counter-map');
+                            animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
 
-// Chargement des régions depuis le GeoJSON
-fetch('https://france-geojson.gregoiredavid.fr/repo/regions.geojson')
-    .then(response => response.json())
-    .then(data => {
-        L.geoJSON(data, {
-            style: {
-                color: 'white',
-                weight: 1,
-                opacity: 1,
-                fillColor: '#4D2A7B',
-                fillOpacity: 1
-            },
-            onEachFeature: function (feature, layer) {
-                layer.on('mouseover', function (e) {
-                    const regionName = feature.properties.nom;
-                    const aggressionData = getAggressionDataForRegion(regionName);
+                            // Charger la carte des départements pour la région cliquée
+                            loadRegionMap(regionName);
 
-                    showTooltip(`<strong>${regionName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+                            e.originalEvent.stopPropagation();
 
-                    this.setStyle({
-                        borderColor: '#ffffff',
-                        weight: 2.5
-                    });
-
-                    map.getContainer().addEventListener('mousemove', updateTooltipPosition);
-                });
-
-                layer.on('mouseout', function () {
-                    hideTooltip();
-                    this.setStyle({
-                        borderColor: '#AF94E0',
-                        weight: 1
-                    });
-
-                    map.getContainer().removeEventListener('mousemove', updateTooltipPosition);
-                });
-
-                layer.on('click', function (e) {
-                    if (activeRegion) {
-                        activeRegion.setStyle({
-                            fillColor: '#AF94E0',
-                            fillOpacity: 1
+                            console.log('Region:', regionName);
                         });
                     }
+                }).addTo(map);
+            });
 
-                    activeRegion = this;
 
-                    this.setStyle({
-                        fillColor: 'white',
+        document.addEventListener('click', function (e) {
+            const mapContainer = document.getElementById('map');
+            const regionMapContainer = document.getElementById('region-map');
+
+            if (!mapContainer.contains(e.target) && (!regionMapContainer || !regionMapContainer.contains(e.target))) {
+                if (activeRegion) {
+                    activeRegion.setStyle({
+                        fillColor: '#AF94E0',
                         fillOpacity: 1
                     });
+                    activeRegion = null;
+                }
 
-                    // Récupérer le nom de la région
-                    var regionName = feature.properties.nom;
+                if (activeDepartment) {
+                    activeDepartment.setStyle({
+                        fillColor: '#AF94E0',
+                        fillOpacity: 1
+                    });
+                    activeDepartment = null;
+                }
 
-                    // Afficher l'information dans la section__carte-info
-                    var aggressionData = getAggressionDataForRegion(regionName);
-                    var infoDiv = document.querySelector('.section__carte-info');
-                    infoDiv.innerHTML = `<h3>${regionName}</h3><p>Nombre d'agressions sexuelles: <span id="victim-counter-map">${aggressionData}</span></p>`;
-                    infoDiv.style.display = 'block';
+                var infoDiv = document.querySelector('.section__carte-info');
+                infoDiv.innerHTML = '';
+                infoDiv.style.display = 'block';
 
-                    let victimElement = document.getElementById('victim-counter-map');
-                    animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
-
-                    // Charger la carte des départements pour la région cliquée
-                    loadRegionMap(regionName);
-
-                    e.originalEvent.stopPropagation();
-
-                    console.log('Region:', regionName);
-                });
+                if (regionMap !== null) {
+                    regionMap.remove();
+                    regionMap = null;
+                }
             }
-        }).addTo(map);
+        });
     });
-
-
-document.addEventListener('click', function (e) {
-    const mapContainer = document.getElementById('map');
-    const regionMapContainer = document.getElementById('region-map');
-
-    if (!mapContainer.contains(e.target) && (!regionMapContainer || !regionMapContainer.contains(e.target))) {
-        if (activeRegion) {
-            activeRegion.setStyle({
-                fillColor: '#AF94E0',
-                fillOpacity: 1
-            });
-            activeRegion = null;
-        }
-
-        if (activeDepartment) {
-            activeDepartment.setStyle({
-                fillColor: '#AF94E0',
-                fillOpacity: 1
-            });
-            activeDepartment = null;
-        }
-
-        var infoDiv = document.querySelector('.section__carte-info');
-        infoDiv.innerHTML = '';
-        infoDiv.style.display = 'block';
-
-        if (regionMap !== null) {
-            regionMap.remove();
-            regionMap = null;
-        }
-    }
-});
-});
 
 document.getElementById('map').addEventListener('click', function (e) {
     e.stopPropagation();
@@ -726,7 +748,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Récupérer les modales et les liens de fermeture
-const modals = document.querySelectorAll('.modal1, .modal2, .modal3');
+const modals = document.querySelectorAll('.modal1, .modal2');
 const closeLinks = document.querySelectorAll('.close');
 const body = document.body;
 
@@ -764,8 +786,7 @@ document.querySelectorAll('.footer__list li a').forEach(link => {
         console.log(targetElement);
         if (targetElement &&
             (targetElement.classList.contains('modal1') ||
-                targetElement.classList.contains('modal2') ||
-                targetElement.classList.contains('modal3'))) {
+                targetElement.classList.contains('modal2'))) {
             body.classList.add('no-scroll');
         }
     });

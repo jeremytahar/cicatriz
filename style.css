@@ -8,7 +8,7 @@
     font-family: 'Bebas';
     src: url('./fonts/Bebas.woff') format('woff'),
         url('./fonts/Bebas.woff2') format('woff2');
-}  
+}
 
 *,
 *::after,
@@ -166,7 +166,7 @@ header {
 
     path {
         animation: none;
-      }
+    }
 
     .svg-visible {
         visibility: visible;
@@ -177,21 +177,28 @@ header {
     }
 
     path {
-        stroke-dasharray: 0; /* Adjust based on path length */
-        stroke-dashoffset: 0; /* Start hidden */
-        animation: draw 2s linear forwards; /* Default animation */
-        fill: none; /* Optional, ensure only stroke is visible */
-        stroke: white; /* Set stroke color */
-        stroke-width: 2; /* Adjust as needed */
+        stroke-dasharray: 0;
+        /* Adjust based on path length */
+        stroke-dashoffset: 0;
+        /* Start hidden */
+        animation: draw 2s linear forwards;
+        /* Default animation */
+        fill: none;
+        /* Optional, ensure only stroke is visible */
+        stroke: white;
+        /* Set stroke color */
+        stroke-width: 2;
+        /* Adjust as needed */
         fill-opacity: 0;
         transition: fill-opacity 0.5s ease;
-      }
-      
-      @keyframes draw {
+    }
+
+    @keyframes draw {
         to {
-          stroke-dashoffset: 0; /* Fully draw the path */
+            stroke-dashoffset: 0;
+            /* Fully draw the path */
         }
-      }
+    }
 
 }
 
@@ -296,7 +303,7 @@ header {
         color: #AF94E0;
         font-family: 'Bebas', sans-serif;
         font-size: 2rem;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
 
         h1 {
             margin: 0px;
@@ -310,17 +317,18 @@ header {
     }
 
     .section__victime-graph {
-        width: 50%;
-        max-width: 70%;
-        min-width: 50%;
+        flex: 1;
+        min-width: 65%;
+        max-width: 65%;
         height: 100%;
         min-height: 400px;
     }
 
     .section__victime-info {
-        max-width: 600px;
-        margin-left: 50px;
-        margin-right: 70px;
+        /* max-width: 600px; */
+        width: auto;
+        margin-left: 5%;
+        margin-right: 6%;
 
         .section__victime-info-action {
             color: #ffffff;
@@ -376,109 +384,115 @@ header {
 .section__condamnation {
     position: relative;
     width: 100vw;
-    padding: 0 auto;
-}
-
-
-.section__condamnation-info {
-    margin-bottom: 40px;
-    margin-left: 90px;
-    position: absolute;
-    top: 300px;
-}
-
-.section__condamnation-info h1 {
-    font-size: 4rem;
-    font-family: 'Bebas', sans-serif;
-    color: #AF94E0;
-    margin: 0px;
-}
-
-.section__condamnation-info h2 {
-    font-size: 2rem;
-    font-family: 'Bebas', sans-serif;
-    color: #AF94E0;
-    margin: 0px;
-}
-
-.section__condamnation-info p {
-    color: #ffffff;
-    font-family: 'Alatsi', sans-serif;
-    width: 400px;
-}
-
-.section__condamnation-titre {
-    font-family: 'Bebas', sans-serif;
-    color: #AF94E0;
-    position: absolute;
-    left: 50px;
-    top: 50px;
-}
-
-.section__condamnation-titre h1 {
-    font-size: 3rem;
-    margin: 0px;
-
-    .white {
-        color: white;
-    }
-}
-
-.section__condamnation-titre h2 {
-    font-size: 2rem;
-    font-family: 'Bebas', sans-serif;
-    color: white;
-
-    .white {
-        color: white;
-    }
-}
-
-.section__condamnation-graph {
-    width: 941px;
-    height: 508px;
-}
-
-.section__condamnation-graph canvas {
-    position: absolute;
-    top: 250px;
-    right: 50px;
-}
-
-.section__condamnation-button {
-    position: relative;
-    bottom: 300px;
-    padding: 0;
-    left: 40px;
+    padding: 3% 8% 0 5%;
     display: flex;
-    justify-content: space-around;
-    height: 40px;
-    width: 150px;
-}
+    flex-direction: column;
 
-.section__condamnation button {
-    width: 40px;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    transition: all 0.2s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .section__condamnation-titre-button {
+        .section__condamnation-button {
+            position: relative;
+            padding: 0;
+            left: 40px;
+            display: flex;
+            justify-content: space-around;
+            height: 40px;
+            width: 150px;
 
-.section__condamnation button:hover {
-    scale: 1.15;
-}
+            button {
+                width: 40px;
+                background-color: white;
+                border: none;
+                border-radius: 5px;
+                transition: all 0.2s ease-in-out;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-.section__condamnation button img {
-    height: 25px;
-    width: 25px;
-}
+                &:hover {
+                    scale: 1.15;
+                }
 
-.section__condamnation-info a {
-    color: #AF94E0;
-    text-decoration: none;
+                img {
+                    height: 25px;
+                    width: 25px;
+                }
+            }
+        }
+
+        .section__condamnation-titre {
+            font-family: 'Bebas', sans-serif;
+            color: #AF94E0;
+            letter-spacing: 1px;
+
+            h1 {
+                font-size: 3rem;
+                margin: 0;
+            }
+
+            h2 {
+                font-size: 2rem;
+                color: white;
+            }
+
+            .white {
+                color: white;
+            }
+        }
+
+    }
+
+    .section__condamnation-graph-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 50px;
+        margin-bottom: 50px;
+
+        .section__condamnation-graph {
+            min-width: 55%;
+            max-width: 55%;
+            max-height: 500px;
+            min-height: 450px;
+            height: fit-content;
+
+            canvas {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .section__condamnation-info {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            h1 {
+                font-size: 4rem;
+                font-family: 'Bebas', sans-serif;
+                color: #AF94E0;
+                margin: 0;
+            }
+
+            h2 {
+                font-size: 2rem;
+                font-family: 'Bebas', sans-serif;
+                color: #AF94E0;
+                margin: 0px;
+            }
+
+            p {
+                color: #ffffff;
+                font-family: 'Alatsi', sans-serif;
+                width: 400px;
+            }
+
+            a {
+                color: #AF94E0;
+                text-decoration: none;
+            }
+        }
+    }
 }
 
 /* Section 4 */
@@ -605,11 +619,11 @@ header {
 
 
 .hidden {
-    visibility: hidden;
+    display: none !important;
 }
 
 .visible {
-    visibility: visible;
+    display: block;
 }
 
 /* =============== */
@@ -636,20 +650,25 @@ footer {
     justify-content: space-between;
     scroll-snap-align: end;
     font-family: 'Bebas', sans-serif;
+    
+    .footer__container {
+        padding: 2rem 5rem;
+    }
 }
 
-.footer__container {
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
 
 .footer__container-title {
-    padding-left: 100px;
     color: #AF94E0;
-}
+    height: fit-content;
+    margin: 0px;
+   -webkit-margin-before: 0px;
+   -webkit-margin-after: 0px;
 
-.footer__container-credit {
-    padding-right: 100px;
+   h1 {
+    margin: 0px;
+   -webkit-margin-before: 0px;
+   -webkit-margin-after: 0px;
+   }
 }
 
 .footer__title {
@@ -660,10 +679,10 @@ footer {
     font-size: 10rem;
 }
 
-.footer__title--h2 {
+/* .footer__title--h2 {
     margin-top: 50px;
     margin-bottom: 40px;
-}
+} */
 
 .footer__list {
     margin: 0;
@@ -688,17 +707,12 @@ footer {
 
 .footer__title--name {
     position: relative;
-    top: -30px;
-}
-
-.footer__container-credit {
-    padding-right: 100px;
-    margin-left: auto;
+    /* top: -30px; */
 }
 
 .footer__title {
     margin: 0;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .footer__container-modal {
@@ -741,8 +755,7 @@ footer ul {
 
 /* Style général pour cacher la modale par défaut */
 .modal1,
-.modal2,
-.modal3 {
+.modal2 {
     visibility: hidden;
     opacity: 0;
     position: fixed;
@@ -764,8 +777,7 @@ footer ul {
 }
 
 .modal1:target,
-.modal2:target,
-.modal3:target {
+.modal2:target {
     visibility: visible;
     opacity: 1;
 }

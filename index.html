@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CICATRIZ</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -113,25 +114,26 @@
         </section>
 
         <section class="section section__condamnation">
-            <div class="section__condamnation-titre">
-                <h1><span class="white">ÉVOLUTION DU NOMBRE DE</span> PLAINTES <span class="white">ET</span> DE
-                    CONDAMNATIONS</h1>
-                <h2>Cliquez sur les points</h2>
+            <div class="section__condamnation-titre-button">
+                <div class="section__condamnation-titre">
+                    <h1><span class="white">ÉVOLUTION DU NOMBRE DE</span> PLAINTES <span class="white">ET</span> DE
+                        CONDAMNATIONS</h1>
+                    <h2>Cliquez sur les points</h2>
+                </div>
+                <div class="section__condamnation-button">
+                    <button id="changeToBar" class="changeToBar"><img src="img/icone_bar.svg"></button>
+                    <button id="changeToLine" class="changeToLine"><img src="img/icone_courbe.svg"></button>
+                </div>
             </div>
 
-            <div class="section__condamnation-info" id="section__condamnation-info">
+            <div class="section__condamnation-graph-info">
+                <div class="section__condamnation-info" id="section__condamnation-info">
+                </div>
+                <div class="section__condamnation-graph">
+                    <canvas id="graph3" class="visible"></canvas>
+                    <canvas id="graphBar" class="hidden"></anvas>
+                </div>
             </div>
-
-            <div class="section__condamnation-graph">
-                <canvas id="graph3" class="visible"></canvas>
-                <canvas id="graphBar" class="hidden"></anvas>
-            </div>
-
-            <div class="section__condamnation-button">
-                <button id="changeToBar" class="changeToBar"><img src="img/icone_bar.svg"></button>
-                <button id="changeToLine" class="changeToLine"><img src="img/icone_courbe.svg"></button>
-            </div>
-
         </section>
 
         <section class="section section__carte">
@@ -160,7 +162,7 @@
     <footer class="footer" id="footer">
 
         <div class="footer__container  footer__container-title">
-            <h1 class="footer__title footer__title--h1"><span class="white">Les</span>agressions sexuelles</h1>
+            <h1 class="footer__title footer__title--h1"><span class="white">Les </span>agressions sexuelles</h1>
             <h1 class="footer__title footer__title--name"><span class="white">CICATR</span>IZ</h1>
         </div>
 
@@ -168,7 +170,6 @@
             <ul class="footer__list">
                 <li class="footer__list-component"><a href="#mention">Mentions légales</a>
                 </li>
-                <li class="footer__list-component"><a href="#sources">Sources</a></li>
                 <li class="footer__list-component"><a href="#contact">Nos contacts</a></li>
             </ul>
         </div>
@@ -266,37 +267,7 @@
             </div>
         </div>
 
-        <div class="modal2" id="sources">
-            <div class="sources">
-                <a href="#footer" class="close">&times;</a>
-                <h1>Premier graphique</h1>
-                <p><strong>Viols et agressions sexuelles hors cadre familial - <a
-                            href="https://www.insee.fr/fr/statistiques/5763559?sommaire=5763633#tableau-figure2_radio1"></strong>https://www.insee.fr/fr/statistiques/5763559?sommaire=5763633#tableau-figure2_radio1</a>
-                </p>
-
-                <h1>Deuxième graphique</h1>
-                <p><strong>Évolution du nombre de victimes d’agressions sexuelles -</strong>
-                    <a
-                        href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/
-                    https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/
-                        https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/</a>
-                </p>
-
-                <h1>Troisième graphique</h1>
-                <p><strong>Nombre de plaintes et de condamnations -</strong><a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/
-                        https://fr.statista.com/statistiques/953012/condamnations-pour-viol-france/">
-                        https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/
-                        https://fr.statista.com/statistiques/953012/condamnations-pour-viol-france/</a></p>
-
-                <h1>Quatrième graphique (carte)</h1>
-                <p><strong>Agressions sexuelles par régions -</strong><a
-                        href="                    https://www.linternaute.com/actualite/delinquance/classement/regions/agression-sexuelle">https://www.linternaute.com/actualite/delinquance/classement/regions/agression-sexuelle</a>
-                </p>
-
-            </div>
-        </div>
-
-        <div class="modal3" id="contact">
+        <div class="modal2" id="contact">
             <div class="contact">
                 <a href="#footer" class="close">&times;</a>
                 <h1>Nos contacts</h1>
