@@ -16,6 +16,12 @@
     box-sizing: border-box;
 }
 
+*{
+    -webkit-font-smoothing: antialiased;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
 html {
     scroll-snap-type: y mandatory;
 }
@@ -104,10 +110,6 @@ header {
     left: -8px;
     font-size: 15rem;
     text-align: left;
-}
-
-.smalltitle {
-    letter-spacing: 2px;
 }
 
 .presentation {
@@ -224,7 +226,7 @@ header {
     }
 }
 
-.section__agression-text h1 {
+.section__agression-text h2 {
     font-size: 4rem;
     margin: 0;
     margin-bottom: 15px;
@@ -269,7 +271,7 @@ header {
     max-height: 600px;
 }
 
-.section__agression-info h2 {
+.section__agression-info h3 {
     font-family: 'Bebas', sans-serif;
     color: #2A114B;
     font-size: 4rem;
@@ -303,9 +305,8 @@ header {
         color: #AF94E0;
         font-family: 'Bebas', sans-serif;
         font-size: 2rem;
-        letter-spacing: 1px;
 
-        h1 {
+        h2 {
             margin: 0px;
         }
     }
@@ -422,14 +423,13 @@ header {
         .section__condamnation-titre {
             font-family: 'Bebas', sans-serif;
             color: #AF94E0;
-            letter-spacing: 1px;
 
-            h1 {
+            h2 {
                 font-size: 3rem;
                 margin: 0;
             }
 
-            h2 {
+            p {
                 font-size: 2rem;
                 color: white;
             }
@@ -467,14 +467,14 @@ header {
             flex-direction: column;
             justify-content: flex-end;
 
-            h1 {
+            h2 {
                 font-size: 4rem;
                 font-family: 'Bebas', sans-serif;
                 color: #AF94E0;
                 margin: 0;
             }
 
-            h2 {
+            h3 {
                 font-size: 2rem;
                 font-family: 'Bebas', sans-serif;
                 color: #AF94E0;
@@ -509,7 +509,6 @@ header {
         font-size: 2rem;
         margin: auto;
         padding-top: 25px;
-        letter-spacing: 2px;
 
         h2,
         h3 {
@@ -612,11 +611,7 @@ header {
         max-width: 200px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
-
 }
-
-
 
 .hidden {
     display: none !important;
@@ -650,9 +645,9 @@ footer {
     justify-content: space-between;
     scroll-snap-align: end;
     font-family: 'Bebas', sans-serif;
-    
+
     .footer__container {
-        padding: 2rem 5rem;
+        padding: 1.5rem 5rem 0rem 5rem;
     }
 }
 
@@ -661,28 +656,29 @@ footer {
     color: #AF94E0;
     height: fit-content;
     margin: 0px;
-   -webkit-margin-before: 0px;
-   -webkit-margin-after: 0px;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
 
-   h1 {
-    margin: 0px;
-   -webkit-margin-before: 0px;
-   -webkit-margin-after: 0px;
-   }
+    h2 {
+        margin: 0px;
+        -webkit-margin-before: 0px;
+        -webkit-margin-after: 0px;
+    }
 }
 
 .footer__title {
     margin: 0;
+    font-size: 2rem;
 }
 
 .footer__title--name {
-    font-size: 10rem;
+    font-size: 9rem;
 }
 
-/* .footer__title--h2 {
-    margin-top: 50px;
-    margin-bottom: 40px;
-} */
+.footer__title--h2 {
+    position: relative;
+    top: 25px;
+}
 
 .footer__list {
     margin: 0;
@@ -707,12 +703,10 @@ footer {
 
 .footer__title--name {
     position: relative;
-    /* top: -30px; */
 }
 
 .footer__title {
     margin: 0;
-    letter-spacing: 1px;
 }
 
 .footer__container-modal {
@@ -782,29 +776,58 @@ footer ul {
     opacity: 1;
 }
 
+.modal {
+    width: 70vw;
+    height: 90vh;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: auto;
+    /* padding: 50px; */
+}
+
 /* Contenu de la modale */
 .mention,
-.sources,
 .contact {
     overflow-y: scroll;
     background-color: #fff;
-    margin: 15% auto;
     padding: 50px;
-    border-radius: 8px;
-    width: 70vw;
-    height: 90vh;
+    height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s;
     scroll-behavior: auto;
     font-family: 'Montserrat', sans-serif;
 
-    h1,
-    h2 {
+    h2,
+    h3 {
         font-family: 'Bebas', sans-serif;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
     }
 }
 
 .contact {
+
+    .contact-details {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 50px;
+
+        .contact-detail {
+            width: 300px;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #000;
+        }
+    }
+
     ul {
         display: flex;
         flex-direction: column;
@@ -832,15 +855,26 @@ footer ul {
     }
 }
 
+.mention-content, 
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* Bouton de fermeture */
 .close {
     color: #2A114B;
     float: right;
-    font-size: 2.5rem;
     cursor: pointer;
     text-decoration: none;
     position: sticky;
-    top: 2px;
+    top: 0;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 

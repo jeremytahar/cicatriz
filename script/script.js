@@ -275,7 +275,7 @@ barCtx.canvas.onclick = (event) => {
         const otherLabel = otherDataset.label;
 
         document.getElementById('section__condamnation-info').innerHTML = `
-            <h1><span class="white">EN</span> <span id="year-counter2">${year}</span></h1>
+            <h3><span class="white">EN</span> <span id="year-counter2">${year}</span></h3>
             <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
             <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. 
             On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
@@ -308,8 +308,8 @@ courbectx.canvas.onclick = (event) => {
         const otherLabel = otherDataset.label;
 
         document.getElementById('section__condamnation-info').innerHTML = `
-            <h1><span class="white">EN</span> <span id="year-counter1">${year}</span></h1>
-            <h2><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h2>
+            <h2><span class="white">EN</span> <span id="year-counter1">${year}</span></h2>
+            <h3><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h3>
             <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
             On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
             Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
