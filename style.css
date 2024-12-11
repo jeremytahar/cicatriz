@@ -776,22 +776,39 @@ footer ul {
     opacity: 1;
 }
 
+.modal2 .modal {
+    height: fit-content;
+}
+
+.modal1 .modal {
+    height: 90vh;
+}
+
 .modal {
     width: 70vw;
-    height: 90vh;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     margin: auto;
-    /* padding: 50px; */
+}
+
+.modal-border {
+    border: 2px solid #2A114B;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: auto;
+    padding: 25px;
+    position: relative;
 }
 
 /* Contenu de la modale */
 .mention,
 .contact {
-    overflow-y: scroll;
+    overflow-y: auto;
+    position: relative;
     background-color: #fff;
-    padding: 50px;
-    height: 100%;
+    padding: 25px;
+    height: fit-content;
+    max-height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s;
     scroll-behavior: auto;
@@ -864,16 +881,29 @@ footer ul {
 
 /* Bouton de fermeture */
 .close {
-    color: #2A114B;
+    background-color: #fff;
+    padding: 10px;
     float: right;
     cursor: pointer;
     text-decoration: none;
-    position: sticky;
-    top: 0;
-
-    img {
-        width: 20px;
-        height: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    transition: all 0.5s ease;
+    
+    img {   
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #2A114B;
+        margin: auto;
+        
     }
 }
 

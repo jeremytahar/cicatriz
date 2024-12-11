@@ -63,7 +63,7 @@ fetch('script/data.json')
                         grid: { color: '#ffffff' },
                         ticks: {
                             color: '#ffffff',
-                            font: { size: 22, family: 'Bebas' },
+                            font: { size: 26, family: 'Bebas' },
                             autoSkip: false,
                             maxRotation: 45,
                             minRotation: 45
@@ -73,7 +73,7 @@ fetch('script/data.json')
                         grid: { color: '#ffffff' },
                         ticks: {
                             color: '#ffffff',
-                            font: { size: 22, family: 'Bebas' },
+                            font: { size: 26, family: 'Bebas' },
                             min: 20000,
                             max: 90000,
                             stepSize: 10000,
@@ -92,19 +92,19 @@ fetch('script/data.json')
 
         // Gestionnaire d'événement pour le clic sur un point du graphique
         function animateCounter(element, start, end, duration) {
-            let range = end - start;
-            let current = start;
-            let increment = range / (duration / 10);
-            let stepTime = Math.abs(Math.floor(duration / range));
-            let timer = setInterval(() => {
-                current += increment;
-                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-                    current = end;
-                    clearInterval(timer);
-                }
-                element.innerText = Math.floor(current);
-            }, stepTime);
+            let range = end - start; 
+            let startTime = performance.now(); 
+        
+            function step(currentTime) {
+                let progress = Math.min((currentTime - startTime) / duration, 1); 
+                element.innerText = Math.floor(start + range * progress); 
+                if (progress < 1) requestAnimationFrame(step); 
+            }
+        
+            requestAnimationFrame(step);
         }
+        
+        
 
         let activeIndex = null;
 
@@ -125,9 +125,9 @@ fetch('script/data.json')
       `;
 
                 const victimElement = document.getElementById('victim-counter');
-                animateCounter(victimElement, 0, victims, 2000);
+                animateCounter(victimElement, (victims - 10000) < 0 ? 0 : victims - 10000, victims, 700);
                 const yearElement = document.getElementById('year-counter');
-                animateCounter(yearElement, 2000, year, 400);
+                animateCounter(yearElement, year - 75, year, 700);
             }
         };
 
@@ -189,7 +189,7 @@ let graph3 = new Chart(ctx3, {
             x: {
                 grid: { color: '#FFFFFF', lineWidth: 0.5 },
                 ticks: {
-                    font: { family: 'Bebas', size: 22 },
+                    font: { family: 'Bebas', size: 24 },
                     color: '#FFFFFF'
                 }
             },
@@ -198,7 +198,7 @@ let graph3 = new Chart(ctx3, {
                 beginAtZero: true,
                 max: 35000,
                 ticks: {
-                    font: { family: 'Bebas', size: 22 },
+                    font: { family: 'Bebas', size: 24 },
                     color: '#FFF'
                 }
             }
@@ -234,7 +234,7 @@ let graphBar = new Chart(ctxBar, {
             x: {
                 grid: { color: '#FFFFFF', lineWidth: 0.5 },
                 ticks: {
-                    font: { family: 'Bebas', size: 22 },
+                    font: { family: 'Bebas', size: 24 },
                     color: '#FFF'
                 }
             },
@@ -243,7 +243,7 @@ let graphBar = new Chart(ctxBar, {
                 beginAtZero: true,
                 max: 35000,
                 ticks: {
-                    font: { family: 'Bebas', size: 22 },
+                    font: { family: 'Bebas', size: 24 },
                     color: '#FFF'
                 }
             }
@@ -284,8 +284,10 @@ barCtx.canvas.onclick = (event) => {
             <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
         `;
 
-        animateCounter(document.getElementById('convictions-counter1'), 0, barValue, 2000);
-        animateCounter(document.getElementById('year-counter2'), 0, year, 400);
+        console.log(barValue);
+
+        animateCounter(document.getElementById('convictions-counter1'),(barValue - 5000) < 0 ? 0 : barValue - 5000, barValue, 700);
+        animateCounter(document.getElementById('year-counter2'), year - 75, year, 700);
     }
 };
 
@@ -317,8 +319,8 @@ courbectx.canvas.onclick = (event) => {
             <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
         `;
 
-        animateCounter(document.getElementById('convictions-counter'), 0, pointValue, 2000);
-        animateCounter(document.getElementById('year-counter1'), 0, year, 400);
+        animateCounter(document.getElementById('convictions-counter'), (pointValue - 5000) < 0 ? 0 : pointValue - 5000, pointValue, 700);
+        animateCounter(document.getElementById('year-counter1'), year - 75, year, 700);
     }
 };
 
@@ -497,7 +499,7 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                                     infoDiv.style.display = 'block';
 
                                     let victimElement = document.getElementById('victim-counter-map');
-                                    animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
+                                    animateCounter(victimElement, (aggressionData - 200) < 0 ? 0 : aggressionData - 200, aggressionData, 700);
 
                                     e.originalEvent.stopPropagation();
 
@@ -616,7 +618,7 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                             infoDiv.style.display = 'block';
 
                             let victimElement = document.getElementById('victim-counter-map');
-                            animateCounter(victimElement, aggressionData - 200, aggressionData, 1000);
+                            animateCounter(victimElement,  (aggressionData - 200) < 0 ? 0 : aggressionData - 200, aggressionData, 700);
 
                             // Charger la carte des départements pour la région cliquée
                             loadRegionMap(regionName);
