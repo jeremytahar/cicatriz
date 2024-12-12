@@ -213,6 +213,12 @@ header {
     width: 100vw;
     display: flex;
 
+    .smallwhite {
+        color: white;
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+
     .sources {
         display: flex;
         flex-direction: row;
@@ -302,7 +308,7 @@ header {
     height: 600px;
 }
 
-.section__agression-info h3 {
+.section__agression-info #info-percentage {
     font-family: 'Bebas', sans-serif;
     color: #2A114B;
     font-size: 4rem;
@@ -1003,6 +1009,11 @@ footer ul {
 
     h3 {
         font-size: 1.5rem;
+    }
+
+    a { 
+        color: black;
+        text-decoration: underline;
     }
 }
 
