@@ -15,7 +15,7 @@ Ce projet de visualisation de données met en lumière les statistiques relative
 
 ### 2. **Graphique interactif sur l’évolution du nombre de victimes**
 - **Description** : Ce graphique montre l’évolution temporelle des signalements d’agressions sexuelles.
-- **Interactivité** : Chaque point représente une année. En cliquant sur un point, l’utilisateur peut consulter des détails supplémentaires (ex. données complémentaires ou contexte des chiffres).
+- **Interactivité** : Chaque point représente une année. En cliquant sur un point, l’utilisateur peut consulter des détails supplémentaires.
 
 ### 3. **Graphique interactif sur le rapport entre les plaintes et les condamnations pour viol**
 - **Description** : Une visualisation comparative entre les plaintes enregistrées et les condamnations effectives.
