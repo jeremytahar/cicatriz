@@ -175,13 +175,7 @@ let graph3 = new Chart(ctx3, {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: 'top',
-                align: 'end',
-                labels: {
-                    boxWidth: 50,
-                    font: { family: 'Alatsi', size: 14 },
-                    color: '#FFFFFF'
-                }
+                display: false
             },
             tooltip: { enabled: false }
         },
@@ -190,7 +184,10 @@ let graph3 = new Chart(ctx3, {
                 grid: { color: '#FFFFFF', lineWidth: 0.5 },
                 ticks: {
                     font: { family: 'Bebas', size: 24 },
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    autoSkip: false,
+                            maxRotation: 45,
+                            minRotation: 45
                 }
             },
             y: {
@@ -210,6 +207,45 @@ let graph3 = new Chart(ctx3, {
     plugins: [backgroundColorPlugin]
 });
 
+const customLegendContainer = document.getElementById('custom-legend');
+
+let legendHTML = '';
+
+data.graph3.datasets.forEach((dataset, index) => {
+    legendHTML += `
+        <div class="legend-item" data-dataset-index="${index}">
+            <span class="label-text">${dataset.label}</span>
+            <div class="legend-background">
+                <span class="color-box" style="background-color: ${dataset.borderColor};"></span>
+            </div>
+        </div>
+    `;
+});
+
+customLegendContainer.innerHTML = legendHTML;
+
+const legendItems = document.querySelectorAll('#custom-legend .legend-item');
+
+legendItems.forEach((item) => {
+    item.addEventListener('click', function () {
+        const datasetIndex = parseInt(this.dataset.datasetIndex, 10); // Convert to integer
+        const chartDataset = graph3.data.datasets[datasetIndex];
+
+        if (chartDataset) { // Ensure the dataset exists
+            // Toggle dataset visibility
+            chartDataset.hidden = !chartDataset.hidden;
+
+            // Update the chart
+            graph3.update();
+
+            // Optional: Add visual feedback for the active/inactive state
+            this.classList.toggle('hidden-legend');
+        } else {
+            console.error(`Dataset at index ${datasetIndex} is undefined.`);
+        }
+    });
+});
+
 // Création du second graphique en barres (graph4)
 const ctxBar = document.getElementById('graphBar').getContext('2d');
 let graphBar = new Chart(ctxBar, {
@@ -220,13 +256,7 @@ let graphBar = new Chart(ctxBar, {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                position: 'top',
-                align: 'end',
-                labels: {
-                    boxWidth: 50,
-                    font: { family: 'Alatsi', size: 14 },
-                    color: '#FFFFFF'
-                }
+                display: false
             },
             tooltip: { enabled: false }
         },
@@ -347,11 +377,19 @@ document.getElementById('changeToBar').addEventListener('click', function () {
         const mapData = data.mapData;
 
         function getAggressionDataForRegion(region) {
-            return mapData.regions[region] || 'Données non disponibles';
+            return mapData.regions[region].aggressions || 'Données non disponibles';
         }
 
         function getAggressionDataForDepartment(department) {
-            return mapData.departments[department] || 'Données non disponibles';
+            return mapData.departments[department].aggressions || 'Données non disponibles';
+        }
+
+        function getPopulationDataForRegion(region) {
+            return mapData.regions[region].population || 'Données non disponibles';
+        }
+
+        function getPopulationDataForDepartment(department) {
+            return mapData.departments[department].population || 'Données non disponibles';
         }
 
         function calculateZoom() {
@@ -509,8 +547,9 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                                 layer.on('mouseover', function (e) {
                                     const departmentName = feature.properties.nom;
                                     const aggressionData = getAggressionDataForDepartment(departmentName);
+                                    const populationData = getPopulationDataForDepartment(departmentName);
 
-                                    showTooltip(`<strong>${departmentName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+                                    showTooltip(`<strong>${departmentName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData}`, e.originalEvent);
 
                                     this.setStyle({
                                         borderColor: '#ffffff',
@@ -572,8 +611,9 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                         layer.on('mouseover', function (e) {
                             const regionName = feature.properties.nom;
                             const aggressionData = getAggressionDataForRegion(regionName);
+                            const populationData = getPopulationDataForRegion(regionName);
 
-                            showTooltip(`<strong>${regionName}</strong><br>Agressions sexuelles : ${aggressionData}`, e.originalEvent);
+                            showTooltip(`<strong>${regionName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData} habitants`, e.originalEvent);
 
                             this.setStyle({
                                 borderColor: '#ffffff',

@@ -46,7 +46,7 @@
       "En 2021, la vague de témoignages sur l'inceste, amplifiée par le livre de Camille Kouchner, relance le débat sur les violences intrafamiliales. Les signalements augmentent, notamment grâce à des campagnes ciblées et des outils de signalement en ligne.",
       "En 2022, les plateformes numériques prennent une place centrale dans la dénonciation des violences sexuelles, avec des hashtags comme #DoublePeine dénonçant les failles judiciaires. La hausse des plaintes témoigne d'une pression accrue sur les institutions pour une meilleure prise en charge des victimes.",
       "En 2023, les débats autour du consentement et des violences conjugales s’intensifient, avec des lois renforçant les sanctions. Des affaires très médiatisées, comme celles impliquant des personnalités publiques, continuent de mobiliser l'opinion et encouragent plus de victimes à se manifester."
-  ]
+    ]
   },
   "graph3": {
     "labels": ["2015", "2016", "2017", "2018", "2019", "2020", "2021"],
@@ -88,116 +88,444 @@
   },
   "mapData": {
     "regions": {
-      "Île-de-France": 19754,
-      "Provence-Alpes-Côte d'Azur": 7584,
-      "Auvergne-Rhône-Alpes": 12194,
-      "Bourgogne-Franche-Comté": 4685,
-      "Bretagne": 5429,
-      "Centre-Val de Loire": 4655,
-      "Corse": 374,
-      "Grand Est": 8877,
-      "Hauts-de-France": 11959,
-      "Normandie": 6307,
-      "Nouvelle-Aquitaine": 10956,
-      "Occitanie": 9802,
-      "Pays de la Loire": 6879
+      "Île-de-France": {
+        "aggressions": 19754,
+        "population": 12358932
+      },
+      "Provence-Alpes-Côte d'Azur": {
+        "aggressions": 7584,
+        "population": 5160091
+      },
+      "Auvergne-Rhône-Alpes": {
+        "aggressions": 12194,
+        "population": 8197325
+      },
+      "Bourgogne-Franche-Comté": {
+        "aggressions": 4685,
+        "population": 2786296
+      },
+      "Bretagne": {
+        "aggressions": 5429,
+        "population": 3429882
+      },
+      "Centre-Val de Loire": {
+        "aggressions": 4655,
+        "population": 2572278
+      },
+      "Corse": {
+        "aggressions": 374,
+        "population": 351255
+      },
+      "Grand Est": {
+        "aggressions": 8877,
+        "population": 5562262
+      },
+      "Hauts-de-France": {
+        "aggressions": 11959,
+        "population": 5980697
+      },
+      "Normandie": {
+        "aggressions": 6307,
+        "population": 3317023
+      },
+      "Nouvelle-Aquitaine": {
+        "aggressions": 10956,
+        "population": 6110365
+      },
+      "Occitanie": {
+        "aggressions": 9802,
+        "population": 6101005
+      },
+      "Pays de la Loire": {
+        "aggressions": 6879,
+        "population": 3907426
+      }
     },
     "departments": {
-      "Ain": 880,
-      "Allier": 577,
-      "Ardèche": 477,
-      "Cantal": 231,
-      "Drôme": 847,
-      "Isère": 1989,
-      "Loire": 1050,
-      "Haute-Loire": 405,
-      "Puy-de-Dôme": 831,
-      "Rhône": 3111,
-      "Savoie": 695,
-      "Haute-Savoie": 1101,
-      "Côte-d'Or": 919,
-      "Doubs": 769,
-      "Jura": 507,
-      "Nièvre": 384,
-      "Haute-Saône": 412,
-      "Saône-et-Loire": 813,
-      "Yonne": 685,
-      "Territoire de Belfort": 196,
-      "Côtes-d'Armor": 892,
-      "Finistère": 1453,
-      "Ille-et-Vilaine": 1853,
-      "Morbihan": 1231,
-      "Cher": 449,
-      "Eure-et-Loir": 839,
-      "Indre": 345,
-      "Indre-et-Loire": 1210,
-      "Loir-et-Cher": 661,
-      "Loiret": 1151,
-      "Corse-du-Sud": 173,
-      "Haute-Corse": 201,
-      "Ardennes": 492,
-      "Aube": 456,
-      "Marne": 922,
-      "Haute-Marne": 349,
-      "Meurthe-et-Moselle": 1268,
-      "Meuse": 313,
-      "Moselle": 1448,
-      "Bas-Rhin": 1700,
-      "Haut-Rhin": 1338,
-      "Vosges": 591,
-      "Aisne": 985,
-      "Nord": 5163,
-      "Oise": 1547,
-      "Pas-de-Calais": 3083,
-      "Somme": 1181,
-      "Paris": 5114,
-      "Seine-et-Marne": 2078,
-      "Yvelines": 2007,
-      "Essonne": 1861,
-      "Hauts-de-Seine": 2160,
-      "Seine-Saint-Denis": 2755,
-      "Val-de-Marne": 2005,
-      "Val-d'Oise": 1774,
-      "Calvados": 1389,
-      "Eure": 1137,
-      "Manche": 857,
-      "Orne": 585,
-      "Seine-Maritime": 2339,
-      "Charente": 745,
-      "Charente-Maritime": 1191,
-      "Corrèze": 388,
-      "Creuse": 199,
-      "Dordogne": 754,
-      "Gironde": 3230,
-      "Landes": 811,
-      "Lot-et-Garonne": 563,
-      "Pyrénées-Atlantiques": 918,
-      "Deux-Sèvres": 794,
-      "Vienne": 833,
-      "Haute-Vienne": 530,
-      "Ariège": 284,
-      "Aude": 656,
-      "Aveyron": 405,
-      "Gard": 1076,
-      "Haute-Garonne": 2313,
-      "Gers": 293,
-      "Hérault": 1903,
-      "Lot": 323,
-      "Lozère": 170,
-      "Hautes-Pyrénées": 416,
-      "Pyrénées-Orientales": 925,
-      "Tarn": 656,
-      "Tarn-et-Garonne": 382,
-      "Loire-Atlantique": 2402,
-      "Maine-et-Loire": 1492,
-      "Mayenne": 560,
-      "Sarthe": 1240,
-      "Vendée": 1185,
-      "Alpes-de-Haute-Provence": 294,
-      "Alpes-Maritimes": 1549,
-      "Bouches-du-Rhône": 3163,
-      "Var": 1531,
-      "Vaucluse": 754
+      "Ain": {
+        "aggressions": 880,
+        "population": 671937
+      },
+      "Aisne": {
+        "aggressions": 985,
+        "population": 522791
+      },
+      "Allier": {
+        "aggressions": 577,
+        "population": 332443
+      },
+      "Alpes-de-Haute-Provence": {
+        "aggressions": 294,
+        "population": 166654
+      },
+      "Hautes-Alpes": {
+        "aggressions": 293,
+        "population": 139942
+      },
+      "Alpes-Maritimes": {
+        "aggressions": 1549,
+        "population": 1110328
+      },
+      "Ardèche": {
+        "aggressions": 477,
+        "population": 332230
+      },
+      "Ardennes": {
+        "aggressions": 492,
+        "population": 265417
+      },
+      "Ariège": {
+        "aggressions": 284,
+        "population": 154581
+      },
+      "Aube": {
+        "aggressions": 456,
+        "population": 312713
+      },
+      "Aude": {
+        "aggressions": 656,
+        "population": 379775
+      },
+      "Aveyron": {
+        "aggressions": 405,
+        "population": 279504
+      },
+      "Bouches-du-Rhône": {
+        "aggressions": 3163,
+        "population": 2069118
+      },
+      "Calvados": {
+        "aggressions": 1389,
+        "population": 700595
+      },
+      "Cantal": {
+        "aggressions": 231,
+        "population": 143639
+      },
+      "Charente": {
+        "aggressions": 745,
+        "population": 351036
+      },
+      "Charente-Maritime": {
+        "aggressions": 1191,
+        "population": 665904
+      },
+      "Cher": {
+        "aggressions": 449,
+        "population": 297274
+      },
+      "Corrèze": {
+        "aggressions": 388,
+        "population": 237077
+      },
+      "Corse-du-Sud": {
+        "aggressions": 173,
+        "population": 163955
+      },
+      "Haute-Corse": {
+        "aggressions": 201,
+        "population": 187300
+      },
+      "Côte-d'Or": {
+        "aggressions": 919,
+        "population": 536166
+      },
+      "Côtes-d'Armor": {
+        "aggressions": 892,
+        "population": 607834
+      },
+      "Creuse": {
+        "aggressions": 199,
+        "population": 113106
+      },
+      "Dordogne": {
+        "aggressions": 754,
+        "population": 411382
+      },
+      "Doubs": {
+        "aggressions": 769,
+        "population": 550112
+      },
+      "Drôme": {
+        "aggressions": 847,
+        "population": 523185
+      },
+      "Eure": {
+        "aggressions": 1137,
+        "population": 596710
+      },
+      "Eure-et-Loir": {
+        "aggressions": 839,
+        "population": 428994
+      },
+      "Finistère": {
+        "aggressions": 1453,
+        "population": 926065
+      },
+      "Gard": {
+        "aggressions": 1076,
+        "population": 757435
+      },
+      "Haute-Garonne": {
+        "aggressions": 2313,
+        "population": 1470367
+      },
+      "Gers": {
+        "aggressions": 293,
+        "population": 192820
+      },
+      "Gironde": {
+        "aggressions": 3230,
+        "population": 1691437
+      },
+      "Hérault": {
+        "aggressions": 1903,
+        "population": 1232805
+      },
+      "Ille-et-Vilaine": {
+        "aggressions": 1853,
+        "population": 1118600
+      },
+      "Indre": {
+        "aggressions": 345,
+        "population": 214914
+      },
+      "Indre-et-Loire": {
+        "aggressions": 1210,
+        "population": 618016
+      },
+      "Isère": {
+        "aggressions": 1989,
+        "population": 1294476
+      },
+      "Jura": {
+        "aggressions": 507,
+        "population": 256814
+      },
+      "Landes": {
+        "aggressions": 811,
+        "population": 428669
+      },
+      "Loir-et-Cher": {
+        "aggressions": 661,
+        "population": 326465
+      },
+      "Loire": {
+        "aggressions": 1050,
+        "population": 772342
+      },
+      "Haute-Loire": {
+        "aggressions": 405,
+        "population": 226878
+      },
+      "Loire-Atlantique": {
+        "aggressions": 2402,
+        "population": 1497313
+      },
+      "Loiret": {
+        "aggressions": 1151,
+        "population": 686615
+      },
+      "Lot": {
+        "aggressions": 323,
+        "population": 175308
+      },
+      "Lot-et-Garonne": {
+        "aggressions": 563,
+        "population": 328309
+      },
+      "Lozère": {
+        "aggressions": 170,
+        "population": 76648
+      },
+      "Maine-et-Loire": {
+        "aggressions": 1492,
+        "population": 828269
+      },
+      "Manche": {
+        "aggressions": 857,
+        "population": 492642
+      },
+      "Marne": {
+        "aggressions": 922,
+        "population": 564108
+      },
+      "Haute-Marne": {
+        "aggressions": 349,
+        "population": 167544
+      },
+      "Mayenne": {
+        "aggressions": 560,
+        "population": 305452
+      },
+      "Meurthe-et-Moselle": {
+        "aggressions": 1268,
+        "population": 729477
+      },
+      "Meuse": {
+        "aggressions": 313,
+        "population": 178010
+      },
+      "Morbihan": {
+        "aggressions": 1231,
+        "population": 777383
+      },
+      "Moselle": {
+        "aggressions": 1448,
+        "population": 1051456
+      },
+      "Nièvre": {
+        "aggressions": 384,
+        "population": 197857
+      },
+      "Nord": {
+        "aggressions": 5163,
+        "population": 2606646
+      },
+      "Oise": {
+        "aggressions": 1547,
+        "population": 833259
+      },
+      "Orne": {
+        "aggressions": 585,
+        "population": 272872
+      },
+      "Pas-de-Calais": {
+        "aggressions": 3083,
+        "population": 1453934
+      },
+      "Puy-de-Dôme": {
+        "aggressions": 831,
+        "population": 669117
+      },
+      "Pyrénées-Atlantiques": {
+        "aggressions": 918,
+        "population": 697899
+      },
+      "Hautes-Pyrénées": {
+        "aggressions": 416,
+        "population": 228695
+      },
+      "Pyrénées-Orientales": {
+        "aggressions": 925,
+        "population": 490594
+      },
+      "Bas-Rhin": {
+        "aggressions": 1700,
+        "population": 1168422
+      },
+      "Haut-Rhin": {
+        "aggressions": 1338,
+        "population": 769231
+      },
+      "Rhône": {
+        "aggressions": 3111,
+        "population": 1921014
+      },
+      "Haute-Saône": {
+        "aggressions": 412,
+        "population": 231773
+      },
+      "Saône-et-Loire": {
+        "aggressions": 813,
+        "population": 547362
+      },
+      "Sarthe": {
+        "aggressions": 1240,
+        "population": 567118
+      },
+      "Savoie": {
+        "aggressions": 695,
+        "population": 447797
+      },
+      "Haute-Savoie": {
+        "aggressions": 1101,
+        "population": 862267
+      },
+      "Paris": {
+        "aggressions": 5114,
+        "population": 2102650
+      },
+      "Seine-Maritime": {
+        "aggressions": 2339,
+        "population": 1254204
+      },
+      "Seine-et-Marne": {
+        "aggressions": 2078,
+        "population": 1452775
+      },
+      "Yvelines": {
+        "aggressions": 2007,
+        "population": 1461524
+      },
+      "Deux-Sèvres": {
+        "aggressions": 794,
+        "population": 373899
+      },
+      "Somme": {
+        "aggressions": 1181,
+        "population": 564067
+      },
+      "Tarn": {
+        "aggressions": 656,
+        "population": 394546
+      },
+      "Tarn-et-Garonne": {
+        "aggressions": 382,
+        "population": 266039
+      },
+      "Var": {
+        "aggressions": 1531,
+        "population": 1110260
+      },
+      "Vaucluse": {
+        "aggressions": 754,
+        "population": 563789
+      },
+      "Vendée": {
+        "aggressions": 1185,
+        "population": 709274
+      },
+      "Vienne": {
+        "aggressions": 833,
+        "population": 441534
+      },
+      "Haute-Vienne": {
+        "aggressions": 530,
+        "population": 370113
+      },
+      "Vosges": {
+        "aggressions": 591,
+        "population": 355884
+      },
+      "Yonne": {
+        "aggressions": 685,
+        "population": 329321
+      },
+      "Territoire de Belfort": {
+        "aggressions": 196,
+        "population": 136891
+      },
+      "Essonne": {
+        "aggressions": 1861,
+        "population": 1316053
+      },
+      "Hauts-de-Seine": {
+        "aggressions": 2160,
+        "population": 1642002
+      },
+      "Seine-Saint-Denis": {
+        "aggressions": 2755,
+        "population": 1682806
+      },
+      "Val-de-Marne": {
+        "aggressions": 2005,
+        "population": 1426748
+      },
+      "Val-d'Oise": {
+        "aggressions": 1774,
+        "population": 1274374
+      }
     }
   }
 }
