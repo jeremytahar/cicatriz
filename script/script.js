@@ -546,10 +546,10 @@ document.getElementById('changeToBar').addEventListener('click', function () {
 
                                 layer.on('mouseover', function (e) {
                                     const departmentName = feature.properties.nom;
-                                    const aggressionData = getAggressionDataForDepartment(departmentName);
-                                    const populationData = getPopulationDataForDepartment(departmentName);
+                                    const aggressionData = getAggressionDataForDepartment(departmentName).toLocaleString('fr-FR');
+                                    const populationData = getPopulationDataForDepartment(departmentName).toLocaleString('fr-FR');
 
-                                    showTooltip(`<strong>${departmentName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData}`, e.originalEvent);
+                                    showTooltip(`<strong>${departmentName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData} habitants`, e.originalEvent);
 
                                     this.setStyle({
                                         borderColor: '#ffffff',
@@ -610,8 +610,9 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                     onEachFeature: function (feature, layer) {
                         layer.on('mouseover', function (e) {
                             const regionName = feature.properties.nom;
-                            const aggressionData = getAggressionDataForRegion(regionName);
-                            const populationData = getPopulationDataForRegion(regionName);
+                            const aggressionData = getAggressionDataForRegion(regionName).toLocaleString('fr-FR');
+                            const populationData = getPopulationDataForRegion(regionName).toLocaleString('fr-FR');
+                            
 
                             showTooltip(`<strong>${regionName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData} habitants`, e.originalEvent);
 
