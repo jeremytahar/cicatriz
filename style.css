@@ -243,7 +243,7 @@ header {
 }
 
 .section__agression-text {
-    width: fit-content;
+    width: 400px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -290,12 +290,16 @@ header {
     list-style: none;
 }
 
+.section__agression-img {
+    width: 600px;
+}
+
 .section__agression-img img {
     position: relative;
     min-width: 50%;
-    width: 100%;
-    /* margin: auto; */
-    max-height: 600px;
+    /* width: 80%; */
+    margin: auto;
+    height: 600px;
 }
 
 .section__agression-info h3 {
@@ -358,6 +362,7 @@ header {
             align-items: center;
             justify-content: center;
             gap: 10px;
+            margin-top: 30px;
 
             p{
                 font-family: 'Alatsi', sans-serif;
@@ -382,7 +387,6 @@ header {
     }
 
     .section__victime-info {
-        /* max-width: 600px; */
         width: auto;
         margin-left: 5%;
         margin-right: 6%;
@@ -496,7 +500,6 @@ header {
                 color: white;
             }
         }
-
     }
 
     .section__condamnation-graph-info {
@@ -564,6 +567,7 @@ header {
                 align-items: center;
                 justify-content: center;
                 gap: 10px;
+                margin-top: 15px;
 
                 .sources-links {
                     display: flex;
@@ -623,7 +627,10 @@ header {
 /* Section 4 */
 .section__carte {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100vw;
+    max-height: 100vh;
     background-color: #160133;
 
     .section__carte-titre {
@@ -665,7 +672,7 @@ header {
     }
 
     #map-container {
-        height: 90vh;
+        flex: 1;
         display: flex;
         width: 90vw;
         max-width: 1200px;
@@ -691,6 +698,37 @@ header {
             display: none;
             transition: all 0.5s ease;
         }
+
+        .sources {
+            position: absolute;
+            bottom: 25px;  
+            left: 55%;
+            transform: translateX(-55%);          
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            .sources-links {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        p{
+            font-family: 'Alatsi', sans-serif;
+            color: #FFF;
+            font-size: 1rem;
+            text-align: center;
+
+        }
+
+        a {
+            color: #fff;
+            font-size: 0.9rem;
+            /* text-decoration: none; */
+        }
     }
 
     #map {
@@ -704,7 +742,6 @@ header {
         transform: translate(-50%, -55%);
         background-color: transparent;
         transition: all 0.5s ease;
-        /* transform: translateY(-50px); */
     }
 
     #region-map {
