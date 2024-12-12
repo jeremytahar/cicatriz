@@ -714,21 +714,22 @@ header {
                 display: flex;
                 flex-direction: column;
             }
+            
+            p{
+                font-family: 'Alatsi', sans-serif;
+                color: #FFF;
+                font-size: 1rem;
+                text-align: center;
+    
+            }
+    
+            a {
+                color: #fff;
+                font-size: 0.9rem;
+                /* text-decoration: none; */
+            }
         }
 
-        p{
-            font-family: 'Alatsi', sans-serif;
-            color: #FFF;
-            font-size: 1rem;
-            text-align: center;
-
-        }
-
-        a {
-            color: #fff;
-            font-size: 0.9rem;
-            /* text-decoration: none; */
-        }
     }
 
     #map {
