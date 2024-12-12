@@ -42,10 +42,6 @@ fetch('script/data.json')
         let ctx2 = document.getElementById('graph2').getContext('2d');
         const graph2Data = data.graph2;
 
-        graph2Data.datasets[0].pointBackgroundColor = Array(graph2Data.labels.length).fill('#FFFFFF');
-        graph2Data.datasets[0].pointBorderColor = Array(graph2Data.labels.length).fill('#FFFFFF');
-        graph2Data.datasets[0].pointRadius = Array(graph2Data.labels.length).fill(5);
-
         const graph2 = new Chart(ctx2, {
             type: 'line',
             data: graph2Data,
@@ -82,7 +78,7 @@ fetch('script/data.json')
                     }
                 },
                 elements: {
-                    point: { radius: 5, hoverRadius: 12 }
+                    point: { radius: 6, hoverRadius: 12 }
                 }
             }
         });
@@ -92,19 +88,19 @@ fetch('script/data.json')
 
         // Gestionnaire d'événement pour le clic sur un point du graphique
         function animateCounter(element, start, end, duration) {
-            let range = end - start; 
-            let startTime = performance.now(); 
-        
+            let range = end - start;
+            let startTime = performance.now();
+
             function step(currentTime) {
-                let progress = Math.min((currentTime - startTime) / duration, 1); 
-                element.innerText = Math.floor(start + range * progress); 
-                if (progress < 1) requestAnimationFrame(step); 
+                let progress = Math.min((currentTime - startTime) / duration, 1);
+                element.innerText = Math.floor(start + range * progress);
+                if (progress < 1) requestAnimationFrame(step);
             }
-        
+
             requestAnimationFrame(step);
         }
-        
-        
+
+
 
         let activeIndex = null;
 
@@ -116,6 +112,16 @@ fetch('script/data.json')
                 const year = graph2Data.labels[index];
                 const victims = graph2Data.datasets[0].data[index];
                 const text = graph2Data.texts[index];
+
+                graph2Data.datasets[0].pointBackgroundColor = Array(graph2Data.labels.length).fill('#FFFFFF');
+                graph2Data.datasets[0].pointBorderColor = Array(graph2Data.labels.length).fill('#FFFFFF');
+                graph2Data.datasets[0].pointRadius = Array(graph2Data.labels.length).fill(6);
+
+                graph2Data.datasets[0].pointBackgroundColor[index] = '#2A114B';
+                graph2Data.datasets[0].pointBorderColor[index] = '#fff';
+                graph2Data.datasets[0].pointRadius[index] = 12;
+
+                graph2.update();
 
                 const victimInfo = document.getElementById('section__victime-info');
                 victimInfo.innerHTML = `
@@ -141,78 +147,88 @@ fetch('script/data.json')
             }
         });
 
-// ========== GRAPHIQUE CONDAMNATION ==========
-// Plugin pour le fond de la zone de traçage seulement
-const backgroundColorPlugin = {
-    id: 'backgroundColorPlugin',
-    beforeDraw: (chart) => {
-        const ctx = chart.ctx;
-        const chartArea = chart.chartArea;
+        // ========== GRAPHIQUE CONDAMNATION ==========
+        // Plugin pour le fond de la zone de traçage seulement
+        const backgroundColorPlugin = {
+            id: 'backgroundColorPlugin',
+            beforeDraw: (chart) => {
+                const ctx = chart.ctx;
+                const chartArea = chart.chartArea;
 
-        ctx.save();
-        ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
+                ctx.save();
+                ctx.fillStyle = "#4D2A7B"; // Couleur de fond de la zone de traçage
 
-        ctx.fillStyle = "#4D2A7B";
+                ctx.fillStyle = "#4D2A7B";
 
-        ctx.fillRect(
-            chartArea.left,
-            chartArea.top,
-            chartArea.right - chartArea.left,
-            chartArea.bottom - chartArea.top
-        );
+                ctx.fillRect(
+                    chartArea.left,
+                    chartArea.top,
+                    chartArea.right - chartArea.left,
+                    chartArea.bottom - chartArea.top
+                );
 
-        ctx.restore();
-    }
-};
+                ctx.restore();
+            }
+        };
 
-// Création du premier graphique en ligne (graph3)
-const ctx3 = document.getElementById('graph3').getContext('2d');
-let graph3 = new Chart(ctx3, {
-    type: 'line',
-    data: data.graph3,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: { enabled: false }
-        },
-        scales: {
-            x: {
-                grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                ticks: {
-                    font: { family: 'Bebas', size: 24 },
-                    color: '#FFFFFF',
-                    autoSkip: false,
+        // Création du premier graphique en ligne (graph3)
+        const ctx3 = document.getElementById('graph3').getContext('2d');
+        let graph3 = new Chart(ctx3, {
+            type: 'line',
+            data: data.graph3,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                        ticks: {
+                            font: { family: 'Bebas', size: 24 },
+                            color: '#FFFFFF',
+                            autoSkip: false,
                             maxRotation: 45,
                             minRotation: 45
+                        }
+                    },
+                    y: {
+                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                        beginAtZero: true,
+                        max: 35000,
+                        ticks: {
+                            font: { family: 'Bebas', size: 24 },
+                            color: '#FFF'
+                        }
+                    }
+                },
+                elements: {
+                    point: { radius: 5, hoverRadius: 12 }
                 }
             },
-            y: {
-                grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                beginAtZero: true,
-                max: 35000,
-                ticks: {
-                    font: { family: 'Bebas', size: 24 },
-                    color: '#FFF'
-                }
+            plugins: [backgroundColorPlugin]
+        });
+
+        graph3.canvas.addEventListener('mousemove', function (event) {
+            let points = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+
+            if (points.length) {
+                graph3.canvas.style.cursor = 'pointer';
+            } else {
+                graph3.canvas.style.cursor = 'default';
             }
-        },
-        elements: {
-            point: { radius: 5, hoverRadius: 12 }
-        }
-    },
-    plugins: [backgroundColorPlugin]
-});
+        });
 
-const customLegendContainer = document.getElementById('custom-legend');
+        const customLegendContainer = document.getElementById('custom-legend');
 
-let legendHTML = '';
+        let legendHTML = '';
 
-data.graph3.datasets.forEach((dataset, index) => {
-    legendHTML += `
+        data.graph3.datasets.forEach((dataset, index) => {
+            legendHTML += `
         <div class="legend-item" data-dataset-index="${index}">
             <span class="label-text">${dataset.label}</span>
             <div class="legend-background">
@@ -220,91 +236,112 @@ data.graph3.datasets.forEach((dataset, index) => {
             </div>
         </div>
     `;
-});
+        });
 
-customLegendContainer.innerHTML = legendHTML;
+        customLegendContainer.innerHTML = legendHTML;
 
-const legendItems = document.querySelectorAll('#custom-legend .legend-item');
+        const legendItems = document.querySelectorAll('#custom-legend .legend-item');
 
-legendItems.forEach((item) => {
-    item.addEventListener('click', function () {
-        const datasetIndex = parseInt(this.dataset.datasetIndex, 10); // Convert to integer
-        const chartDataset = graph3.data.datasets[datasetIndex];
+        legendItems.forEach((item) => {
+            item.addEventListener('click', function () {
+                const datasetIndex = parseInt(this.dataset.datasetIndex, 10); // Convert to integer
+                const chartDataset = graph3.data.datasets[datasetIndex];
 
-        if (chartDataset) { // Ensure the dataset exists
-            // Toggle dataset visibility
-            chartDataset.hidden = !chartDataset.hidden;
+                if (chartDataset) { // Ensure the dataset exists
+                    // Toggle dataset visibility
+                    chartDataset.hidden = !chartDataset.hidden;
 
-            // Update the chart
-            graph3.update();
+                    // Update the chart
+                    graph3.update();
 
-            // Optional: Add visual feedback for the active/inactive state
-            this.classList.toggle('hidden-legend');
-        } else {
-            console.error(`Dataset at index ${datasetIndex} is undefined.`);
-        }
-    });
-});
+                    // Optional: Add visual feedback for the active/inactive state
+                    this.classList.toggle('hidden-legend');
+                } else {
+                    console.error(`Dataset at index ${datasetIndex} is undefined.`);
+                }
+            });
+        });
 
-// Création du second graphique en barres (graph4)
-const ctxBar = document.getElementById('graphBar').getContext('2d');
-let graphBar = new Chart(ctxBar, {
-    type: 'bar',
-    data: data.graphBar,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: { enabled: false }
-        },
-        scales: {
-            x: {
-                grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                ticks: {
-                    font: { family: 'Bebas', size: 24 },
-                    color: '#FFF'
+        // Création du second graphique en barres (graph4)
+        const ctxBar = document.getElementById('graphBar').getContext('2d');
+        let graphBar = new Chart(ctxBar, {
+            type: 'bar',
+            data: data.graphBar,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                        ticks: {
+                            font: { family: 'Bebas', size: 24 },
+                            color: '#FFF'
+                        }
+                    },
+                    y: {
+                        grid: { color: '#FFFFFF', lineWidth: 0.5 },
+                        beginAtZero: true,
+                        max: 35000,
+                        ticks: {
+                            font: { family: 'Bebas', size: 24 },
+                            color: '#FFF'
+                        }
+                    }
                 }
             },
-            y: {
-                grid: { color: '#FFFFFF', lineWidth: 0.5 },
-                beginAtZero: true,
-                max: 35000,
-                ticks: {
-                    font: { family: 'Bebas', size: 24 },
-                    color: '#FFF'
-                }
+            plugins: [backgroundColorPlugin]
+        });
+
+        graphBar.canvas.addEventListener('mousemove', function (event) {
+            let points = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+
+            if (points.length) {
+                graphBar.canvas.style.cursor = 'pointer';
+            } else {
+                graphBar.canvas.style.cursor = 'default';
             }
-        }
-    },
-    plugins: [backgroundColorPlugin]
-});
+        });
 
-const barData = data.barData;
-const lineData = data.lineData;
-const courbectx = document.getElementById('graph3').getContext('2d');
-const barCtx = document.getElementById('graphBar').getContext('2d');
+        const barData = data.barData;
+        const lineData = data.graph3;
+        const courbectx = document.getElementById('graph3').getContext('2d');
+        const barCtx = document.getElementById('graphBar').getContext('2d');
 
-barCtx.canvas.onclick = (event) => {
-    const elements = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
-    if (elements.length > 0) {
-        const firstElement = elements[0];
-        const datasetIndex = firstElement.datasetIndex;
-        const dataIndex = firstElement.index;
+        barCtx.canvas.onclick = (event) => {
+            const elements = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+            if (elements.length > 0) {
+                const index = elements[0].index;
+                const firstElement = elements[0];
+                const datasetIndex = firstElement.datasetIndex;
+                const dataIndex = firstElement.index;
 
-        const dataset = graphBar.data.datasets[datasetIndex];
-        const barValue = dataset.data[dataIndex];
-        const year = graphBar.data.labels[dataIndex];
-        const label = dataset.label;
+                barData.datasets[0].pointBackgroundColor = Array(barData.labels.length).fill('#FFFFFF');
+                barData.datasets[0].pointBorderColor = Array(barData.labels.length).fill('#FFFFFF');
+                barData.datasets[0].pointRadius = Array(barData.labels.length).fill(6);
 
-        const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
-        const otherDataset = graphBar.data.datasets[otherDatasetIndex];
-        const otherbarValue = otherDataset.data[dataIndex];
-        const otherLabel = otherDataset.label;
+                barData.datasets[0].pointBackgroundColor[index] = '#2A114B';
+                barData.datasets[0].pointBorderColor[index] = '#fff';
+                barData.datasets[0].pointRadius[index] = 12;
 
-        document.getElementById('section__condamnation-info').innerHTML = `
+                barCtx.update();
+
+                const dataset = graphBar.data.datasets[datasetIndex];
+                const barValue = dataset.data[dataIndex];
+                const year = graphBar.data.labels[dataIndex];
+                const label = dataset.label;
+
+                const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
+                const otherDataset = graphBar.data.datasets[otherDatasetIndex];
+                const otherbarValue = otherDataset.data[dataIndex];
+                const otherLabel = otherDataset.label;
+
+                document.getElementById('section__condamnation-info').innerHTML = `
             <h3><span class="white">EN</span> <span id="year-counter2">${year}</span></h3>
             <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
             <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. 
@@ -314,32 +351,55 @@ barCtx.canvas.onclick = (event) => {
             <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
         `;
 
-        console.log(barValue);
+                console.log(barValue);
 
-        animateCounter(document.getElementById('convictions-counter1'),(barValue - 5000) < 0 ? 0 : barValue - 5000, barValue, 700);
-        animateCounter(document.getElementById('year-counter2'), year - 75, year, 700);
-    }
-};
+                animateCounter(document.getElementById('convictions-counter1'), (barValue - 5000) < 0 ? 0 : barValue - 5000, barValue, 700);
+                animateCounter(document.getElementById('year-counter2'), year - 75, year, 700);
+            }
+        };
 
-// Fonction d'affichage au clique pour le graphique type line
-courbectx.canvas.onclick = (event) => {
-    const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+        // Fonction d'affichage au clique pour le graphique type line
+        courbectx.canvas.onclick = (event) => {
+            const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
     if (elements.length > 0) {
         const firstElement = elements[0];
         const datasetIndex = firstElement.datasetIndex;
         const dataIndex = firstElement.index;
 
-        const dataset = graph3.data.datasets[datasetIndex];
-        const pointValue = dataset.data[dataIndex];
-        const year = graph3.data.labels[dataIndex];
-        const label = dataset.label;
+        // Réinitialiser les styles des points pour toutes les courbes
+        lineData.datasets.forEach(dataset => {
+            dataset.pointBackgroundColor = Array(lineData.labels.length).fill('#FFFFFF');
+            dataset.pointBorderColor = Array(lineData.labels.length).fill('#FFFFFF');
+            dataset.pointRadius = Array(lineData.labels.length).fill(6);
+        });
 
-        const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
-        const otherDataset = graph3.data.datasets[otherDatasetIndex];
-        const otherValue = otherDataset.data[dataIndex];
-        const otherLabel = otherDataset.label;
+        // Appliquer les styles au point actif sur la courbe cliquée
+        lineData.datasets[datasetIndex].pointBackgroundColor[dataIndex] = '#2A114B';
+        lineData.datasets[datasetIndex].pointBorderColor[dataIndex] = '#fff';
+        lineData.datasets[datasetIndex].pointRadius[dataIndex] = 12;
 
-        document.getElementById('section__condamnation-info').innerHTML = `
+        // Mettre à jour les autres courbes pour le même index (point correspondant)
+        lineData.datasets.forEach((dataset, idx) => {
+            if (idx !== datasetIndex) {
+                dataset.pointBackgroundColor[dataIndex] = '#114B2A';
+                dataset.pointBorderColor[dataIndex] = '#fff';
+                dataset.pointRadius[dataIndex] = 12;
+            }
+        });
+
+        graph3.update();
+
+                const dataset = graph3.data.datasets[datasetIndex];
+                const pointValue = dataset.data[dataIndex];
+                const year = graph3.data.labels[dataIndex];
+                const label = dataset.label;
+
+                const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
+                const otherDataset = graph3.data.datasets[otherDatasetIndex];
+                const otherValue = otherDataset.data[dataIndex];
+                const otherLabel = otherDataset.label;
+
+                document.getElementById('section__condamnation-info').innerHTML = `
             <h2><span class="white">EN</span> <span id="year-counter1">${year}</span></h2>
             <h3><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h3>
             <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
@@ -349,27 +409,27 @@ courbectx.canvas.onclick = (event) => {
             <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
         `;
 
-        animateCounter(document.getElementById('convictions-counter'), (pointValue - 5000) < 0 ? 0 : pointValue - 5000, pointValue, 700);
-        animateCounter(document.getElementById('year-counter1'), year - 75, year, 700);
-    }
-};
+                animateCounter(document.getElementById('convictions-counter'), (pointValue - 5000) < 0 ? 0 : pointValue - 5000, pointValue, 700);
+                animateCounter(document.getElementById('year-counter1'), year - 75, year, 700);
+            }
+        };
 
 
-// Fonction de changement des graphiques 
+        // Fonction de changement des graphiques 
 
-document.getElementById('changeToLine').addEventListener('click', function () {
-    document.getElementById('graph3').classList.add('visible');
-    document.getElementById('graph3').classList.remove('hidden');
-    document.getElementById('graphBar').classList.add('hidden');
-    document.getElementById('graphBar').classList.remove('visible');
-});
+        document.getElementById('changeToLine').addEventListener('click', function () {
+            document.getElementById('graph3').classList.add('visible');
+            document.getElementById('graph3').classList.remove('hidden');
+            document.getElementById('graphBar').classList.add('hidden');
+            document.getElementById('graphBar').classList.remove('visible');
+        });
 
-document.getElementById('changeToBar').addEventListener('click', function () {
-    document.getElementById('graph3').classList.add('hidden');
-    document.getElementById('graph3').classList.remove('visible');
-    document.getElementById('graphBar').classList.add('visible');
-    document.getElementById('graphBar').classList.remove('hidden');
-});
+        document.getElementById('changeToBar').addEventListener('click', function () {
+            document.getElementById('graph3').classList.add('hidden');
+            document.getElementById('graph3').classList.remove('visible');
+            document.getElementById('graphBar').classList.add('visible');
+            document.getElementById('graphBar').classList.remove('hidden');
+        });
 
 
 
@@ -399,7 +459,7 @@ document.getElementById('changeToBar').addEventListener('click', function () {
             } else if (width > 768) {
                 return 5.5;
             } else {
-                return 5; 
+                return 5;
             }
         }
 
@@ -549,7 +609,7 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                                     const aggressionData = getAggressionDataForDepartment(departmentName).toLocaleString('fr-FR');
                                     const populationData = getPopulationDataForDepartment(departmentName).toLocaleString('fr-FR');
 
-                                    showTooltip(`<strong>${departmentName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData} habitants`, e.originalEvent);
+                                    showTooltip(`<p class="tooltip-title">${departmentName}</p><i class="tooltip-data">${aggressionData}</i> agressions sexuelles pour <i class="tooltip-data">${populationData}</i> habitants`, e.originalEvent);
 
                                     this.setStyle({
                                         borderColor: '#ffffff',
@@ -612,9 +672,9 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                             const regionName = feature.properties.nom;
                             const aggressionData = getAggressionDataForRegion(regionName).toLocaleString('fr-FR');
                             const populationData = getPopulationDataForRegion(regionName).toLocaleString('fr-FR');
-                            
 
-                            showTooltip(`<strong>${regionName}</strong><br>${aggressionData} agressions sexuelles pour ${populationData} habitants`, e.originalEvent);
+
+                            showTooltip(`<p class="tooltip-title">${regionName}</p><i class="tooltip-data">${aggressionData}</i> agressions sexuelles pour <i class="tooltip-data">${populationData}</i> habitants`, e.originalEvent);
 
                             this.setStyle({
                                 borderColor: '#ffffff',
@@ -659,7 +719,7 @@ document.getElementById('changeToBar').addEventListener('click', function () {
                             infoDiv.style.display = 'block';
 
                             let victimElement = document.getElementById('victim-counter-map');
-                            animateCounter(victimElement,  (aggressionData - 200) < 0 ? 0 : aggressionData - 200, aggressionData, 700);
+                            animateCounter(victimElement, (aggressionData - 200) < 0 ? 0 : aggressionData - 200, aggressionData, 700);
 
                             // Charger la carte des départements pour la région cliquée
                             loadRegionMap(regionName);
