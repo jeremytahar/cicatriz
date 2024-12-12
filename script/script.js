@@ -11,7 +11,6 @@ fetch('script/data.json')
         const avatar = document.getElementById('avatar');
         const infoPercentage = document.getElementById('info-percentage');
         const infoText = document.getElementById('info-text');
-        const infoSource = document.getElementById('info-source');
 
         // Créer dynamiquement la liste des tranches d'âge
         dataVictime.forEach((category, index) => {
@@ -30,8 +29,6 @@ fetch('script/data.json')
             // Mettre à jour les informations textuelles
             infoPercentage.textContent = category.percentage;
             infoText.textContent = category.text;
-            infoSource.href = category.source;
-
             // Rendre visibles les éléments correspondants
             texte.classList.add('hidden');
             dynamicInfo.classList.remove('hidden');
@@ -369,8 +366,6 @@ fetch('script/data.json')
                     <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherBarValue} ${otherLabel}. 
                     On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
                     Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
-                    <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
-                    <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
                 `;
         
                 // Animation des compteurs
@@ -423,8 +418,6 @@ fetch('script/data.json')
                     <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
                     On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
                     Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
-                    <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
-                    <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
                 `;
 
 
