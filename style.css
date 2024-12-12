@@ -452,8 +452,9 @@ header {
         .section__condamnation-graph {
             min-width: 55%;
             max-width: 55%;
-            max-height: 500px;
-            min-height: 450px;
+            max-height: 50%;
+            min-height: 90%;
+            transform: translateY(-35px);
             height: fit-content;
 
             #custom-legend {
