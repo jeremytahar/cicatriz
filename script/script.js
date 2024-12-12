@@ -100,8 +100,6 @@ fetch('script/data.json')
             requestAnimationFrame(step);
         }
 
-
-
         let activeIndex = null;
 
         // Gestionnaire d'événement pour le clic sur un point du graphique
@@ -308,7 +306,7 @@ fetch('script/data.json')
             }
         });
 
-        const barData = data.barData;
+        const barData = data.graphBar;
         const lineData = data.graph3;
         const courbectx = document.getElementById('graph3').getContext('2d');
         const barCtx = document.getElementById('graphBar').getContext('2d');
@@ -316,98 +314,119 @@ fetch('script/data.json')
         barCtx.canvas.onclick = (event) => {
             const elements = graphBar.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
             if (elements.length > 0) {
-                const index = elements[0].index;
                 const firstElement = elements[0];
                 const datasetIndex = firstElement.datasetIndex;
                 const dataIndex = firstElement.index;
-
-                barData.datasets[0].pointBackgroundColor = Array(barData.labels.length).fill('#FFFFFF');
-                barData.datasets[0].pointBorderColor = Array(barData.labels.length).fill('#FFFFFF');
-                barData.datasets[0].pointRadius = Array(barData.labels.length).fill(6);
-
-                barData.datasets[0].pointBackgroundColor[index] = '#2A114B';
-                barData.datasets[0].pointBorderColor[index] = '#fff';
-                barData.datasets[0].pointRadius[index] = 12;
-
-                barCtx.update();
-
+        
+                // Assurez-vous que backgroundColor et borderColor sont des tableaux
+                barData.datasets.forEach((dataset) => {
+                    if (!Array.isArray(dataset.backgroundColor)) {
+                        dataset.backgroundColor = Array(dataset.data.length).fill(dataset.backgroundColor || '#FFFFFF');
+                    }
+                    if (!Array.isArray(dataset.borderColor)) {
+                        dataset.borderColor = Array(dataset.data.length).fill(dataset.borderColor || '#FFFFFF');
+                    }
+                });
+        
+                // Réinitialiser les couleurs pour toutes les barres de tous les datasets
+                barData.datasets.forEach((dataset, index) => {
+                    dataset.backgroundColor = dataset.backgroundColor.map(() =>
+                        index === 0 ? '#AF94E0' : '#110521' // Couleur initiale selon le dataset
+                    );
+                    dataset.borderColor = dataset.borderColor.map(() =>
+                        index === 0 ? '#AF94E0' : '#110521' // Couleur initiale selon le dataset
+                    );
+                });
+        
+                // Mettre en surbrillance uniquement la barre cliquée
+                if (datasetIndex === 0) {
+                    // Pour les condamnations, uniquement changer la bordure
+                    barData.datasets[datasetIndex].borderColor[dataIndex] = '#fff';
+                } else if (datasetIndex === 1) {
+                    // Pour les plaintes, changer fond et bordure
+                    barData.datasets[datasetIndex].backgroundColor[dataIndex] = '#110521';
+                    barData.datasets[datasetIndex].borderColor[dataIndex] = '#fff';
+                }
+        
+                graphBar.update();
+        
+                // Récupérer les valeurs pour l'affichage des informations
                 const dataset = graphBar.data.datasets[datasetIndex];
                 const barValue = dataset.data[dataIndex];
                 const year = graphBar.data.labels[dataIndex];
                 const label = dataset.label;
-
+        
+                // Autre dataset pour comparaison
                 const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
                 const otherDataset = graphBar.data.datasets[otherDatasetIndex];
-                const otherbarValue = otherDataset.data[dataIndex];
+                const otherBarValue = otherDataset.data[dataIndex];
                 const otherLabel = otherDataset.label;
-
+        
+                // Mise à jour du contenu de la section d'informations
                 document.getElementById('section__condamnation-info').innerHTML = `
-            <h3><span class="white">EN</span> <span id="year-counter2">${year}</span></h3>
-            <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
-            <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherbarValue} ${otherLabel}. 
-            On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
-            Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
-            <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
-            <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
-        `;
-
-                console.log(barValue);
-
-                animateCounter(document.getElementById('convictions-counter1'), (barValue - 5000) < 0 ? 0 : barValue - 5000, barValue, 700);
+                    <h3><span class="white">EN</span> <span id="year-counter2">${year}</span></h3>
+                    <h2><span class="white"><span id="convictions-counter1">${barValue}</span></span> ${label}</h2>
+                    <p>Durant l'année ${year}, il y a eu ${barValue} ${label} pour ${otherBarValue} ${otherLabel}. 
+                    On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
+                    Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
+                    <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
+                    <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
+                `;
+        
+                // Animation des compteurs
+                animateCounter(document.getElementById('convictions-counter1'), Math.max(0, barValue - 5000), barValue, 700);
                 animateCounter(document.getElementById('year-counter2'), year - 75, year, 700);
             }
         };
+        
+        
+
 
         // Fonction d'affichage au clique pour le graphique type line
         courbectx.canvas.onclick = (event) => {
             const elements = graph3.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
-    if (elements.length > 0) {
-        const firstElement = elements[0];
-        const datasetIndex = firstElement.datasetIndex;
-        const dataIndex = firstElement.index;
+            if (elements.length > 0) {
+                const firstElement = elements[0];
+                const datasetIndex = firstElement.datasetIndex;
+                const dataIndex = firstElement.index;
 
-        // Réinitialiser les styles des points pour toutes les courbes
-        lineData.datasets.forEach(dataset => {
-            dataset.pointBackgroundColor = Array(lineData.labels.length).fill('#FFFFFF');
-            dataset.pointBorderColor = Array(lineData.labels.length).fill('#FFFFFF');
-            dataset.pointRadius = Array(lineData.labels.length).fill(6);
-        });
+                // Réinitialiser les propriétés des points pour chaque dataset
+                lineData.datasets.forEach((dataset, i) => {
+                    dataset.pointBackgroundColor = Array(lineData.labels.length).fill('#FFFFFF');
+                    dataset.pointBorderColor = Array(lineData.labels.length).fill('#FFFFFF');
+                    dataset.pointRadius = Array(lineData.labels.length).fill(6);
+                });
 
-        // Appliquer les styles au point actif sur la courbe cliquée
-        lineData.datasets[datasetIndex].pointBackgroundColor[dataIndex] = '#2A114B';
-        lineData.datasets[datasetIndex].pointBorderColor[dataIndex] = '#fff';
-        lineData.datasets[datasetIndex].pointRadius[dataIndex] = 12;
+                // Mettre en surbrillance le point actif uniquement pour le dataset cliqué
+                lineData.datasets[datasetIndex].pointBackgroundColor[dataIndex] = '#2A114B';
+                lineData.datasets[datasetIndex].pointBorderColor[dataIndex] = '#fff';
+                lineData.datasets[datasetIndex].pointRadius[dataIndex] = 12;
 
-        // Mettre à jour les autres courbes pour le même index (point correspondant)
-        lineData.datasets.forEach((dataset, idx) => {
-            if (idx !== datasetIndex) {
-                dataset.pointBackgroundColor[dataIndex] = '#114B2A';
-                dataset.pointBorderColor[dataIndex] = '#fff';
-                dataset.pointRadius[dataIndex] = 12;
-            }
-        });
+                graph3.update();
 
-        graph3.update();
-
+                // Récupérer les valeurs pour l'affichage des informations
                 const dataset = graph3.data.datasets[datasetIndex];
                 const pointValue = dataset.data[dataIndex];
                 const year = graph3.data.labels[dataIndex];
                 const label = dataset.label;
 
+                // Autre dataset pour comparaison
                 const otherDatasetIndex = datasetIndex === 0 ? 1 : 0;
                 const otherDataset = graph3.data.datasets[otherDatasetIndex];
                 const otherValue = otherDataset.data[dataIndex];
                 const otherLabel = otherDataset.label;
 
+                // Mise à jour du contenu de la section d'informations
                 document.getElementById('section__condamnation-info').innerHTML = `
-            <h2><span class="white">EN</span> <span id="year-counter1">${year}</span></h2>
-            <h3><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h3>
-            <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
-            On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
-            Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
-            <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
-            <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
-        `;
+                    <h2><span class="white">EN</span> <span id="year-counter1">${year}</span></h2>
+                    <h3><span class="white"><span id="convictions-counter">${pointValue}</span></span> ${label}</h3>
+                    <p>Durant l'année ${year}, il y a eu ${pointValue} ${label} pour ${otherValue} ${otherLabel}. 
+                    On note qu'il y a toujours eu un important écart entre les ${label} et les ${otherLabel}. 
+                    Certains justifient ça par un manque de preuves, mais la réalité est que la justice a toujours été trop laxiste envers les plaintes pour agression sexuelle.
+                    <br>Source : <a href="https://visustat.fr/donnees/nationales/justice/evolution-des-violences-sexuelles-en-france/">source 1</a> 
+                    <a href="https://www.ined.fr/fr/publications/editions/population-et-societes/violences-sexuelles-durant-l-enfance-et-l-adolescence/">source 2</a></p>
+                `;
+
 
                 animateCounter(document.getElementById('convictions-counter'), (pointValue - 5000) < 0 ? 0 : pointValue - 5000, pointValue, 700);
                 animateCounter(document.getElementById('year-counter1'), year - 75, year, 700);

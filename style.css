@@ -209,9 +209,37 @@ header {
     position: relative;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+    gap: 150px;
     width: 100vw;
     display: flex;
+
+    .sources {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        
+        p{
+            font-family: 'Alatsi', sans-serif;
+            color: #FFF;
+            font-size: 1rem;
+            text-align: center;
+    
+        }
+    
+        a {
+            color: #fff;
+            font-size: 0.9rem;
+            /* text-decoration: none; */
+        }
+
+        .sources-links {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
 }
 
 .section__agression-text {
@@ -264,10 +292,9 @@ header {
 
 .section__agression-img img {
     position: relative;
-    right: 5%;
     min-width: 50%;
-    width: 90%;
-    /* min-width: 500px; */
+    width: 100%;
+    /* margin: auto; */
     max-height: 600px;
 }
 
@@ -314,7 +341,8 @@ header {
     .section__victime-graph-info {
         display: flex;
         padding: 50px;
-        height: 85vh;
+        padding-top: 15px;
+        height: 75%;
     }
 
     .section__victime-graph {
@@ -323,6 +351,34 @@ header {
         max-width: 65%;
         height: 100%;
         min-height: 400px;
+
+        .sources {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            p{
+                font-family: 'Alatsi', sans-serif;
+                color: #FFF;
+                font-size: 1rem;
+                text-align: center;
+    
+            }
+    
+            a {
+                color: #fff;
+                font-size: 0.9rem;
+                /* text-decoration: none; */
+            }
+
+            .sources-links {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
     }
 
     .section__victime-info {
@@ -448,7 +504,7 @@ header {
         justify-content: space-between;
         align-items: center;
         gap: 50px;
-        max-height: 70%;
+        max-height: 65%;
 
         .section__condamnation-graph {
             min-width: 65%;
@@ -500,6 +556,33 @@ header {
             canvas {
                 width: 100%;
                 height: 100%;
+            }
+
+            .sources {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+
+                .sources-links {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            p{
+                font-family: 'Alatsi', sans-serif;
+                color: #FFF;
+                font-size: 1rem;
+                text-align: center;
+    
+            }
+
+            a {
+                color: #fff;
+                font-size: 0.9rem;
+                /* text-decoration: none; */
             }
         }
 
